@@ -1,0 +1,190 @@
+:root {
+    --primary-green: #28B463;
+    --dark-turquoise: #4A9DA5;
+    --icon-blue: #1F61FD;
+    --bg-gray: #F2F2F2;
+    --text-dark: #333;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-gray);
+}
+
+/* Header Styles */
+header {
+    background-color: var(--dark-turquoise) !important;
+    padding-bottom: 40px;
+    /* Space for the floating search bar */
+    position: relative;
+}
+
+.navbar-brand {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: #000 !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo Graphic Stand-in */
+.logo-graphic {
+    font-size: 1.5rem;
+    color: #ffcc00;
+    /* Yellowish for the delivery guy shirt */
+}
+
+.nav-link {
+    color: #fff !important;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* Floating Search Bar */
+.search-container {
+    position: absolute;
+    bottom: -25px;
+    /* Half height overlap */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    z-index: 10;
+}
+
+.search-box {
+    background: white;
+    border-radius: 50px;
+    padding: 5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    border: 5px solid #6bb2b9;
+    /* A bit lighter turquoise for the border effect */
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    box-shadow: none !important;
+    padding-left: 20px;
+    font-size: 1.1rem;
+    color: #555;
+    border-radius: 50px 0 0 50px;
+}
+
+.search-btn {
+    background-color: #8FD19E;
+    /* Lighter green background for circle */
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.search-btn i {
+    font-size: 1.2rem;
+}
+
+/* Main Content */
+.main-section {
+    padding-top: 80px;
+    /* Space for search bar overlap */
+    padding-bottom: 60px;
+    min-height: 100vh;
+}
+
+.section-title {
+    color: var(--primary-green);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+/* Cards */
+.service-card {
+    background: white;
+    border: none;
+    border-radius: 20px;
+    padding: 2rem;
+    /* Increased padding */
+    height: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    /* Soft shadow */
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-icon {
+    font-size: 3rem;
+    color: var(--icon-blue);
+    margin-bottom: 1.5rem;
+    /* Example stroke style approximation with fontawesome */
+}
+
+.card-title {
+    color: var(--primary-green);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.card-text {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.card-link {
+    text-decoration: none;
+    color: var(--icon-blue);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: gap 0.2s;
+}
+
+.card-link:hover {
+    gap: 8px;
+}
+
+/* Flexbox utilities */
+.nav-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .search-container {
+        width: 95%;
+    }
+
+    .nav-group {
+        display: none;
+    }
+
+    /* Simplified mobile view for now */
+}
