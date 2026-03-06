@@ -1,4 +1,4 @@
-package com.fasterEnvios.infrastructure.entity;
+package com.fasterEnvios.domain.model;
 
 public enum PaymentStatusEnum {
 

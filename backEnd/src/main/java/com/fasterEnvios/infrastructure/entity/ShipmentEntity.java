@@ -1,6 +1,8 @@
 package com.fasterEnvios.infrastructure.entity;
 
+import com.fasterEnvios.domain.model.StateEnum;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class ShipmentEntity {
 
     private  Long id;
@@ -19,6 +22,6 @@ public class ShipmentEntity {
     private LocalDateTime estimatedDeliveryDate;
     private String cityOrigin;
     private String cityDestination;
-    private StateEnum state;
+    private String state;
 
 }
