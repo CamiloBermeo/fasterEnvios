@@ -1,7 +1,9 @@
 package com.fasterEnvios.infrastructure.controller;
 
-import com.fasterEnvios.application.dto.NewShipmentRequestDTO;
-import com.fasterEnvios.application.dto.NewShipmentResponseDTO;
+import com.fasterEnvios.application.dto.shipment.NewShipmentRequestDTO;
+import com.fasterEnvios.application.dto.shipment.NewShipmentResponseDTO;
+import com.fasterEnvios.application.useCase.Shipment.NewShipmentUseCase;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,9 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/shipments")
 public class ShipmentController {
 
-    @PostMapping
-    public ResponseEntity<NewShipmentResponseDTO> newShipment (@RequestBody NewShipmentRequestDTO dto){
+    private NewShipmentUseCase newShipmentUseCase;
 
+    @PostMapping
+    public ResponseEntity<NewShipmentResponseDTO> newShipment (@Valid @RequestBody NewShipmentRequestDTO dto){
+        NewShipmentResponseDTO shipmentResponseDTO = newShipmentUseCase.execute(dto);
+        return ResponseEntity.ok(shipmentResponseDTO);
     }
 
 
