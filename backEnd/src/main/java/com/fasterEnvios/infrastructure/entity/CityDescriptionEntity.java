@@ -12,8 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class CityDescriptionEntity {
-    String id;
+    Long id;
     String name;
     String country;
-    List<String> coordinates;
+    double latitude;
+    double longitude;
 }
