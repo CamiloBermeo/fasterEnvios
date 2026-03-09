@@ -6,6 +6,7 @@ import com.fasterEnvios.application.dto.client.ClientRequestDTO;
 import com.fasterEnvios.application.dto.client.ClientResponseDTO;
 import com.fasterEnvios.application.dto.shipment.NewShipmentRequestDTO;
 import com.fasterEnvios.application.dto.shipment.NewShipmentResponseDTO;
+import com.fasterEnvios.application.exceptions.jdbc.SaveErrorDataBaseException;
 import com.fasterEnvios.application.mappers.CityAppMapper;
 import com.fasterEnvios.application.mappers.ClientAppMapper;
 import com.fasterEnvios.domain.model.CityDescription;
@@ -27,13 +28,14 @@ public class NewShipmentUseCase {
     public NewShipmentResponseDTO execute(NewShipmentRequestDTO dto) {
 
         CityDescription cityOriginDB = findCityByNameUseCase.execute(dto.cityOrigin())
-                .orElseGet(()-> saveCityWhenIsEmpty(dto.cityOrigin()));
-
+                .orElseGet(() -> saveCityWhenIsEmpty(dto.cityOrigin()));
         CityDescription cityDestinationDB = findCityByNameUseCase.execute(dto.cityDestination())
-                .orElseGet(()-> saveCityWhenIsEmpty(dto.cityOrigin()));
+                .orElseGet(() -> saveCityWhenIsEmpty(dto.cityOrigin()));
+
+//despues de verificar si las ciudades existen y en caso de que no guardarla, ahora debo conocer la distancia
+// y el tiempo aproximado de viaje
 
         ClientRequestDTO client = ClientAppMapper.toClient(cityOriginDB, cityDestinationDB);
-
         ClientResponseDTO info = openRoutServiceClient.requestDistance(client);
 
         return null;
@@ -43,6 +45,7 @@ public class NewShipmentUseCase {
         String country = "Colombia";
         CityCoordinatesRequestDTO cityForClient = CityAppMapper.toClientCityCoordinates(city, country);
         CityCoordinatesResponseDTO coordinates = openRoutServiceClient.requestCoordinates(cityForClient);
-        return cityRepository.save(CityAppMapper.toDomain(city, coordinates));
+        return cityRepository.save(CityAppMapper.toDomain(city, coordinates))
+                .orElseThrow(() -> new SaveErrorDataBaseException(city));
     }
 }

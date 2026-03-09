@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.RowMapper;
 public class CityInfraMapper {
 
     public static CityDescription toDomain (CityDescriptionEntity entity){
-
         CityDescription.CityDescriptionBuilder cityDescriptionBuilder = CityDescription.builder()
                 .withId(entity.getId())
                 .withName(entity.getName())
@@ -28,6 +27,4 @@ public class CityInfraMapper {
             return city;
         };
     }
-
-    public static
 }

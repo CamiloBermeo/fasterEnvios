@@ -7,6 +7,6 @@ import java.util.Optional;
 public interface CityRepository {
 
     Optional<CityDescription> findCityByName(String name);
-    CityDescription save(CityDescription city);
+    Optional<CityDescription> save(CityDescription city);
 
 }

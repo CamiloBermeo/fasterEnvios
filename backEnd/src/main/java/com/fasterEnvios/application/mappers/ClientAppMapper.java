@@ -11,22 +11,15 @@ public class ClientAppMapper {
 
 
     public static ClientRequestDTO toClient(CityDescription cityOrigin, CityDescription cityDestination) {
-
-
         List<double[]> coordinates = List.of(
                 new double[]{cityOrigin.getLongitude(), cityOrigin.getLatitude()},
                 new double[]{cityDestination.getLongitude(), cityDestination.getLatitude()}
         );
-
-
-
-
         return new ClientRequestDTO(
             coordinates,
                 "km",
                 "es"
         );
-
     }
 
 
