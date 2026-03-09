@@ -25,10 +25,10 @@ public class OpenRoutServiceClient {
     @Value("${client.openRouteService-apiKey}")
     private String apiKey;
 
-    public ClientResponseDTO requestDistance (ClientRequestDTO dto) throws IOException, InterruptedException {
+    public ClientResponseDTO requestDistance(ClientRequestDTO dto) throws IOException, InterruptedException {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonBody = objectMapper.writeValueAsString(dto);
-        String url =  "https://api.openrouteservice.org/v2/directions/driving-car";
+        String url = "https://api.openrouteservice.org/v2/directions/driving-car";
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -53,13 +53,32 @@ public class OpenRoutServiceClient {
         return new ClientResponseDTO(distance, duration);
     }
 
-    public CityCoordinatesResponseDTO requestCoordinates (CityCoordinatesRequestDTO dto){
-        String encodeCity = URLEncoder.encode(dto.name(),  StandardCharsets.UTF_8);
-        String encodeCountry = URLEncoder.encode(dto.country(),  StandardCharsets.UTF_8);
-        String url = "https://api.openrouteservice.org/geocode/search?api_key="+apiKey+"&text="+dto.name()+", "+dto.country()+"&size=1";
+    public CityCoordinatesResponseDTO requestCoordinates(CityCoordinatesRequestDTO dto) throws IOException, InterruptedException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String encodeCity = URLEncoder.encode(dto.name(), StandardCharsets.UTF_8);
+        String encodeCountry = URLEncoder.encode(dto.country(), StandardCharsets.UTF_8);
+        String url = "https://api.openrouteservice.org/geocode/search?api_key=" + apiKey + "&text=" + encodeCity + ", " + encodeCountry + "&size=1";
 
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET()
+                .build();
 
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        if (response.statusCode() != 200) {
+            String nameApi = "Open Rout Service";
+            throw new ExternalServiceException(nameApi, response.statusCode(), response.body());
+        }
 
+        JsonNode root = objectMapper.readTree(response.body());
+        JsonNode firstFeature = root.path("features").get(0);
+        JsonNode coordinates = firstFeature.path("geometry").path("coordinates");
+
+        double longitude = coordinates.get(0).asDouble();
+        double latitude = coordinates.get(1).asDouble();
+
+        return new CityCoordinatesResponseDTO(latitude, longitude);
     }
 
 }
