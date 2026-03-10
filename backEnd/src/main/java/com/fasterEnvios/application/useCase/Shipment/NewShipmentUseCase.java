@@ -15,7 +15,7 @@ import com.fasterEnvios.infrastructure.client.OpenRoutServiceClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
@@ -25,12 +25,24 @@ public class NewShipmentUseCase {
     private final FindCityByNameUseCase findCityByNameUseCase;
     private final CityRepository cityRepository;
 
-    public NewShipmentResponseDTO execute(NewShipmentRequestDTO dto) {
+    public NewShipmentResponseDTO execute(NewShipmentRequestDTO dto) throws IOException, InterruptedException {
 
         CityDescription cityOriginDB = findCityByNameUseCase.execute(dto.cityOrigin())
-                .orElseGet(() -> saveCityWhenIsEmpty(dto.cityOrigin()));
+                .orElseGet(() -> {
+                    try {
+                        return saveCityWhenIsEmpty(dto.cityOrigin());
+                    } catch (IOException | InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
         CityDescription cityDestinationDB = findCityByNameUseCase.execute(dto.cityDestination())
-                .orElseGet(() -> saveCityWhenIsEmpty(dto.cityOrigin()));
+                .orElseGet(() -> {
+                    try {
+                        return saveCityWhenIsEmpty(dto.cityOrigin());
+                    } catch (IOException | InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
 
 //despues de verificar si las ciudades existen y en caso de que no guardarla, ahora debo conocer la distancia
 // y el tiempo aproximado de viaje
@@ -41,7 +53,7 @@ public class NewShipmentUseCase {
         return null;
     }
 
-    private CityDescription saveCityWhenIsEmpty(String city) {
+    private CityDescription saveCityWhenIsEmpty(String city) throws IOException, InterruptedException {
         String country = "Colombia";
         CityCoordinatesRequestDTO cityForClient = CityAppMapper.toClientCityCoordinates(city, country);
         CityCoordinatesResponseDTO coordinates = openRoutServiceClient.requestCoordinates(cityForClient);
