@@ -13,7 +13,7 @@ public record PackageRequestDTO (
         @NotBlank(message = "debes colocar el valor declarado de este paquete")
         @Negative(message = "el valor no pueden ser negativo")
         float declaredValue,
-        @NotBlank(message = "debes poner una descripcion vvalida")
+        @NotBlank(message = "debes poner una descripcion valida")
         String description
 ){
 }

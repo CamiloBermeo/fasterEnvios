@@ -1,15 +1,14 @@
 package com.fasterEnvios.domain.model;
 
-import com.fasterEnvios.infrastructure.entity.PaymentMethodEntity;
-import com.fasterEnvios.infrastructure.entity.ShipmentEntity;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class PaymentTransaction {
     private Long id;
-    private List<ShipmentEntity> shipments;
-    private List<PaymentMethodEntity> paymentMethods;
+    private List<Shipment> shipments;
+    private List<PaymentMethod> paymentMethods;
     private float amount;
     private LocalDateTime paymentDate;
     private String paymentStatus;
@@ -17,7 +16,7 @@ public class PaymentTransaction {
     public PaymentTransaction() {
     }
 
-    private PaymentTransaction(Long id, List<ShipmentEntity> shipments, List<PaymentMethodEntity> paymentMethods, float amount, LocalDateTime paymentDate, String paymentStatus) {
+    private PaymentTransaction(Long id, List<Shipment> shipments, List<PaymentMethod> paymentMethods, float amount, LocalDateTime paymentDate, String paymentStatus) {
         this.id = id;
         this.shipments = shipments;
         this.paymentMethods = paymentMethods;
@@ -51,8 +50,8 @@ public class PaymentTransaction {
 
     public static class PaymentTransactionBuilder {
         private Long id;
-        private List<ShipmentEntity> shipments;
-        private List<PaymentMethodEntity> paymentMethods;
+        private List<Shipment> shipments;
+        private List<PaymentMethod> paymentMethods;
         private float amount;
         private LocalDateTime paymentDate;
         private String paymentStatus;
@@ -62,12 +61,12 @@ public class PaymentTransaction {
             return this;
         }
 
-        public PaymentTransactionBuilder withShipments(List<ShipmentEntity> shipments) {
+        public PaymentTransactionBuilder withShipments(List<Shipment> shipments) {
             this.shipments = shipments;
             return this;
         }
 
-        public PaymentTransactionBuilder withPaymentMethods(List<PaymentMethodEntity> paymentMethods) {
+        public PaymentTransactionBuilder withPaymentMethods(List<PaymentMethod> paymentMethods) {
             this.paymentMethods = paymentMethods;
             return this;
         }
@@ -96,11 +95,11 @@ public class PaymentTransaction {
         return id;
     }
 
-    public List<ShipmentEntity> getShipments() {
+    public List<Shipment> getShipments() {
         return shipments;
     }
 
-    public List<PaymentMethodEntity> getPaymentMethods() {
+    public List<PaymentMethod> getPaymentMethods() {
         return paymentMethods;
     }
 

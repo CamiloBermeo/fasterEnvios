@@ -22,6 +22,7 @@ public class ShipmentEntity {
     private LocalDateTime estimatedDeliveryDate;
     private String cityOrigin;
     private String cityDestination;
+    private double distance;
     private String state;
 
 }

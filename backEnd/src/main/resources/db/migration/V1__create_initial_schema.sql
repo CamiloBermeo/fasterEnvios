@@ -32,9 +32,10 @@ CREATE TABLE shipments
     id                      BIGINT AUTO_INCREMENT PRIMARY KEY,
     creates_at              TIMESTAMP,
     estimated_delivery_date TIMESTAMP,
-    city_origin             VARCHAR(50) NOT NULL,
-    city_destination        VARCHAR(50) NOT NULL,
-    state                   VARCHAR(40) NOT NULL UNIQUE
+    city_origin             VARCHAR(50)      NOT NULL,
+    city_destination        VARCHAR(50)      NOT NULL,
+    distance                DOUBLE PRECISION NOT NULL,
+    state                   VARCHAR(40)      NOT NULL UNIQUE
 )ENGINE=InnoDB;
 
 CREATE TABLE payment_transactions
@@ -112,44 +113,46 @@ CREATE TABLE employee_office
 CREATE TABLE employee_office
 (
     employee_id BIGINT NOT NULL,
-    user_id   BIGINT NOT NULL,
+    user_id     BIGINT NOT NULL,
     CONSTRAINT fk_employee FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE,
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 )ENGINE=InnoDB;
 
-CREATE TABLE package_movement(
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE package_movement
+(
+    id                 BIGINT AUTO_INCREMENT PRIMARY KEY,
     movement_date_time TIMESTAMP,
-    movement_type VARCHAR(50)
+    movement_type      VARCHAR(50)
 )ENGINE=InnoDB;
 
 CREATE TABLE package_movement_package
 (
     package_movement_id BIGINT NOT NULL,
-    package_id   BIGINT NOT NULL,
+    package_id          BIGINT NOT NULL,
     CONSTRAINT fk_package_movement FOREIGN KEY (package_movement_id) REFERENCES package_movement (id) ON DELETE CASCADE,
-    CONSTRAINT fk_package FOREIGN KEY (package_id) REFERENCES packages(id) ON DELETE CASCADE
+    CONSTRAINT fk_package FOREIGN KEY (package_id) REFERENCES packages (id) ON DELETE CASCADE
 )ENGINE=InnoDB;
 
 CREATE TABLE package_movement_offices
 (
     package_movement_id BIGINT NOT NULL,
-    office_id   BIGINT NOT NULL,
+    office_id           BIGINT NOT NULL,
     CONSTRAINT fk_package_movement FOREIGN KEY (package_movement_id) REFERENCES package_movement (id) ON DELETE CASCADE,
-    CONSTRAINT fk_office FOREIGN KEY (office_id) REFERENCES offices(id) ON DELETE CASCADE
+    CONSTRAINT fk_office FOREIGN KEY (office_id) REFERENCES offices (id) ON DELETE CASCADE
 )ENGINE=InnoDB;
 CREATE TABLE package_movement_employees
 (
     package_movement_id BIGINT NOT NULL,
-    employee_id   BIGINT NOT NULL,
+    employee_id         BIGINT NOT NULL,
     CONSTRAINT fk_package_movement FOREIGN KEY (package_movement_id) REFERENCES package_movement (id) ON DELETE CASCADE,
-    CONSTRAINT fk_employee FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE
+    CONSTRAINT fk_employee FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE CASCADE
 )ENGINE=InnoDB;
 
-CREATE TABLE cities(
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL UNIQUE,
-    country VARCHAR (60) NOT NULL UNIQUE,
-    latitude DOUBLE PRECISION NOT NULL,
+CREATE TABLE cities
+(
+    id        BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name      VARCHAR(100)     NOT NULL UNIQUE,
+    country   VARCHAR(60)      NOT NULL UNIQUE,
+    latitude  DOUBLE PRECISION NOT NULL,
     longitude DOUBLE PRECISION NOT NULL
 )ENGINE=InnoDB;

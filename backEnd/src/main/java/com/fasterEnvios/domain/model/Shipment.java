@@ -8,18 +8,19 @@ import java.util.List;
 
 public class Shipment {
     private Long id;
-    private PaymentTransactionEntity paymentTransaction;
-    private List<PackageEntity> packages;
-    private LocalDateTime createdAt;
+    private PaymentTransaction paymentTransaction;
+    private List<Package> packages;
+    private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime estimatedDeliveryDate;
     private String cityOrigin;
     private String cityDestination;
-    private String state;
+    private double distance;
+    private StateEnum state;
 
     public Shipment() {
     }
 
-    private Shipment(Long id, PaymentTransactionEntity paymentTransaction, List<PackageEntity> packages, LocalDateTime createdAt, LocalDateTime estimatedDeliveryDate, String cityOrigin, String cityDestination, String state) {
+    private Shipment(Long id, PaymentTransaction paymentTransaction, List<Package> packages, LocalDateTime createdAt, LocalDateTime estimatedDeliveryDate, double distance,String cityOrigin, String cityDestination, StateEnum state) {
         this.id = id;
         this.paymentTransaction = paymentTransaction;
         this.packages = packages;
@@ -27,6 +28,7 @@ public class Shipment {
         this.estimatedDeliveryDate = estimatedDeliveryDate;
         this.cityOrigin = cityOrigin;
         this.cityDestination = cityDestination;
+        this.distance = distance;
         this.state = state;
     }
 
@@ -42,6 +44,7 @@ public class Shipment {
         this.estimatedDeliveryDate = builder.estimatedDeliveryDate;
         this.cityOrigin = builder.cityOrigin;
         this.cityDestination = builder.cityDestination;
+        this.distance = builder.distance;
         this.state = builder.state;
     }
 
@@ -54,30 +57,36 @@ public class Shipment {
                 .withEstimatedDeliveryDate(this.estimatedDeliveryDate)
                 .withCityOrigin(this.cityOrigin)
                 .withCityDestination(this.cityDestination)
+                .withDistance(this.distance)
                 .withState(this.state);
     }
 
     public static class ShipmentBuilder {
         private Long id;
-        private PaymentTransactionEntity paymentTransaction;
-        private List<PackageEntity> packages;
+        private PaymentTransaction paymentTransaction;
+        private List<Package> packages;
         private LocalDateTime createdAt;
         private LocalDateTime estimatedDeliveryDate;
         private String cityOrigin;
         private String cityDestination;
-        private String state;
+        private double distance;
+        private StateEnum state;
 
         public ShipmentBuilder withId(Long id) {
             this.id = id;
             return this;
         }
 
-        public ShipmentBuilder withPaymentTransaction(PaymentTransactionEntity paymentTransaction) {
+        public ShipmentBuilder withPaymentTransaction(PaymentTransaction paymentTransaction) {
             this.paymentTransaction = paymentTransaction;
             return this;
         }
+        public ShipmentBuilder withDistance(double distance) {
+            this.distance = distance;
+            return this;
+        }
 
-        public ShipmentBuilder withPackages(List<PackageEntity> packages) {
+        public ShipmentBuilder withPackages(List<Package> packages) {
             this.packages = packages;
             return this;
         }
@@ -102,7 +111,7 @@ public class Shipment {
             return this;
         }
 
-        public ShipmentBuilder withState(String state) {
+        public ShipmentBuilder withState(StateEnum state) {
             this.state = state;
             return this;
         }
@@ -116,11 +125,11 @@ public class Shipment {
         return id;
     }
 
-    public PaymentTransactionEntity getPaymentTransaction() {
+    public PaymentTransaction getPaymentTransaction() {
         return paymentTransaction;
     }
 
-    public List<PackageEntity> getPackages() {
+    public List<Package> getPackages() {
         return packages;
     }
 
@@ -132,6 +141,10 @@ public class Shipment {
         return estimatedDeliveryDate;
     }
 
+    public double getDistance() {
+        return distance;
+    }
+
     public String getCityOrigin() {
         return cityOrigin;
     }
@@ -140,7 +153,7 @@ public class Shipment {
         return cityDestination;
     }
 
-    public String getState() {
+    public StateEnum getState() {
         return state;
     }
 }

@@ -9,13 +9,17 @@ import com.fasterEnvios.application.dto.shipment.NewShipmentResponseDTO;
 import com.fasterEnvios.application.exceptions.jdbc.SaveErrorDataBaseException;
 import com.fasterEnvios.application.mappers.CityAppMapper;
 import com.fasterEnvios.application.mappers.ClientAppMapper;
+import com.fasterEnvios.application.mappers.ShipmentAppMapper;
 import com.fasterEnvios.domain.model.CityDescription;
+import com.fasterEnvios.domain.model.Shipment;
+import com.fasterEnvios.domain.model.StateEnum;
 import com.fasterEnvios.domain.repository.CityRepository;
 import com.fasterEnvios.infrastructure.client.OpenRoutServiceClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -44,14 +48,23 @@ public class NewShipmentUseCase {
                     }
                 });
 
-//despues de verificar si las ciudades existen y en caso de que no guardarla, ahora debo conocer la distancia
-// y el tiempo aproximado de viaje
-
         ClientRequestDTO client = ClientAppMapper.toClient(cityOriginDB, cityDestinationDB);
         ClientResponseDTO info = openRoutServiceClient.requestDistance(client);
+        LocalDateTime estimatedDeliveryDate = LocalDateTime.now().plusDays(3);
+        StateEnum state = dto.status();
+// solucionar tema de pago
+        if(dto.paymentTransaction().)
+
+        if (state == null){
+            state = StateEnum.RECEIVED;
+        }
+        Shipment shipment = ShipmentAppMapper.toModel(dto, estimatedDeliveryDate, info.distance(), state);
 
         return null;
     }
+
+
+
 
     private CityDescription saveCityWhenIsEmpty(String city) throws IOException, InterruptedException {
         String country = "Colombia";
