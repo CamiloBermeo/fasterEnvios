@@ -145,3 +145,11 @@ CREATE TABLE package_movement_employees
     CONSTRAINT fk_package_movement FOREIGN KEY (package_movement_id) REFERENCES package_movement (id) ON DELETE CASCADE,
     CONSTRAINT fk_employee FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE
 )ENGINE=InnoDB;
+
+CREATE TABLE cities(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    country VARCHAR (60) NOT NULL UNIQUE,
+    latitude DOUBLE PRECISION NOT NULL,
+    longitude DOUBLE PRECISION NOT NULL
+)ENGINE=InnoDB;
