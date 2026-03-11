@@ -1,6 +1,8 @@
 package com.fasterEnvios.domain.repository;
 
-public interface ShipmentRepository {
+import com.fasterEnvios.domain.model.Shipment;
 
+public interface ShipmentRepository {
+    Shipment save(Shipment shipment);
 
 }

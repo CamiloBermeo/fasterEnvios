@@ -1,7 +1,5 @@
 package com.fasterEnvios.domain.model;
 
-import com.fasterEnvios.infrastructure.entity.PackageEntity;
-import com.fasterEnvios.infrastructure.entity.PaymentTransactionEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,7 +7,7 @@ import java.util.List;
 public class Shipment {
     private Long id;
     private PaymentTransaction paymentTransaction;
-    private List<Package> packages;
+    private List<PackageModel> packageModels;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime estimatedDeliveryDate;
     private String cityOrigin;
@@ -20,10 +18,10 @@ public class Shipment {
     public Shipment() {
     }
 
-    private Shipment(Long id, PaymentTransaction paymentTransaction, List<Package> packages, LocalDateTime createdAt, LocalDateTime estimatedDeliveryDate, double distance,String cityOrigin, String cityDestination, StateEnum state) {
+    private Shipment(Long id, PaymentTransaction paymentTransaction, List<PackageModel> packageModels, LocalDateTime createdAt, LocalDateTime estimatedDeliveryDate, double distance, String cityOrigin, String cityDestination, StateEnum state) {
         this.id = id;
         this.paymentTransaction = paymentTransaction;
-        this.packages = packages;
+        this.packageModels = packageModels;
         this.createdAt = createdAt;
         this.estimatedDeliveryDate = estimatedDeliveryDate;
         this.cityOrigin = cityOrigin;
@@ -39,7 +37,7 @@ public class Shipment {
     private Shipment(ShipmentBuilder builder) {
         this.id = builder.id;
         this.paymentTransaction = builder.paymentTransaction;
-        this.packages = builder.packages;
+        this.packageModels = builder.packageModels;
         this.createdAt = builder.createdAt;
         this.estimatedDeliveryDate = builder.estimatedDeliveryDate;
         this.cityOrigin = builder.cityOrigin;
@@ -52,7 +50,7 @@ public class Shipment {
         return new ShipmentBuilder()
                 .withId(this.id)
                 .withPaymentTransaction(this.paymentTransaction)
-                .withPackages(this.packages)
+                .withPackages(this.packageModels)
                 .withCreatedAt(this.createdAt)
                 .withEstimatedDeliveryDate(this.estimatedDeliveryDate)
                 .withCityOrigin(this.cityOrigin)
@@ -64,7 +62,7 @@ public class Shipment {
     public static class ShipmentBuilder {
         private Long id;
         private PaymentTransaction paymentTransaction;
-        private List<Package> packages;
+        private List<PackageModel> packageModels;
         private LocalDateTime createdAt;
         private LocalDateTime estimatedDeliveryDate;
         private String cityOrigin;
@@ -86,8 +84,8 @@ public class Shipment {
             return this;
         }
 
-        public ShipmentBuilder withPackages(List<Package> packages) {
-            this.packages = packages;
+        public ShipmentBuilder withPackages(List<PackageModel> packageModels) {
+            this.packageModels = packageModels;
             return this;
         }
 
@@ -129,12 +127,12 @@ public class Shipment {
         return paymentTransaction;
     }
 
-    public List<Package> getPackages() {
-        return packages;
-    }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public List<PackageModel> getPackageModels() {
+        return packageModels;
     }
 
     public LocalDateTime getEstimatedDeliveryDate() {

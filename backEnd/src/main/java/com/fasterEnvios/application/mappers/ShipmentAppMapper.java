@@ -2,8 +2,7 @@ package com.fasterEnvios.application.mappers;
 
 import com.fasterEnvios.application.dto.shipment.NewShipmentRequestDTO;
 import com.fasterEnvios.domain.model.*;
-import com.fasterEnvios.domain.model.Package;
-import com.fasterEnvios.infrastructure.entity.PackageEntity;
+import com.fasterEnvios.domain.model.PackageModel;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,7 +21,7 @@ public class ShipmentAppMapper {
                 .withDistance(distance)
                 .withEstimatedDeliveryDate(estimatedDeliveryDate)
                 .withPackages(
-                        List.of(Package.builder()
+                        List.of(PackageModel.builder()
                                 .withDeclaredValue(dto.packages().declaredValue())
                                 .withDescription(dto.packages().description())
                                 .withDimensions(dto.packages().dimensions())
@@ -31,11 +30,11 @@ public class ShipmentAppMapper {
                 .withPaymentTransaction(
                         PaymentTransaction.builder()
                                 .withAmount(dto.paymentTransaction().amount())
-                                .withPaymentStatus()
+                                .withPaymentStatus(dto.paymentTransaction().paymentMethods().name())
                                 .withPaymentDate(LocalDateTime.now())
-                                .withPaymentMethods(List.of(dto.paymentTransaction().paymentMethods()))
+                                .withPaymentMethods(List.of())
                                 .build()
-                );
+                ).build();
 
 
     }

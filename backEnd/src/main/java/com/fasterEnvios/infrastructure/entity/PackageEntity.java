@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,6 +15,6 @@ public class PackageEntity {
     private Long id;
     private double weightKg;
     private double dimensions;
-    private float declaredValue;
+    private BigDecimal declaredValue;
     private String description;
 }

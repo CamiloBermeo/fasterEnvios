@@ -11,15 +11,18 @@ import com.fasterEnvios.application.mappers.CityAppMapper;
 import com.fasterEnvios.application.mappers.ClientAppMapper;
 import com.fasterEnvios.application.mappers.ShipmentAppMapper;
 import com.fasterEnvios.domain.model.CityDescription;
+import com.fasterEnvios.domain.model.PaymentStatusEnum;
 import com.fasterEnvios.domain.model.Shipment;
 import com.fasterEnvios.domain.model.StateEnum;
 import com.fasterEnvios.domain.repository.CityRepository;
+import com.fasterEnvios.domain.repository.ShipmentRepository;
 import com.fasterEnvios.infrastructure.client.OpenRoutServiceClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +31,7 @@ public class NewShipmentUseCase {
     private final OpenRoutServiceClient openRoutServiceClient;
     private final FindCityByNameUseCase findCityByNameUseCase;
     private final CityRepository cityRepository;
+    private final ShipmentRepository shipmentRepository;
 
     public NewShipmentResponseDTO execute(NewShipmentRequestDTO dto) throws IOException, InterruptedException {
 
@@ -53,12 +57,12 @@ public class NewShipmentUseCase {
         LocalDateTime estimatedDeliveryDate = LocalDateTime.now().plusDays(3);
         StateEnum state = dto.status();
 // solucionar tema de pago
-        if(dto.paymentTransaction().)
-
         if (state == null){
             state = StateEnum.RECEIVED;
         }
         Shipment shipment = ShipmentAppMapper.toModel(dto, estimatedDeliveryDate, info.distance(), state);
+
+        Shipment savedShipment = shipmentRepository.save(shipment);
 
         return null;
     }

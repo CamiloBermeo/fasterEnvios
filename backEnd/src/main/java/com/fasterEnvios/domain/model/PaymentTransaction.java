@@ -2,6 +2,7 @@ package com.fasterEnvios.domain.model;
 
 
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -9,14 +10,14 @@ public class PaymentTransaction {
     private Long id;
     private List<Shipment> shipments;
     private List<PaymentMethod> paymentMethods;
-    private float amount;
+    private BigDecimal amount;
     private LocalDateTime paymentDate;
-    private String paymentStatus;
+    private PaymentStatusEnum paymentStatus;
 
     public PaymentTransaction() {
     }
 
-    private PaymentTransaction(Long id, List<Shipment> shipments, List<PaymentMethod> paymentMethods, float amount, LocalDateTime paymentDate, String paymentStatus) {
+    private PaymentTransaction(Long id, List<Shipment> shipments, List<PaymentMethod> paymentMethods, BigDecimal amount, LocalDateTime paymentDate, PaymentStatusEnum paymentStatus) {
         this.id = id;
         this.shipments = shipments;
         this.paymentMethods = paymentMethods;
@@ -52,9 +53,9 @@ public class PaymentTransaction {
         private Long id;
         private List<Shipment> shipments;
         private List<PaymentMethod> paymentMethods;
-        private float amount;
+        private BigDecimal amount;
         private LocalDateTime paymentDate;
-        private String paymentStatus;
+        private PaymentStatusEnum paymentStatus;
 
         public PaymentTransactionBuilder withId(Long id) {
             this.id = id;
@@ -71,7 +72,7 @@ public class PaymentTransaction {
             return this;
         }
 
-        public PaymentTransactionBuilder withAmount(float amount) {
+        public PaymentTransactionBuilder withAmount(BigDecimal amount) {
             this.amount = amount;
             return this;
         }
@@ -81,7 +82,7 @@ public class PaymentTransaction {
             return this;
         }
 
-        public PaymentTransactionBuilder withPaymentStatus(String paymentStatus) {
+        public PaymentTransactionBuilder withPaymentStatus(PaymentStatusEnum paymentStatus) {
             this.paymentStatus = paymentStatus;
             return this;
         }
@@ -103,7 +104,7 @@ public class PaymentTransaction {
         return paymentMethods;
     }
 
-    public float getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
@@ -111,7 +112,7 @@ public class PaymentTransaction {
         return paymentDate;
     }
 
-    public String getPaymentStatus() {
+    public PaymentStatusEnum getPaymentStatus() {
         return paymentStatus;
     }
 }

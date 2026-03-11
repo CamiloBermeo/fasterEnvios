@@ -54,7 +54,7 @@ CREATE TABLE shipment_payments
     CONSTRAINT fk_payment FOREIGN KEY (payment_transaction_id) REFERENCES payment_transactions (id) ON DELETE CASCADE
 )ENGINE=InnoDB;
 
-CREATE TABLE packages
+CREATE TABLE packageModels
 (
     id             BIGINT AUTO_INCREMENT PRIMARY KEY,
     weight_kg DOUBLE NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE shipment_packages
     shipment_id BIGINT NOT NULL,
     package_id  BIGINT NOT NULL,
     CONSTRAINT fk_shipment FOREIGN KEY (shipment_id) REFERENCES shipments (id) ON DELETE CASCADE,
-    CONSTRAINT fk_package FOREIGN KEY (package_id) REFERENCES packages (id) ON DELETE CASCADE
+    CONSTRAINT fk_package FOREIGN KEY (package_id) REFERENCES packageModels (id) ON DELETE CASCADE
 )ENGINE=InnoDB;
 
 CREATE TABLE payments_methods
@@ -130,7 +130,7 @@ CREATE TABLE package_movement_package
     package_movement_id BIGINT NOT NULL,
     package_id          BIGINT NOT NULL,
     CONSTRAINT fk_package_movement FOREIGN KEY (package_movement_id) REFERENCES package_movement (id) ON DELETE CASCADE,
-    CONSTRAINT fk_package FOREIGN KEY (package_id) REFERENCES packages (id) ON DELETE CASCADE
+    CONSTRAINT fk_package FOREIGN KEY (package_id) REFERENCES packageModels (id) ON DELETE CASCADE
 )ENGINE=InnoDB;
 
 CREATE TABLE package_movement_offices

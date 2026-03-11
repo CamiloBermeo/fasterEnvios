@@ -1,16 +1,18 @@
 package com.fasterEnvios.domain.model;
 
-public class Package {
+import java.math.BigDecimal;
+
+public class PackageModel {
     private Long id;
     private double weightKg;
     private double dimensions;
-    private float declaredValue;
+    private BigDecimal declaredValue;
     private String description;
 
-    public Package() {
+    public PackageModel() {
     }
 
-    private Package(Long id, double weightKg, double dimensions, float declaredValue, String description) {
+    private PackageModel(Long id, double weightKg, double dimensions, BigDecimal declaredValue, String description) {
         this.id = id;
         this.weightKg = weightKg;
         this.dimensions = dimensions;
@@ -22,7 +24,7 @@ public class Package {
         return new PackageBuilder();
     }
 
-    private Package(PackageBuilder builder) {
+    private PackageModel(PackageBuilder builder) {
         this.id = builder.id;
         this.weightKg = builder.weightKg;
         this.dimensions = builder.dimensions;
@@ -43,7 +45,7 @@ public class Package {
         private Long id;
         private double weightKg;
         private double dimensions;
-        private float declaredValue;
+        private BigDecimal declaredValue;
         private String description;
 
         public PackageBuilder withId(Long id) {
@@ -61,7 +63,7 @@ public class Package {
             return this;
         }
 
-        public PackageBuilder withDeclaredValue(float declaredValue) {
+        public PackageBuilder withDeclaredValue(BigDecimal declaredValue) {
             this.declaredValue = declaredValue;
             return this;
         }
@@ -71,8 +73,8 @@ public class Package {
             return this;
         }
 
-        public Package build() {
-            return new Package(this);
+        public PackageModel build() {
+            return new PackageModel(this);
         }
     }
 
@@ -88,7 +90,7 @@ public class Package {
         return dimensions;
     }
 
-    public float getDeclaredValue() {
+    public BigDecimal getDeclaredValue() {
         return declaredValue;
     }
 
