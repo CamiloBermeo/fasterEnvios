@@ -3,6 +3,7 @@ package com.fasterEnvios.infrastructure.entity;
 import com.fasterEnvios.domain.model.StateEnum;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class ShipmentEntity {
     private LocalDateTime estimatedDeliveryDate;
     private String cityOrigin;
     private String cityDestination;
+    private BigDecimal totalAmount;
     private double distance;
     private String state;
 

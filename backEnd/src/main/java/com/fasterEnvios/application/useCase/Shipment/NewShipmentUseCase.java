@@ -60,11 +60,11 @@ public class NewShipmentUseCase {
         if (state == null){
             state = StateEnum.RECEIVED;
         }
-        Shipment shipment = ShipmentAppMapper.toModel(dto, estimatedDeliveryDate, info.distance(), state);
+        Shipment shipment = ShipmentAppMapper.toModel(dto, estimatedDeliveryDate, info.distance(), state, totalAmount);
 
         Shipment savedShipment = shipmentRepository.save(shipment);
 
-        return null;
+        return ShipmentAppMapper.toDto(savedShipment);
     }
 
 

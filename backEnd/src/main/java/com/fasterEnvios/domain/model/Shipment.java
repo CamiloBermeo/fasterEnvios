@@ -1,6 +1,7 @@
 package com.fasterEnvios.domain.model;
 
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,13 +13,14 @@ public class Shipment {
     private LocalDateTime estimatedDeliveryDate;
     private String cityOrigin;
     private String cityDestination;
+    private BigDecimal totalAmount;
     private double distance;
     private StateEnum state;
 
     public Shipment() {
     }
 
-    private Shipment(Long id, PaymentTransaction paymentTransaction, List<PackageModel> packageModels, LocalDateTime createdAt, LocalDateTime estimatedDeliveryDate, double distance, String cityOrigin, String cityDestination, StateEnum state) {
+    private Shipment(Long id, PaymentTransaction paymentTransaction, List<PackageModel> packageModels, LocalDateTime createdAt, BigDecimal totalAmount,LocalDateTime estimatedDeliveryDate, double distance, String cityOrigin, String cityDestination, StateEnum state) {
         this.id = id;
         this.paymentTransaction = paymentTransaction;
         this.packageModels = packageModels;
@@ -26,6 +28,7 @@ public class Shipment {
         this.estimatedDeliveryDate = estimatedDeliveryDate;
         this.cityOrigin = cityOrigin;
         this.cityDestination = cityDestination;
+        this.totalAmount = totalAmount;
         this.distance = distance;
         this.state = state;
     }
@@ -42,6 +45,7 @@ public class Shipment {
         this.estimatedDeliveryDate = builder.estimatedDeliveryDate;
         this.cityOrigin = builder.cityOrigin;
         this.cityDestination = builder.cityDestination;
+        this.totalAmount = builder.totalAmount;
         this.distance = builder.distance;
         this.state = builder.state;
     }
@@ -55,6 +59,7 @@ public class Shipment {
                 .withEstimatedDeliveryDate(this.estimatedDeliveryDate)
                 .withCityOrigin(this.cityOrigin)
                 .withCityDestination(this.cityDestination)
+                .withTotalAmount(this.totalAmount)
                 .withDistance(this.distance)
                 .withState(this.state);
     }
@@ -67,6 +72,7 @@ public class Shipment {
         private LocalDateTime estimatedDeliveryDate;
         private String cityOrigin;
         private String cityDestination;
+        private BigDecimal totalAmount;
         private double distance;
         private StateEnum state;
 
@@ -88,6 +94,11 @@ public class Shipment {
             this.packageModels = packageModels;
             return this;
         }
+        public ShipmentBuilder withTotalAmount(BigDecimal totalAmount) {
+            this.totalAmount = totalAmount;
+            return this;
+        }
+
 
         public ShipmentBuilder withCreatedAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
@@ -137,6 +148,10 @@ public class Shipment {
 
     public LocalDateTime getEstimatedDeliveryDate() {
         return estimatedDeliveryDate;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
     }
 
     public double getDistance() {
