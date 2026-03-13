@@ -1,10 +1,7 @@
 package com.fasterEnvios.infrastructure.persistence;
 
-import com.fasterEnvios.domain.model.PackageModel;
-import com.fasterEnvios.domain.model.PaymentTransaction;
 import com.fasterEnvios.domain.model.Shipment;
 import com.fasterEnvios.domain.repository.ShipmentRepository;
-import com.fasterEnvios.infrastructure.controller.ShipmentController;
 import com.fasterEnvios.infrastructure.entity.PackageEntity;
 import com.fasterEnvios.infrastructure.entity.PaymentTransactionEntity;
 import com.fasterEnvios.infrastructure.entity.ShipmentEntity;
@@ -56,38 +53,39 @@ public class ShipmentRepositoryJDBC implements ShipmentRepository {
                         paymentId,
                         paymentMethodInfraMapper.toModelList(shipmentEntity.getPaymentTransaction().getPaymentMethods())
                 ));
-
     }
 
     private Long savePayment(PaymentTransactionEntity payment) {
-        String sql = "INSERT INTO payment_transactions (amount, payment_date, payment_methods,payment_status) VALUES (?, ?, ?,? )";
+        String sql = "INSERT INTO payment_transactions (amount, payment_date,payment_status) VALUES (?, ?, ?,? )";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setBigDecimal(1, payment.getAmount());
-            ps.setObject(2, payment.getPaymentMethods());
-            ps.setTimestamp(3,Timestamp.valueOf(payment.getPaymentDate()));
-            ps.setObject(4, payment.getPaymentStatus());
+            ps.setTimestamp(2, Timestamp.valueOf(payment.getPaymentDate()));
+            ps.setObject(3, payment.getPaymentStatus());
             return ps;
         }, keyHolder);
 
         return Objects.requireNonNull(keyHolder.getKey()).longValue();
     }
+
     private Long saveShipmentHeader(ShipmentEntity shipment, Long paymentId) {
-        String sql = "INSERT INTO shipments ( created_at,estimated_delivery_date, city_origin, city_destination, total_amount, distance, state, payment_transaction_id) " +
+        String sql = "INSERT INTO shipments ( created_at, estimated_delivery_date, city_origin, city_destination, total_amount, distance, state, payment_transaction_id) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setLong(1, paymentId);
-            ps.setObject(2, shipment.getCityOrigin());
-            ps.setObject(3, shipment.getCityDestination());
-            ps.setDouble(4, shipment.getDistance());
-            ps.setObject(5, shipment.getState());
-            ps.setTimestamp(6, Timestamp.valueOf(shipment.getCreatedAt()));
-            ps.setTimestamp(7, Timestamp.valueOf(shipment.getEstimatedDeliveryDate()));
+            ps.setTimestamp(1, Timestamp.valueOf(shipment.getCreatedAt()));
+            ps.setTimestamp(2, Timestamp.valueOf(shipment.getEstimatedDeliveryDate()));
+            ps.setObject(3, shipment.getCityOrigin());
+            ps.setObject(4, shipment.getCityDestination());
+            ps.setObject(5, shipment.getTotalAmount());
+            ps.setDouble(6, shipment.getDistance());
+            ps.setObject(7, shipment.getState());
+            ps.setLong(8, paymentId);
+
             return ps;
         }, keyHolder);
 

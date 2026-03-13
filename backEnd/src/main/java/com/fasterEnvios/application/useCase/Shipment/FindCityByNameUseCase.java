@@ -11,7 +11,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class FindCityByNameUseCase {
 
-    private CityRepository cityRepository;
+    private final CityRepository cityRepository;
 
     public Optional<CityDescription> execute (String name){
         return cityRepository.findCityByName(name);

@@ -5,9 +5,12 @@ import com.fasterEnvios.domain.model.PaymentStatusEnum;
 import com.fasterEnvios.domain.model.PaymentTransaction;
 import com.fasterEnvios.infrastructure.entity.PaymentMethodEntity;
 import com.fasterEnvios.infrastructure.entity.PaymentTransactionEntity;
+import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+@Component
 public class PaymentTransactionInfraMapper {
 
     public PaymentTransactionEntity toEntity(PaymentTransaction paymentTransaction, List<PaymentMethodEntity> paymentMethods) {

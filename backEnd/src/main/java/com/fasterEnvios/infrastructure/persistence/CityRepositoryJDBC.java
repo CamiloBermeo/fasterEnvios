@@ -41,9 +41,7 @@ public class CityRepositoryJDBC implements CityRepository {
                     city.getLongitude(),
                     city.getLatitude());
             return rowAffected > 0 ? Optional.of(city) : Optional.empty();
-        }
-
-        catch (DataAccessException ex){
+        } catch (DataAccessException ex) {
             throw new SaveErrorDataBaseException(city.getName());
         }
 

@@ -2,12 +2,14 @@ package com.fasterEnvios.infrastructure.mapper;
 
 import com.fasterEnvios.domain.model.PackageModel;
 import com.fasterEnvios.infrastructure.entity.PackageEntity;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class PackageInfraMapper {
 
-    public PackageEntity toEntity(PackageModel model){
+    public PackageEntity toEntity(PackageModel model) {
 
         return PackageEntity.builder()
                 .declaredValue(model.getDeclaredValue())
@@ -17,6 +19,7 @@ public class PackageInfraMapper {
                 .build();
 
     }
+
     public List<PackageEntity> toEntityList(List<PackageModel> models) {
         if (models == null) return List.of();
 

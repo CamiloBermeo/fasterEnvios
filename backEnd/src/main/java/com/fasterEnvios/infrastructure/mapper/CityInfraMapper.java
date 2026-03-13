@@ -3,10 +3,12 @@ package com.fasterEnvios.infrastructure.mapper;
 import com.fasterEnvios.domain.model.CityDescription;
 import com.fasterEnvios.infrastructure.entity.CityDescriptionEntity;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CityInfraMapper {
 
-    public static CityDescription toDomain (CityDescriptionEntity entity){
+    public static CityDescription toDomain(CityDescriptionEntity entity) {
         CityDescription.CityDescriptionBuilder cityDescriptionBuilder = CityDescription.builder()
                 .withId(entity.getId())
                 .withName(entity.getName())
@@ -16,7 +18,8 @@ public class CityInfraMapper {
                 .build().toBuilder();
         return cityDescriptionBuilder.build();
     }
-    public static CityDescriptionEntity toEntity (CityDescription cityDescription){
+
+    public static CityDescriptionEntity toEntity(CityDescription cityDescription) {
         return CityDescriptionEntity.builder()
                 .name(cityDescription.getName())
                 .country(cityDescription.getCountry())
@@ -25,7 +28,7 @@ public class CityInfraMapper {
                 .build();
     }
 
-    public static RowMapper<CityDescriptionEntity> cityRowMapperJDBC () {
+    public static RowMapper<CityDescriptionEntity> cityRowMapperJDBC() {
         return (rs, rowNum) -> {
             CityDescriptionEntity city = new CityDescriptionEntity();
             city.setId(rs.getLong("id"));

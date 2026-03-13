@@ -9,7 +9,6 @@ public record NewShipmentRequestDTO(
         String cityOrigin,
         @NotBlank(message = "debes colocar una ciudad de destino")
         String cityDestination,
-        @NotBlank(message = "debes colocar la informacion del paquete")
         PackageRequestDTO packages,
         StateEnum status,
         PaymentTransactionRequestDTO paymentTransaction

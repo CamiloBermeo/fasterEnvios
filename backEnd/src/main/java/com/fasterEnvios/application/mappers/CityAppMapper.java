@@ -2,7 +2,6 @@ package com.fasterEnvios.application.mappers;
 
 import com.fasterEnvios.application.dto.client.CityCoordinatesRequestDTO;
 import com.fasterEnvios.application.dto.client.CityCoordinatesResponseDTO;
-import com.fasterEnvios.application.dto.shipment.NewShipmentRequestDTO;
 import com.fasterEnvios.domain.model.CityDescription;
 
 public class CityAppMapper {

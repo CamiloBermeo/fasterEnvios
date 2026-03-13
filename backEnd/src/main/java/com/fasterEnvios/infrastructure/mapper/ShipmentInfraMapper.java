@@ -7,9 +7,11 @@ import com.fasterEnvios.domain.model.StateEnum;
 import com.fasterEnvios.infrastructure.entity.PackageEntity;
 import com.fasterEnvios.infrastructure.entity.PaymentTransactionEntity;
 import com.fasterEnvios.infrastructure.entity.ShipmentEntity;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class ShipmentInfraMapper {
 
     public static ShipmentEntity toEntity(Shipment shipment, List<PackageEntity> packageEntity, PaymentTransactionEntity paymentTransaction) {
@@ -27,7 +29,7 @@ public class ShipmentInfraMapper {
 
     }
 
-    public static Shipment toModel(ShipmentEntity shipmentEntity, Long shipmentId,List<PackageModel> packageModel, PaymentTransaction paymentTransaction) {
+    public static Shipment toModel(ShipmentEntity shipmentEntity, Long shipmentId, List<PackageModel> packageModel, PaymentTransaction paymentTransaction) {
         Shipment.ShipmentBuilder shipmentBuilder = Shipment.builder()
                 .withId(shipmentId)
                 .withCityDestination(CityInfraMapper.toDomain(shipmentEntity.getCityDestination()))

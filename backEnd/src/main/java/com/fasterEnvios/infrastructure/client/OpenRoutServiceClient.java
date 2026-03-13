@@ -57,7 +57,7 @@ public class OpenRoutServiceClient {
         ObjectMapper objectMapper = new ObjectMapper();
         String encodeCity = URLEncoder.encode(dto.name(), StandardCharsets.UTF_8);
         String encodeCountry = URLEncoder.encode(dto.country(), StandardCharsets.UTF_8);
-        String url = "https://api.openrouteservice.org/geocode/search?api_key=" + apiKey + "&text=" + encodeCity + ", " + encodeCountry + "&size=1";
+        String url = "https://api.openrouteservice.org/geocode/search?api_key=" + apiKey + "&text=" + encodeCity + "," + encodeCountry + "&size=1";
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()

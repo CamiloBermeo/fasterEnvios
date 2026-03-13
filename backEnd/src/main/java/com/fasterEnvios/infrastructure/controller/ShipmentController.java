@@ -11,15 +11,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/shipments")
 public class ShipmentController {
 
-    private NewShipmentUseCase newShipmentUseCase;
+    private final NewShipmentUseCase newShipmentUseCase;
 
     @PostMapping
-    public ResponseEntity<NewShipmentResponseDTO> newShipment (@Valid @RequestBody NewShipmentRequestDTO dto){
+    public ResponseEntity<NewShipmentResponseDTO> newShipment (@Valid @RequestBody NewShipmentRequestDTO dto) throws IOException, InterruptedException {
         NewShipmentResponseDTO shipmentResponseDTO = newShipmentUseCase.execute(dto);
         return ResponseEntity.ok(shipmentResponseDTO);
     }

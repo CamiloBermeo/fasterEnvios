@@ -58,20 +58,18 @@ public class NewShipmentUseCase {
         LocalDateTime estimatedDeliveryDate = LocalDateTime.now().plusDays(3);
         StateEnum state = dto.status();
 
-        if (state == null){
+        if (state == null) {
             state = StateEnum.RECEIVED;
         }
 
         BigDecimal totalAmount = calculatedTotalAmount(info.distance(), dto.packages().weightKg(), dto.packages().declaredValue());
 
-        Shipment shipment = ShipmentAppMapper.toModel(dto, estimatedDeliveryDate, info.distance(), state, totalAmount,cityOriginDB,cityDestinationDB);
+        Shipment shipment = ShipmentAppMapper.toModel(dto, estimatedDeliveryDate, info.distance(), state, totalAmount, cityOriginDB, cityDestinationDB);
 
         Shipment savedShipment = shipmentRepository.save(shipment);
 
         return ShipmentAppMapper.toDto(savedShipment);
     }
-
-
 
 
     private CityDescription saveCityWhenIsEmpty(String city) throws IOException, InterruptedException {
@@ -82,10 +80,10 @@ public class NewShipmentUseCase {
                 .orElseThrow(() -> new SaveErrorDataBaseException(city));
     }
 
-    private BigDecimal calculatedTotalAmount(double distance, double weight, BigDecimal declaredValue){
+    private BigDecimal calculatedTotalAmount(double distance, double weight, BigDecimal declaredValue) {
         BigDecimal percentage = new BigDecimal("0.05");
         BigDecimal costDistance = BigDecimal.valueOf(distance * 20);
-        BigDecimal costWeight = BigDecimal.valueOf( weight * 100);
+        BigDecimal costWeight = BigDecimal.valueOf(weight * 100);
         BigDecimal secure = percentage.multiply(declaredValue);
         return costDistance.add(costWeight).add(secure);
     }
