@@ -60,29 +60,30 @@ public class ShipmentRepositoryJDBC implements ShipmentRepository {
     }
 
     private Long savePayment(PaymentTransactionEntity payment) {
-        String sql = "INSERT INTO payment_transactions (amount, payment_method, status) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO payment_transactions (amount, payment_date, payment_methods,payment_status) VALUES (?, ?, ?,? )";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setBigDecimal(1, payment.getAmount());
-            ps.setString(2, payment.getPaymentMethods().toString());
-            ps.setObject(3, payment.getPaymentStatus());
+            ps.setObject(2, payment.getPaymentMethods());
+            ps.setTimestamp(3,Timestamp.valueOf(payment.getPaymentDate()));
+            ps.setObject(4, payment.getPaymentStatus());
             return ps;
         }, keyHolder);
 
         return Objects.requireNonNull(keyHolder.getKey()).longValue();
     }
     private Long saveShipmentHeader(ShipmentEntity shipment, Long paymentId) {
-        String sql = "INSERT INTO shipments (payment_id, city_origin, city_destination, distance, state, created_at, estimated_delivery) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO shipments ( created_at,estimated_delivery_date, city_origin, city_destination, total_amount, distance, state, payment_transaction_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, paymentId);
-            ps.setString(2, shipment.getCityOrigin());
-            ps.setString(3, shipment.getCityDestination());
+            ps.setObject(2, shipment.getCityOrigin());
+            ps.setObject(3, shipment.getCityDestination());
             ps.setDouble(4, shipment.getDistance());
             ps.setObject(5, shipment.getState());
             ps.setTimestamp(6, Timestamp.valueOf(shipment.getCreatedAt()));

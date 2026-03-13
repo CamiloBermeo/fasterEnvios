@@ -14,12 +14,13 @@ public class ShipmentInfraMapper {
 
     public static ShipmentEntity toEntity(Shipment shipment, List<PackageEntity> packageEntity, PaymentTransactionEntity paymentTransaction) {
         return ShipmentEntity.builder()
-                .cityDestination(shipment.getCityDestination())
-                .cityOrigin(shipment.getCityOrigin())
+                .cityDestination(CityInfraMapper.toEntity(shipment.getCityDestination()))
+                .cityOrigin(CityInfraMapper.toEntity(shipment.getCityOrigin()))
                 .distance(shipment.getDistance())
                 .createdAt(shipment.getCreatedAt())
                 .estimatedDeliveryDate(shipment.getEstimatedDeliveryDate())
                 .state(shipment.getState().toString())
+                .totalAmount(shipment.getTotalAmount())
                 .packages(packageEntity)
                 .paymentTransaction(paymentTransaction)
                 .build();
@@ -29,12 +30,13 @@ public class ShipmentInfraMapper {
     public static Shipment toModel(ShipmentEntity shipmentEntity, Long shipmentId,List<PackageModel> packageModel, PaymentTransaction paymentTransaction) {
         Shipment.ShipmentBuilder shipmentBuilder = Shipment.builder()
                 .withId(shipmentId)
-                .withCityDestination(shipmentEntity.getCityDestination())
-                .withCityOrigin(shipmentEntity.getCityOrigin())
+                .withCityDestination(CityInfraMapper.toDomain(shipmentEntity.getCityDestination()))
+                .withCityOrigin(CityInfraMapper.toDomain(shipmentEntity.getCityOrigin()))
                 .withDistance(shipmentEntity.getDistance())
                 .withCreatedAt(shipmentEntity.getCreatedAt())
                 .withEstimatedDeliveryDate(shipmentEntity.getEstimatedDeliveryDate())
                 .withState(StateEnum.valueOf(shipmentEntity.getState()))
+                .withTotalAmount(shipmentEntity.getTotalAmount())
                 .withPackages(packageModel)
                 .withPaymentTransaction(paymentTransaction)
                 .build().toBuilder();

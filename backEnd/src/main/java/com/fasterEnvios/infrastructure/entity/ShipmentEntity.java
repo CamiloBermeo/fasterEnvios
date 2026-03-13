@@ -19,8 +19,8 @@ public class ShipmentEntity {
     private List<PackageEntity>  packages;
     private LocalDateTime  createdAt;
     private LocalDateTime estimatedDeliveryDate;
-    private String cityOrigin;
-    private String cityDestination;
+    private CityDescriptionEntity cityOrigin;
+    private CityDescriptionEntity cityDestination;
     private BigDecimal totalAmount;
     private double distance;
     private String state;

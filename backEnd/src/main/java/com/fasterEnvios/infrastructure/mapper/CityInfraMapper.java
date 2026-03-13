@@ -16,6 +16,15 @@ public class CityInfraMapper {
                 .build().toBuilder();
         return cityDescriptionBuilder.build();
     }
+    public static CityDescriptionEntity toEntity (CityDescription cityDescription){
+        return CityDescriptionEntity.builder()
+                .name(cityDescription.getName())
+                .country(cityDescription.getCountry())
+                .latitude(cityDescription.getLatitude())
+                .longitude(cityDescription.getLongitude())
+                .build();
+    }
+
     public static RowMapper<CityDescriptionEntity> cityRowMapperJDBC () {
         return (rs, rowNum) -> {
             CityDescriptionEntity city = new CityDescriptionEntity();

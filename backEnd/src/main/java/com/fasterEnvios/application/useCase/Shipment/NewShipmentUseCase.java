@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -46,7 +47,7 @@ public class NewShipmentUseCase {
         CityDescription cityDestinationDB = findCityByNameUseCase.execute(dto.cityDestination())
                 .orElseGet(() -> {
                     try {
-                        return saveCityWhenIsEmpty(dto.cityOrigin());
+                        return saveCityWhenIsEmpty(dto.cityDestination());
                     } catch (IOException | InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -56,11 +57,14 @@ public class NewShipmentUseCase {
         ClientResponseDTO info = openRoutServiceClient.requestDistance(client);
         LocalDateTime estimatedDeliveryDate = LocalDateTime.now().plusDays(3);
         StateEnum state = dto.status();
-// solucionar tema de pago
+
         if (state == null){
             state = StateEnum.RECEIVED;
         }
-        Shipment shipment = ShipmentAppMapper.toModel(dto, estimatedDeliveryDate, info.distance(), state, totalAmount);
+
+        BigDecimal totalAmount = calculatedTotalAmount(info.distance(), dto.packages().weightKg(), dto.packages().declaredValue());
+
+        Shipment shipment = ShipmentAppMapper.toModel(dto, estimatedDeliveryDate, info.distance(), state, totalAmount,cityOriginDB,cityDestinationDB);
 
         Shipment savedShipment = shipmentRepository.save(shipment);
 
@@ -76,5 +80,13 @@ public class NewShipmentUseCase {
         CityCoordinatesResponseDTO coordinates = openRoutServiceClient.requestCoordinates(cityForClient);
         return cityRepository.save(CityAppMapper.toDomain(city, coordinates))
                 .orElseThrow(() -> new SaveErrorDataBaseException(city));
+    }
+
+    private BigDecimal calculatedTotalAmount(double distance, double weight, BigDecimal declaredValue){
+        BigDecimal percentage = new BigDecimal("0.05");
+        BigDecimal costDistance = BigDecimal.valueOf(distance * 20);
+        BigDecimal costWeight = BigDecimal.valueOf( weight * 100);
+        BigDecimal secure = percentage.multiply(declaredValue);
+        return costDistance.add(costWeight).add(secure);
     }
 }

@@ -33,7 +33,7 @@ public class CityRepositoryJDBC implements CityRepository {
     @Override
     @Transactional
     public Optional<CityDescription> save(CityDescription city) {
-        String sql = "INSERT INTO cities (name, origin, longitude, latitude) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO cities (name, country, latitude,longitude ) VALUES (?, ?, ?, ?)";
         try {
             int rowAffected = jdbcTemplate.update(sql,
                     city.getName(),

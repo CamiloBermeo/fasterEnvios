@@ -11,11 +11,17 @@ import java.util.List;
 
 public class ShipmentAppMapper {
 
-    public static Shipment toModel(NewShipmentRequestDTO dto, LocalDateTime estimatedDeliveryDate, double distance, StateEnum state, BigDecimal totalAmount) {
+    public static Shipment toModel(NewShipmentRequestDTO dto,
+                                   LocalDateTime estimatedDeliveryDate,
+                                   double distance,
+                                   StateEnum state,
+                                   BigDecimal totalAmount,
+                                   CityDescription cityOriginDB,
+                                   CityDescription cityDestinationDB) {
 
         return Shipment.builder()
-                .withCityOrigin(dto.cityOrigin())
-                .withCityDestination(dto.cityDestination())
+                .withCityOrigin(cityOriginDB)
+                .withCityDestination(cityDestinationDB)
                 .withState(state)
                 .withDistance(distance)
                 .withEstimatedDeliveryDate(estimatedDeliveryDate)
@@ -41,8 +47,8 @@ public class ShipmentAppMapper {
         return new NewShipmentResponseDTO(
                 shipment.getId(),
                 shipment.getState().toString(),
-                shipment.getCityOrigin(),
-                shipment.getCityDestination(),
+                shipment.getCityOrigin().getName(),
+                shipment.getCityDestination().getName(),
                 shipment.getDistance(),
                 shipment.getTotalAmount(),
                 shipment.getEstimatedDeliveryDate(),

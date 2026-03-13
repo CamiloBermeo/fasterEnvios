@@ -11,8 +11,8 @@ public class Shipment {
     private List<PackageModel> packageModels;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime estimatedDeliveryDate;
-    private String cityOrigin;
-    private String cityDestination;
+    private CityDescription cityOrigin;
+    private CityDescription cityDestination;
     private BigDecimal totalAmount;
     private double distance;
     private StateEnum state;
@@ -20,7 +20,7 @@ public class Shipment {
     public Shipment() {
     }
 
-    private Shipment(Long id, PaymentTransaction paymentTransaction, List<PackageModel> packageModels, LocalDateTime createdAt, BigDecimal totalAmount,LocalDateTime estimatedDeliveryDate, double distance, String cityOrigin, String cityDestination, StateEnum state) {
+    private Shipment(Long id, PaymentTransaction paymentTransaction, List<PackageModel> packageModels, LocalDateTime createdAt, BigDecimal totalAmount,LocalDateTime estimatedDeliveryDate, double distance, CityDescription cityOrigin, CityDescription cityDestination, StateEnum state) {
         this.id = id;
         this.paymentTransaction = paymentTransaction;
         this.packageModels = packageModels;
@@ -70,8 +70,8 @@ public class Shipment {
         private List<PackageModel> packageModels;
         private LocalDateTime createdAt;
         private LocalDateTime estimatedDeliveryDate;
-        private String cityOrigin;
-        private String cityDestination;
+        private CityDescription cityOrigin;
+        private CityDescription cityDestination;
         private BigDecimal totalAmount;
         private double distance;
         private StateEnum state;
@@ -110,12 +110,12 @@ public class Shipment {
             return this;
         }
 
-        public ShipmentBuilder withCityOrigin(String cityOrigin) {
+        public ShipmentBuilder withCityOrigin(CityDescription cityOrigin) {
             this.cityOrigin = cityOrigin;
             return this;
         }
 
-        public ShipmentBuilder withCityDestination(String cityDestination) {
+        public ShipmentBuilder withCityDestination(CityDescription cityDestination) {
             this.cityDestination = cityDestination;
             return this;
         }
@@ -158,11 +158,11 @@ public class Shipment {
         return distance;
     }
 
-    public String getCityOrigin() {
+    public CityDescription getCityOrigin() {
         return cityOrigin;
     }
 
-    public String getCityDestination() {
+    public CityDescription getCityDestination() {
         return cityDestination;
     }
 
