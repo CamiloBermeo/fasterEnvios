@@ -26,6 +26,7 @@ public class OpenRoutServiceClient {
     private String apiKey;
 
     public ClientResponseDTO requestDistance(ClientRequestDTO dto) throws IOException, InterruptedException {
+        System.out.println(dto.coordinates());
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonBody = objectMapper.writeValueAsString(dto);
         String url = "https://api.openrouteservice.org/v2/directions/driving-car";
@@ -75,8 +76,9 @@ public class OpenRoutServiceClient {
         JsonNode firstFeature = root.path("features").get(0);
         JsonNode coordinates = firstFeature.path("geometry").path("coordinates");
 
-        double longitude = coordinates.get(0).asDouble();
-        double latitude = coordinates.get(1).asDouble();
+        double latitude = coordinates.get(0).asDouble();
+        double longitude = coordinates.get(1).asDouble();
+
 
         return new CityCoordinatesResponseDTO(latitude, longitude);
     }

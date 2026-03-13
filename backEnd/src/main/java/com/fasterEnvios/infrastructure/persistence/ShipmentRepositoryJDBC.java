@@ -56,7 +56,7 @@ public class ShipmentRepositoryJDBC implements ShipmentRepository {
     }
 
     private Long savePayment(PaymentTransactionEntity payment) {
-        String sql = "INSERT INTO payment_transactions (amount, payment_date,payment_status) VALUES (?, ?, ?,? )";
+        String sql = "INSERT INTO payment_transactions (amount, payment_date,payment_status) VALUES (?, ?, ? )";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
@@ -79,8 +79,8 @@ public class ShipmentRepositoryJDBC implements ShipmentRepository {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setTimestamp(1, Timestamp.valueOf(shipment.getCreatedAt()));
             ps.setTimestamp(2, Timestamp.valueOf(shipment.getEstimatedDeliveryDate()));
-            ps.setObject(3, shipment.getCityOrigin());
-            ps.setObject(4, shipment.getCityDestination());
+            ps.setLong(3, shipment.getCityOrigin().getId());
+            ps.setLong(4, shipment.getCityDestination().getId());
             ps.setObject(5, shipment.getTotalAmount());
             ps.setDouble(6, shipment.getDistance());
             ps.setObject(7, shipment.getState());
@@ -93,23 +93,24 @@ public class ShipmentRepositoryJDBC implements ShipmentRepository {
     }
 
     private void savePackages(List<PackageEntity> packages, Long shipmentId) {
-        String sql = "INSERT INTO packages (shipment_id, weight_kg, dimensions, declared_value, description) VALUES (?, ?, ?, ?, ?)";
+        String sqlPackage = "INSERT INTO package_models (weight_kg, dimensions, declared_value, description) VALUES (?, ?, ?, ?)";
+        String sqlRelation = "INSERT INTO shipment_packages (shipment_id, package_id) VALUES (?, ?)";
 
-        jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
-            @Override
-            public void setValues(PreparedStatement ps, int i) throws SQLException {
-                PackageEntity pkg = packages.get(i);
-                ps.setLong(1, shipmentId);
-                ps.setDouble(2, pkg.getWeightKg());
-                ps.setDouble(3, pkg.getDimensions());
-                ps.setBigDecimal(4, pkg.getDeclaredValue());
-                ps.setString(5, pkg.getDescription());
-            }
+        for (PackageEntity pkg : packages) {
+            KeyHolder keyHolder = new GeneratedKeyHolder();
 
-            @Override
-            public int getBatchSize() {
-                return packages.size();
-            }
-        });
+            jdbcTemplate.update(connection -> {
+                PreparedStatement ps = connection.prepareStatement(sqlPackage, Statement.RETURN_GENERATED_KEYS);
+                ps.setDouble(1, pkg.getWeightKg());
+                ps.setDouble(2, pkg.getDimensions());
+                ps.setBigDecimal(3, pkg.getDeclaredValue());
+                ps.setString(4, pkg.getDescription());
+                return ps;
+            }, keyHolder);
+
+            Long packageId = Objects.requireNonNull(keyHolder.getKey()).longValue();
+
+            jdbcTemplate.update(sqlRelation, shipmentId, packageId);
+        }
     }
 }

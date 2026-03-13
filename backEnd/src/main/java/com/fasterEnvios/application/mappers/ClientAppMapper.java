@@ -21,7 +21,4 @@ public class ClientAppMapper {
                 "es"
         );
     }
-
-
-
 }

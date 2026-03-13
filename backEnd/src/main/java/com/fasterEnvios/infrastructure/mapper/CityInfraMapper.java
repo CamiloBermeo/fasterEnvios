@@ -21,6 +21,7 @@ public class CityInfraMapper {
 
     public static CityDescriptionEntity toEntity(CityDescription cityDescription) {
         return CityDescriptionEntity.builder()
+                .id(cityDescription.getId())
                 .name(cityDescription.getName())
                 .country(cityDescription.getCountry())
                 .latitude(cityDescription.getLatitude())
@@ -34,8 +35,8 @@ public class CityInfraMapper {
             city.setId(rs.getLong("id"));
             city.setName(rs.getString("name"));
             city.setCountry(rs.getString("country"));
-            city.setLatitude(rs.getInt("latitude"));
-            city.setLongitude(rs.getInt("longitude"));
+            city.setLatitude(rs.getDouble("latitude"));
+            city.setLongitude(rs.getDouble("longitude"));
             return city;
         };
     }

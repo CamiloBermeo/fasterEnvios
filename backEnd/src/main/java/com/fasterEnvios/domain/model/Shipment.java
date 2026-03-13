@@ -9,7 +9,7 @@ public class Shipment {
     private Long id;
     private PaymentTransaction paymentTransaction;
     private List<PackageModel> packageModels;
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
     private LocalDateTime estimatedDeliveryDate;
     private CityDescription cityOrigin;
     private CityDescription cityDestination;

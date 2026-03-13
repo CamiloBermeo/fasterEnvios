@@ -26,6 +26,7 @@ public class ShipmentAppMapper {
                 .withDistance(distance)
                 .withEstimatedDeliveryDate(estimatedDeliveryDate)
                 .withTotalAmount(totalAmount)
+                .withCreatedAt(LocalDateTime.now())
                 .withPackages(
                         List.of(PackageModel.builder()
                                 .withDeclaredValue(dto.packages().declaredValue())
