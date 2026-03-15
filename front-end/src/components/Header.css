@@ -1,0 +1,15 @@
+
+:root {
+    --primary-green: #28B463;
+    --dark-turquoise: #4A9DA5;
+    --icon-blue: #1F61FD;
+    --bg-gray: #F2F2F2;
+    --text-dark: #333;
+}
+
+.header{
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--dark-turquoise);
+    padding-bottom: 40px;
+}
