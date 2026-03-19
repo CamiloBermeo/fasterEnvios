@@ -1,26 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import IconoIr from "../../assets/home_icono.svg";
+import { Link } from "react-router-dom";
 
 
 const Login = () => {
+
+    const [usuario, guardarUsuario] = useState({
+        email: "",
+        password: ""
+    });
+
+    //extraer el usuario
+    const {email,password} = usuario;
+
+    const onChange = e =>{
+        guardarUsuario({
+            ...usuario,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    //cuando el usuario quiere iniciar sesion
+    const onSubmit = e =>{
+        e.preventDefault();
+
+        //validar que no haya campos vacios
+        
+        //pasarlo al action
+    }
+
     return (
 
         <div className="login-container">
-            
+
             <div className="login-card">
-                
+
                 <div className="login-header">
                     <h2>Iniciar Sesión</h2>
                     <p>Ingresa tus credenciales para acceder a tu cuenta</p>
                 </div>
+                
 
-                <form className="login-form" id="loginForm" noValidate>
+                <form className="login-form" id="loginForm" noValidate onSubmit={onSubmit}>
                     <div className="form-group">
                         <div className="input-wrapper">
-                            <input type="email" id="email" name="email" required autoComplete="email" />
+                            <input type="email" id="email" value={email} name="email" required autoComplete="email" onChange={onChange}/>
                             <label htmlFor="email">Correo</label>
                         </div>
                         <span className="error-message" id="emailError"></span>
@@ -28,7 +53,7 @@ const Login = () => {
 
                     <div className="form-group">
                         <div className="input-wrapper password-wrapper">
-                            <input type="password" id="password" name="password" required autoComplete="current-password" />
+                            <input type="password" id="password" value={password} name="password" required autoComplete="current-password" onChange={onChange} />
                             <label htmlFor="password">Contraseña</label>
                             <button type="button" className="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
                                 <span className="eye-icon"></span>
@@ -57,10 +82,10 @@ const Login = () => {
                 <div className="signup-link">
                     <p>¿No tienes una cuenta? <a href="/register">Registrarse</a></p>
                 </div>
-                <button className="btn boton-regresar" type="button">
+                <Link className="btn boton-regresar" to="/home" type="button">
                     <img src={IconoIr} alt="Regresar" />
-                Regresar
-            </button>
+                    Regresar
+                </Link>
 
                 <div className="success-message" id="successMessage">
                     <div className="success-icon">✓</div>

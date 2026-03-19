@@ -394,7 +394,7 @@ body {
     align-items: center; /* Centers children horizontally */
     margin: 20px auto 0; /* Centers the button itself horizontally */
     gap: 4px; /* Space between icon and text */
-
+    width: 100px; /* Set a fixed width for the button */
     background-color: transparent;
     border: none;
     color: var(--dark-turquoise);
@@ -409,6 +409,7 @@ body {
     width: 30px; /* Larger icon */
     height: 30px;
     transition: filter 0.3s ease;
+filter: brightness(0) saturate(100%) invert(21%) sepia(85%) saturate(7484%) hue-rotate(224deg) brightness(96%) contrast(101%);
 }
 
 .boton-regresar:hover {
@@ -416,6 +417,6 @@ body {
 }
 
 .boton-regresar:hover img {
-    /* Generated filter for #ffb000 */
-    filter: brightness(0) saturate(100%) invert(75%) sepia(59%) saturate(1354%) hue-rotate(345deg) brightness(100%) contrast(101%);
+    /* Filtro transformado para aproximarse a #1F61FD */
+filter: brightness(0) saturate(100%) invert(75%) sepia(59%) saturate(1354%) hue-rotate(345deg) brightness(100%) contrast(101%);
 }
