@@ -13,12 +13,21 @@ const Header = ({ titulo }) => {
                     <li><a href="#servicios">Servicios</a></li>
                     <li><a href="#consulta">Consulta</a></li>
                 </ul>
-                <img className="img-logo" src={Logo} alt={titulo} />
+                <img className="img-logo img-fluid" src={Logo} alt={titulo} />
                 <ul className="nav-group d-none d-md-flex">
                     <li><a href="#únete">Únete</a></li>
                     <li><a href="#contactanos">Contactanos</a></li>
-                    <li><a href="/login">Login</a></li>
+                    <button class="btn btn-success dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Iniciar Sesion
+                    </button>
+                    <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Aliado</a></li>
+                    <li><a class="dropdown-item" href="/login">Cliente</a></li>
+                    
+                    
                 </ul>
+                </ul>
+
             </nav>
             <div className="conteiner-consulta-guia">
                 <div className="consulta-guia">

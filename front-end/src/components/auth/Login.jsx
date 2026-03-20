@@ -84,7 +84,7 @@ const Login = () => {
                 </div>
                 <Link className="btn boton-regresar" to="/home" type="button">
                     <img src={IconoIr} alt="Regresar" />
-                    Regresar
+                    Inicio
                 </Link>
 
                 <div className="success-message" id="successMessage">

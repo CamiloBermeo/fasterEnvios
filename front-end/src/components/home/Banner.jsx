@@ -10,13 +10,13 @@ const Banner = () => {
         <div id="carouselExample" className="carousel slide contenedor-banner">
             <div className="carousel-inner">
                 <div claclasNames="carousel-item active">
-                    <img className="d-block w-100 img-banner" src={BannerImage1} alt="banner 1" />
+                    <img className="d-block w-100 img-banner img-fluid" src={BannerImage1} alt="banner 1" />
                 </div>
                 <div className="carousel-item">
-                    <img className="d-block w-100 img-banner" src={BannerImage1} alt="banner 2" />
+                    <img className="d-block w-100 img-banner img-fluid" src={BannerImage1} alt="banner 2" />
                 </div>
                 <div className="carousel-item">
-                    <img className="d-block w-100 img-banner" src={BannerImage1} alt="banner 3" />
+                    <img className="d-block w-100 img-banner img-fluid" src={BannerImage1} alt="banner 3" />
                 </div>
             </div>
             <button type="button " className="boton-banner">Vamos allá... <img className="icono-ir" src={IconoIr} alt="Icono Ir" /></button>

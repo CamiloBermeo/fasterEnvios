@@ -37,7 +37,7 @@ const Register = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className="login-container register-container">
       <div className="login-card">
         <div className="login-header">
           <h2>Registrarse</h2>
@@ -50,7 +50,7 @@ const Register = () => {
           noValidate
           onSubmit={onSubmit}
         >
-          <div className="form-group">
+          <div className="form-group form-dual">
             <div className="input-wrapper">
               <input
                 type="name"
@@ -79,7 +79,7 @@ const Register = () => {
             </div>
             <span className="error-message" id="lastNameError"></span>
           </div>
-          <div className="form-group">
+          <div className="form-group form-dual">
             <div className="input-wrapper">
               <input
                 type="text"
@@ -104,11 +104,11 @@ const Register = () => {
                 autoComplete="contact"
                 onChange={onChange}
               />
-              <label htmlFor="contact">Contacto</label>
+              <label htmlFor="contact">N° Celular</label>
             </div>
             <span className="error-message" id="contactError"></span>
           </div>
-          <div className="form-group">
+          <div className="form-group form-dual">
             <div className="input-wrapper">
               <input
                 type="text"
@@ -229,7 +229,7 @@ const Register = () => {
         </div>
         <Link className="btn boton-regresar" to="/home" type="button">
           <img src={IconoIr} alt="Regresar" />
-          Regresar
+          Inicio
         </Link>
 
         <div className="success-message" id="successMessage">
