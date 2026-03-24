@@ -1,0 +1,130 @@
+:root {
+    --primary-green: #28B463;
+    --dark-turquoise: #4A9DA5;
+    --icon-blue: #1F61FD;
+    --bg-gray: #F2F2F2;
+    --text-dark: #333;
+}
+body{
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-gray);
+    padding: 0;
+}
+
+.header {
+    margin: 0;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--dark-turquoise);
+    padding-bottom: 1.5rem;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+.nav-group{
+    display: flex;
+    align-items: center;
+    display: flex;
+    align-items: baseline;
+    list-style: none;
+    justify-content: space-evenly;
+    flex: 1;
+    padding: 0;
+}
+.nav a {
+    text-decoration: none;
+    color: var(--bg-gray);
+    font-size: 1.2rem;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--bg-gray);
+    transition: width 0.3s ease;
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+.img-logo {
+    width: clamp(10rem, 35vw, 18.75rem);
+    max-width: 100%;
+    height: auto;
+    padding-top: 0.425rem;
+
+}
+
+.conteiner-consulta-guia {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    z-index: 1;
+}
+
+.input-consultar-guia {
+    border: none;
+    outline: none;
+    box-shadow: none !important;
+    padding-left: 1.25rem;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    border-radius: 3.125rem 0 0 3.125rem;
+    width: 100%;
+    background-color: var(--bg-gray);
+    height: 2.5rem;
+    /* 40px */
+}
+
+.consulta-guia {
+    background: var(--bg-gray);
+    border-radius: 3.125rem;
+    /* 50px */
+    padding: 0.3125rem;
+    /* 5px */
+    box-shadow: 0 0.25rem 0.94rem rgba(0, 0, 0, 0.1);
+    /* 4px 15px */
+    display: flex;
+    align-items: center;
+    border: 0.3125rem solid var(--primary-green);
+    /* 5px */
+
+}
+
+.button-consultar-guia {
+    background-color: var(--primary-green);
+    color: var(--text-dark);
+    border: none;
+    border-radius: 50%;
+    width: 2.8125rem;
+    /* 45px */
+    height: 2.8125rem;
+    /* 45px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.button-consultar-guia:hover {
+    background-color: var(--dark-turquoise);
+    cursor: pointer;
+}
+
+.img-button-buscar {
+    font-size: 1.2rem;
+}

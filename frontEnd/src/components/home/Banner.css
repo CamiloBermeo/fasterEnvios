@@ -1,0 +1,62 @@
+:root {
+    --primary-green: #28B463;
+    --dark-turquoise: #4A9DA5;
+    --icon-blue: #1F61FD;
+    --bg-gray: #F2F2F2;
+    --text-dark: #333;
+    --color-naranja: #ffb000;
+}
+
+.contenedor-banner{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.img-banner{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+}
+.carousel-inner, .carousel-item {
+    height: 100%;
+}
+
+.boton-banner{
+   position: absolute; /* Lo saca del flujo y lo pone sobre la imagen */
+    bottom: 25%;       /* Distancia desde el borde inferior del banner */
+    left: 25%;         /* Distancia desde el borde izquierdo */
+    z-index: 10;        /* Asegura que esté por encima de las imágenes del carrusel */
+    /* Opcional: Estilos para que se vea más limpio */
+    padding: 0.4% 2%;
+    border-radius: 15px;
+    background-color: var(--primary-green);
+    color: var(--bg-gray);
+    border: var(--dark-turquoise);
+    max-width: 80%; 
+    white-space: nowrap; /* Evita que el texto se parta en dos líneas */
+    font-size: 150%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.5rem; /* Espacio entre el texto y el icono */
+    font-family: 'Poppins', sans-serif;
+
+}
+.icono-ir{
+
+    width: 40%;
+    height: 40%;
+}
+.boton-banner:hover {
+    background-color: var(--color-naranja);
+    color: var(--bg-gray);
+    border: var(--icon-blue);
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+    width: 17%;
+    height: 8%
+}
