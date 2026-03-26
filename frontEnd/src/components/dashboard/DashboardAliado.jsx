@@ -2,6 +2,7 @@ import React from "react";
 import Sidebar from "../layout/Sidebar";
 import HederDashboardAliado from "../layout/HederDashboardAliado";
 import Shipments from "../layout/Shipments";
+import Metrics from "../layout/Metrics";
 
 const DashboardAliado = () => {
     return (
@@ -12,6 +13,7 @@ const DashboardAliado = () => {
                 <div className="p-8 ">
                     <HederDashboardAliado />
                     <Shipments />
+                    <Metrics />
                 </div>
             </main>
         </div>
