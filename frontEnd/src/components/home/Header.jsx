@@ -20,7 +20,7 @@ const Header = ({ titulo }) => {
                 <ul className="nav-group flex flex-row justify-end">
                     <li><a href="#únete">Únete</a></li>
                     <li><a href="#contactanos">Contactanos</a></li>
-                    <button class=" w-30 h-8 btn rounded-full py-3 px-6 bg-green-500 cursor-pointer hover:bg-green-800 " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="flex items-center w-36 h-8 rounded-full hover:text-white py-3 px-6 bg-green-500 cursor-pointer hover:bg-green-800 " type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Iniciar Sesion
                     </button>
                 
