@@ -3,7 +3,7 @@ import NuevoEnvio from "../../assets/nuevo-envio.svg";
 import BuscarEnvio from "../../assets/buscar-envio.svg";
 import BuscarRepartidores from "../../assets/buscar-persona.svg";
 
-const HederDashboardAliado = () => {
+const Shipments = () => {
     return (
         <div className="flex justify-around items-center w-full h-24  ">
             <div className="flex justify-center items-center w-44 h-20 ">
@@ -43,4 +43,4 @@ const HederDashboardAliado = () => {
         </div>
     );
 };
-export default HederDashboardAliado;
+export default Shipments;

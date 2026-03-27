@@ -1,7 +1,7 @@
 import React from "react";
 const Metrics = () => {
   return (
-    <div className="flex justify-around items-center w-full ">
+    <div className="flex justify-between items-center w-full ">
 
       <div className="flex flex-col items-start p-3 w-60 bg-white rounded-2xl shadow-lg border border-gray-100">
         <h3 className="text-sm font-medium  text-gray-500">Envíos Activos</h3>
