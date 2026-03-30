@@ -5,7 +5,7 @@ import BuscarRepartidores from "../../assets/buscar-persona.svg";
 
 const Shipments = () => {
     return (
-        <div className="flex justify-around items-center w-full h-24  ">
+        <div className="flex justify-around items-center w-full h-20  ">
             <div className="flex justify-center items-center w-44 h-20 ">
                 <button
                     className="flex flex-col justify-center items-center  w-40 h-16 transition-all duration-500 ease-in-out hover:bg-emerald-600 
