@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import IconoIr from "../../assets/home_icono.svg";
-import "./Login.css";
 import { Link } from "react-router-dom";
 
 const Register = () => {
@@ -45,11 +44,12 @@ const Register = () => {
   };
 
   return (
-    <div className="login-container register-container">
-      <div className="login-card">
-        <div className="login-header">
-          <h2>Registrarse</h2>
-          <p>Crea tu cuenta para acceder a tu panel de control</p>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 font-sans text-gray-800 leading-relaxed pb-8 pt-8">
+
+      <div className="max-w-[450px] w-full bg-white rounded-xl p-8 border border-gray-200 shadow-lg sm:p-6">
+        <div className="login-header text-center mb-8">
+          <h2 className="text-2xl font-bold text-slate-800 mb-2 sm:text-xl">Registrarse</h2>
+          <p className="text-slate-500 text-sm">Crea tu cuenta para acceder a tu panel de control</p>
         </div>
 
         <form
@@ -58,22 +58,23 @@ const Register = () => {
           noValidate
           onSubmit={onSubmit}
         >
-          <div className="form-group form-dual">
-            <div className="input-wrapper">
+          <div className="form-group mb-5 form-dual flex gap-4">
+            <div className="input-wrapper relative w-1/2">
               <input
-                type="name"
+                type="text"
                 id="name"
                 value={name}
                 name="name"
                 required
                 autoComplete="name"
                 onChange={onChange}
+                className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
               />
-              <label htmlFor="name">Nombre</label>
+              <label htmlFor="name" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Nombre</label>
             </div>
-            <span className="error-message" id="nameError"></span>
+            <span className="block text-red-500 text-xs font-medium mt-1 ml-1 opacity-0 -translate-y-1 transition-all duration-200" id="nameError"></span>
           
-            <div className="input-wrapper">
+            <div className="input-wrapper relative w-1/2">
               <input
                 type="text"
                 id="lastName"
@@ -82,13 +83,15 @@ const Register = () => {
                 required
                 autoComplete="lastName"
                 onChange={onChange}
+                className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer"
               />
-              <label htmlFor="lastName">Apellido</label>
+              <label htmlFor="lastName" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Apellido</label>
             </div>
-            <span className="error-message" id="lastNameError"></span>
+            <span className="block text-red-500 text-xs font-medium mt-1 ml-1 opacity-0 -translate-y-1 transition-all duration-200" id="lastNameError"></span>
           </div>
-          <div className="form-group form-dual">
-            <div className="input-wrapper">
+          
+          <div className="form-group mb-5 form-dual flex gap-4">
+            <div className="input-wrapper relative w-1/2">
               <input
                 type="text"
                 id="city"
@@ -97,12 +100,13 @@ const Register = () => {
                 required
                 autoComplete="city"
                 onChange={onChange}
+                className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer"
               />
-              <label htmlFor="city">Ciudad</label>
+              <label htmlFor="city" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Ciudad</label>
             </div>
-            <span className="error-message" id="cityError"></span>
+            <span className="block text-red-500 text-xs font-medium mt-1 ml-1 opacity-0 -translate-y-1 transition-all duration-200" id="cityError"></span>
           
-            <div className="input-wrapper">
+            <div className="input-wrapper relative w-1/2">
               <input
                 type="text"
                 id="contact"
@@ -111,13 +115,14 @@ const Register = () => {
                 required
                 autoComplete="contact"
                 onChange={onChange}
+                className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer"
               />
-              <label htmlFor="contact">N° Celular</label>
+              <label htmlFor="contact" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">N° Celular</label>
             </div>
-            <span className="error-message" id="contactError"></span>
+            <span className="block text-red-500 text-xs font-medium mt-1 ml-1 opacity-0 -translate-y-1 transition-all duration-200" id="contactError"></span>
           </div>
-          <div className="form-group form-dual">
-            <div className="input-wrapper">
+          <div className="form-group mb-5 form-dual flex gap-4">
+            <div className="input-wrapper relative w-1/2">
               <input
                 type="text"
                 id="cedula"
@@ -126,12 +131,13 @@ const Register = () => {
                 required
                 autoComplete="cedula"
                 onChange={onChange}
+                className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer"
               />
-              <label htmlFor="cedula">Cédula</label>
+              <label htmlFor="cedula" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Cédula</label>
             </div>
-            <span className="error-message" id="cedulaError"></span>
+            <span className="block text-red-500 text-xs font-medium mt-1 ml-1 opacity-0 -translate-y-1 transition-all duration-200" id="cedulaError"></span>
           
-            <div className="input-wrapper">
+            <div className="input-wrapper relative w-1/2">
               <input
                 type="text"
                 id="cedulaConfirmation"
@@ -140,14 +146,15 @@ const Register = () => {
                 required
                 autoComplete="cedulaConfirmation"
                 onChange={onChange}
+                className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer"
               />
-              <label htmlFor="cedulaConfirmation">Confirmar Cédula</label>
+              <label htmlFor="cedulaConfirmation" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Confirmar Cédula</label>
             </div>
-            <span className="error-message" id="cedulaConfirmationError"></span>
+            <span className="block text-red-500 text-xs font-medium mt-1 ml-1 opacity-0 -translate-y-1 transition-all duration-200" id="cedulaConfirmationError"></span>
           </div>
 
-          <div className="form-group">
-            <div className="input-wrapper">
+          <div className="form-group mb-5">
+            <div className="input-wrapper relative">
               <input
                 type="email"
                 id="email"
@@ -156,13 +163,14 @@ const Register = () => {
                 required
                 autoComplete="email"
                 onChange={onChange}
+                className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer"
               />
-              <label htmlFor="email">Correo</label>
+              <label htmlFor="email" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Correo</label>
             </div>
-            <span className="error-message" id="emailError"></span>
+            <span className="block text-red-500 text-xs font-medium mt-1 ml-1 opacity-0 -translate-y-1 transition-all duration-200" id="emailError"></span>
           </div>
-          <div className="form-group">
-            <div className="input-wrapper">
+          <div className="form-group mb-5">
+            <div className="input-wrapper relative">
               <input
                 type="email"
                 id="emailConfirmation"
@@ -171,14 +179,15 @@ const Register = () => {
                 required
                 autoComplete="emailConfirmation"
                 onChange={onChange}
+                className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer"
               />
-              <label htmlFor="emailConfirmation">Confirmar Correo</label>
+              <label htmlFor="emailConfirmation" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Confirmar Correo</label>
             </div>
-            <span className="error-message" id="emailConfirmationError"></span>
+            <span className="block text-red-500 text-xs font-medium mt-1 ml-1 opacity-0 -translate-y-1 transition-all duration-200" id="emailConfirmationError"></span>
           </div>
 
-          <div className="form-group">
-            <div className="input-wrapper password-wrapper">
+          <div className="form-group mb-5">
+            <div className="input-wrapper relative password-wrapper">
               <input
                 type="password"
                 id="password"
@@ -187,8 +196,9 @@ const Register = () => {
                 required
                 autoComplete="current-password"
                 onChange={onChange}
+                className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 pr-12 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer"
               />
-              <label htmlFor="password">Contraseña</label>
+              <label htmlFor="password" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Contraseña</label>
               <button
                 type="button"
                 className="password-toggle"
@@ -198,10 +208,10 @@ const Register = () => {
                 <span className="eye-icon"></span>
               </button>
             </div>
-            <span className="error-message" id="passwordError"></span>
+            <span className="block text-red-500 text-xs font-medium mt-1 ml-1 opacity-0 -translate-y-1 transition-all duration-200" id="passwordError"></span>
           </div>
-<div className="form-group">
-            <div className="input-wrapper password-wrapper">
+<div className="form-group mb-5">
+            <div className="input-wrapper relative password-wrapper">
               <input
                 type="password"
                 id="passwordConfirmation"
@@ -210,8 +220,9 @@ const Register = () => {
                 required
                 autoComplete="current-password"
                 onChange={onChange}
+                className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 pr-12 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer"
               />
-              <label htmlFor="passwordConfirmation">Confirmar Contraseña</label>
+              <label htmlFor="passwordConfirmation" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Confirmar Contraseña</label>
               <button
                 type="button"
                 className="password-toggle"
@@ -221,30 +232,26 @@ const Register = () => {
                 <span className="eye-icon"></span>
               </button>
             </div>
-            <span className="error-message" id="passwordConfirmationError"></span>
+            <span className="block text-red-500 text-xs font-medium mt-1 ml-1 opacity-0 -translate-y-1 transition-all duration-200" id="passwordConfirmationError"></span>
           </div>
 
-          <button type="submit" className="login-btn">
-            <span className="btn-text">Registrarme</span>
-            <span className="btn-loader"></span>
+          <button type="submit" className="w-full bg-indigo-500 border-none rounded-lg px-6 py-3 text-white text-base font-semibold cursor-pointer transition-all duration-200 relative mb-6 hover:bg-indigo-600 active:translate-y-0.5">
+            <span className="btn-text transition-opacity duration-200">Registrarme</span>
+            <span className="btn-loader absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 border-2 border-transparent border-t-white rounded-full opacity-0 animate-spin transition-opacity duration-200"></span>
           </button>
         </form>
 
         <div className="signup-link">
-          <p>
-            ¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a>
+          <p className="text-slate-500 text-sm">
+            ¿Ya tienes una cuenta? <a href="/login" className="text-indigo-500 no-underline font-medium transition-colors duration-200 hover:text-indigo-600">Iniciar sesión</a>
           </p>
         </div>
-        <Link className="btn boton-regresar" to="/home" type="button">
-          <img src={IconoIr} alt="Regresar" />
+        <Link className="btn boton-regresar flex flex-col items-center mx-auto mt-5 gap-1 w-[100px] bg-transparent border-none text-teal-600 text-xs cursor-pointer p-2 rounded-lg transition-colors duration-200 hover:text-orange-500" to="/home" type="button">
+          <img src={IconoIr} alt="Regresar" className="w-7.5 h-7.5 transition-all duration-300" />
           Inicio
         </Link>
 
-        <div className="success-message" id="successMessage">
-          <div className="success-icon">✓</div>
-          <h3>¡Registro exitoso!</h3>
-          <p>Redirigiendo a tu panel de control...</p>
-        </div>
+  
       </div>
     </div>
   );

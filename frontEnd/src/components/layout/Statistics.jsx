@@ -26,9 +26,9 @@ const Statistics = () => {
     const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date());
 
     const datos = {
-        "2026-03-25": { envios: 15, pendientes: 3 },
-        "2026-03-26": { envios: 8, pendientes: 1 },
-        "2026-03-27": { envios: 12, pendientes: 2 },
+        "2026-04-1": { envios: 15, pendientes: 3 },
+        "2026-04-2": { envios: 8, pendientes: 1 },
+        "2026-04-3": { envios: 12, pendientes: 2 },
     };
 
     // Formateo de fecha para buscar en el objeto
