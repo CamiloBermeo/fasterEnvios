@@ -1,24 +1,34 @@
 package com.fasterEnvios.infrastructure.entity;
 
-import com.fasterEnvios.domain.model.PaymentStatusEnum;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Data
+
+@Entity
+@Table(name = "payment_transactions")
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 @Builder
 public class PaymentTransactionEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private List<ShipmentEntity> shipments;
-    private List<PaymentMethodEntity> paymentMethods;
+    @OneToOne(mappedBy = "paymentTransaction")
+    private ShipmentEntity shipment;
+    @ManyToOne
+    @JoinColumn(name = "payment_method_id")
+    private PaymentMethodEntity paymentMethod;
+    @Column(nullable = false)
     private BigDecimal amount;
+    @Column(nullable = false)
     private LocalDateTime paymentDate;
+    @Column(nullable = false)
     private String paymentStatus;
 }
