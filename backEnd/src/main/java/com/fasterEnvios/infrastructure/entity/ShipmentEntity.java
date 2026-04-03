@@ -18,6 +18,12 @@ public class ShipmentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
+    @ManyToOne
+    @JoinColumn(name = "sender_id",  nullable = false)
+    private PersonEntity sender;
+    @ManyToOne
+    @JoinColumn(name = "addressee_id", nullable = false)
+    private PersonEntity addressee;
     @OneToOne
     @JoinColumn(name = "payment_transaction_id")
     private PaymentTransactionEntity  paymentTransaction;
@@ -28,12 +34,6 @@ public class ShipmentEntity {
     private LocalDateTime  createdAt;
     @Column(nullable = false)
     private LocalDateTime estimatedDeliveryDate;
-    @ManyToOne
-    @JoinColumn(name = "sender_id")
-    private PersonEntity sender;
-    @ManyToOne
-    @JoinColumn(name = "addressee_id")
-    private PersonEntity Addressee;
     @Column(nullable = false)
     private BigDecimal totalAmount;
     @Column(nullable = false)

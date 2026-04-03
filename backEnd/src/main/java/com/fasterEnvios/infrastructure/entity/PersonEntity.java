@@ -15,17 +15,21 @@ public class PersonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String lastName;
+    @Column(nullable = false)
     private String identityDocument;
+    @Column(nullable = false)
     private String phoneNumber;
+    @Column(nullable = false)
     private String address;
     @ManyToOne
-    @JoinColumn(name = "city_sender_id")
-    private CityDescriptionEntity citySender;//origen
-    @ManyToOne
-    @JoinColumn(name = "city_addressee_id")
-    private CityDescriptionEntity cityAddressee;//destino
-
+    @JoinColumn(name = "city_id")
+    private CityDescriptionEntity city;
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 
 }
