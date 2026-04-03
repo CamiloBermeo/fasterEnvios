@@ -8,8 +8,8 @@ import java.util.List;
 
 public class PaymentTransaction {
     private Long id;
-    private List<Shipment> shipments;
-    private List<PaymentMethod> paymentMethods;
+    private Shipment shipments;
+    private PaymentMethod paymentMethods;
     private BigDecimal amount;
     private LocalDateTime paymentDate;
     private PaymentStatusEnum paymentStatus;
@@ -17,7 +17,7 @@ public class PaymentTransaction {
     public PaymentTransaction() {
     }
 
-    private PaymentTransaction(Long id, List<Shipment> shipments, List<PaymentMethod> paymentMethods, BigDecimal amount, LocalDateTime paymentDate, PaymentStatusEnum paymentStatus) {
+    private PaymentTransaction(Long id, Shipment shipments, PaymentMethod paymentMethods, BigDecimal amount, LocalDateTime paymentDate, PaymentStatusEnum paymentStatus) {
         this.id = id;
         this.shipments = shipments;
         this.paymentMethods = paymentMethods;
@@ -51,8 +51,8 @@ public class PaymentTransaction {
 
     public static class PaymentTransactionBuilder {
         private Long id;
-        private List<Shipment> shipments;
-        private List<PaymentMethod> paymentMethods;
+        private Shipment shipments;
+        private PaymentMethod paymentMethods;
         private BigDecimal amount;
         private LocalDateTime paymentDate;
         private PaymentStatusEnum paymentStatus;
@@ -62,12 +62,12 @@ public class PaymentTransaction {
             return this;
         }
 
-        public PaymentTransactionBuilder withShipments(List<Shipment> shipments) {
+        public PaymentTransactionBuilder withShipments(Shipment shipments) {
             this.shipments = shipments;
             return this;
         }
 
-        public PaymentTransactionBuilder withPaymentMethods(List<PaymentMethod> paymentMethods) {
+        public PaymentTransactionBuilder withPaymentMethods(PaymentMethod paymentMethods) {
             this.paymentMethods = paymentMethods;
             return this;
         }
@@ -96,11 +96,11 @@ public class PaymentTransaction {
         return id;
     }
 
-    public List<Shipment> getShipments() {
+    public Shipment getShipments() {
         return shipments;
     }
 
-    public List<PaymentMethod> getPaymentMethods() {
+    public PaymentMethod getPaymentMethods() {
         return paymentMethods;
     }
 

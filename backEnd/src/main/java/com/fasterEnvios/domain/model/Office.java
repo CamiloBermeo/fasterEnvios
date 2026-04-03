@@ -4,18 +4,20 @@ public class Office {
     private Long id;
     private String officeName;
     private String address;
-    private String city;
+    private CityDescription city;
     private String phoneNumber;
+    private Employee employee;
 
     public Office() {
     }
 
-    private Office(Long id, String officeName, String address, String city, String phoneNumber) {
+    private Office(Long id, String officeName, String address, CityDescription city, String phoneNumber, Employee employee) {
         this.id = id;
         this.officeName = officeName;
         this.address = address;
         this.city = city;
         this.phoneNumber = phoneNumber;
+        this.employee = employee;
     }
 
     public static OfficeBuilder builder() {
@@ -28,6 +30,7 @@ public class Office {
         this.address = builder.address;
         this.city = builder.city;
         this.phoneNumber = builder.phoneNumber;
+        this.employee = builder.employee;
     }
 
     public OfficeBuilder toBuilder() {
@@ -36,15 +39,17 @@ public class Office {
                 .withOfficeName(this.officeName)
                 .withAddress(this.address)
                 .withCity(this.city)
-                .withPhoneNumber(this.phoneNumber);
+                .withPhoneNumber(this.phoneNumber)
+                .withEmployee(this.employee);
     }
 
     public static class OfficeBuilder {
         private Long id;
         private String officeName;
         private String address;
-        private String city;
+        private CityDescription city;
         private String phoneNumber;
+        private Employee employee;
 
         public OfficeBuilder withId(Long id) {
             this.id = id;
@@ -60,8 +65,11 @@ public class Office {
             this.address = address;
             return this;
         }
-
-        public OfficeBuilder withCity(String city) {
+        public OfficeBuilder withEmployee(Employee employee) {
+            this.employee = employee;
+            return this;
+        }
+        public OfficeBuilder withCity(CityDescription city) {
             this.city = city;
             return this;
         }
@@ -88,11 +96,15 @@ public class Office {
         return address;
     }
 
-    public String getCity() {
+    public CityDescription getCity() {
         return city;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public Employee getEmployee() {
+        return employee;
     }
 }

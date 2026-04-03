@@ -7,12 +7,12 @@ import java.util.List;
 
 public class Shipment {
     private Long id;
+    private Person sender;
+    private Person addressee;
     private PaymentTransaction paymentTransaction;
-    private List<PackageModel> packageModels;
+    private PackageModel packageModels;
     private LocalDateTime createdAt;
     private LocalDateTime estimatedDeliveryDate;
-    private CityDescription cityOrigin;
-    private CityDescription cityDestination;
     private BigDecimal totalAmount;
     private double distance;
     private StateEnum state;
@@ -20,14 +20,14 @@ public class Shipment {
     public Shipment() {
     }
 
-    private Shipment(Long id, PaymentTransaction paymentTransaction, List<PackageModel> packageModels, LocalDateTime createdAt, BigDecimal totalAmount,LocalDateTime estimatedDeliveryDate, double distance, CityDescription cityOrigin, CityDescription cityDestination, StateEnum state) {
+    private Shipment(Long id, Person sender, Person addressee,PaymentTransaction paymentTransaction, PackageModel packageModels, LocalDateTime createdAt, BigDecimal totalAmount,LocalDateTime estimatedDeliveryDate, double distance, StateEnum state) {
         this.id = id;
+        this.sender = sender;
+        this.addressee = addressee;
         this.paymentTransaction = paymentTransaction;
         this.packageModels = packageModels;
         this.createdAt = createdAt;
         this.estimatedDeliveryDate = estimatedDeliveryDate;
-        this.cityOrigin = cityOrigin;
-        this.cityDestination = cityDestination;
         this.totalAmount = totalAmount;
         this.distance = distance;
         this.state = state;
@@ -39,12 +39,12 @@ public class Shipment {
 
     private Shipment(ShipmentBuilder builder) {
         this.id = builder.id;
+        this.sender = builder.sender;
+        this.addressee= builder.addressee;
         this.paymentTransaction = builder.paymentTransaction;
         this.packageModels = builder.packageModels;
         this.createdAt = builder.createdAt;
         this.estimatedDeliveryDate = builder.estimatedDeliveryDate;
-        this.cityOrigin = builder.cityOrigin;
-        this.cityDestination = builder.cityDestination;
         this.totalAmount = builder.totalAmount;
         this.distance = builder.distance;
         this.state = builder.state;
@@ -53,12 +53,12 @@ public class Shipment {
     public ShipmentBuilder toBuilder() {
         return new ShipmentBuilder()
                 .withId(this.id)
+                .withSender(this.sender)
+                .withAddressee(this.addressee)
                 .withPaymentTransaction(this.paymentTransaction)
                 .withPackages(this.packageModels)
                 .withCreatedAt(this.createdAt)
                 .withEstimatedDeliveryDate(this.estimatedDeliveryDate)
-                .withCityOrigin(this.cityOrigin)
-                .withCityDestination(this.cityDestination)
                 .withTotalAmount(this.totalAmount)
                 .withDistance(this.distance)
                 .withState(this.state);
@@ -66,12 +66,12 @@ public class Shipment {
 
     public static class ShipmentBuilder {
         private Long id;
+        private Person sender;
+        private Person addressee;
         private PaymentTransaction paymentTransaction;
-        private List<PackageModel> packageModels;
+        private PackageModel packageModels;
         private LocalDateTime createdAt;
         private LocalDateTime estimatedDeliveryDate;
-        private CityDescription cityOrigin;
-        private CityDescription cityDestination;
         private BigDecimal totalAmount;
         private double distance;
         private StateEnum state;
@@ -90,7 +90,7 @@ public class Shipment {
             return this;
         }
 
-        public ShipmentBuilder withPackages(List<PackageModel> packageModels) {
+        public ShipmentBuilder withPackages(PackageModel packageModels) {
             this.packageModels = packageModels;
             return this;
         }
@@ -98,8 +98,14 @@ public class Shipment {
             this.totalAmount = totalAmount;
             return this;
         }
-
-
+        public ShipmentBuilder withSender(Person sender) {
+            this.sender = sender;
+            return this;
+        }
+        public ShipmentBuilder withAddressee(Person addressee) {
+            this.addressee = addressee;
+            return this;
+        }
         public ShipmentBuilder withCreatedAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
@@ -107,16 +113,6 @@ public class Shipment {
 
         public ShipmentBuilder withEstimatedDeliveryDate(LocalDateTime estimatedDeliveryDate) {
             this.estimatedDeliveryDate = estimatedDeliveryDate;
-            return this;
-        }
-
-        public ShipmentBuilder withCityOrigin(CityDescription cityOrigin) {
-            this.cityOrigin = cityOrigin;
-            return this;
-        }
-
-        public ShipmentBuilder withCityDestination(CityDescription cityDestination) {
-            this.cityDestination = cityDestination;
             return this;
         }
 
@@ -142,12 +138,20 @@ public class Shipment {
         return createdAt;
     }
 
-    public List<PackageModel> getPackageModels() {
+    public PackageModel getPackageModels() {
         return packageModels;
     }
 
     public LocalDateTime getEstimatedDeliveryDate() {
         return estimatedDeliveryDate;
+    }
+
+    public Person getSender() {
+        return sender;
+    }
+
+    public Person getAddressee() {
+        return addressee;
     }
 
     public BigDecimal getTotalAmount() {
@@ -156,14 +160,6 @@ public class Shipment {
 
     public double getDistance() {
         return distance;
-    }
-
-    public CityDescription getCityOrigin() {
-        return cityOrigin;
-    }
-
-    public CityDescription getCityDestination() {
-        return cityDestination;
     }
 
     public StateEnum getState() {

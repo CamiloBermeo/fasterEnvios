@@ -2,8 +2,6 @@ package com.fasterEnvios.domain.model;
 
 import com.fasterEnvios.infrastructure.entity.RoleEntity;
 
-import java.util.List;
-
 public class UserModel {
     private Long id;
     private String name;
@@ -12,12 +10,12 @@ public class UserModel {
     private String passwordHash;
     private String phoneNumber;
     private String address;
-    private List<RoleEntity> roles;
+    private RoleEntity roles;
 
     public UserModel() {
     }
 
-    private UserModel(Long id, String name, String lastName, String email, String passwordHash, String phoneNumber, String address, List<RoleEntity> roles) {
+    private UserModel(Long id, String name, String lastName, String email, String passwordHash, String phoneNumber, String address, RoleEntity roles) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -63,7 +61,7 @@ public class UserModel {
         private String passwordHash;
         private String phoneNumber;
         private String address;
-        private List<RoleEntity> roles;
+        private RoleEntity roles;
 
         public UserModelBuilder withId(Long id) {
             this.id = id;
@@ -100,7 +98,7 @@ public class UserModel {
             return this;
         }
 
-        public UserModelBuilder withRoles(List<RoleEntity> roles) {
+        public UserModelBuilder withRoles(RoleEntity roles) {
             this.roles = roles;
             return this;
         }
@@ -138,7 +136,7 @@ public class UserModel {
         return address;
     }
 
-    public List<RoleEntity> getRoles() {
+    public RoleEntity getRoles() {
         return roles;
     }
 }
