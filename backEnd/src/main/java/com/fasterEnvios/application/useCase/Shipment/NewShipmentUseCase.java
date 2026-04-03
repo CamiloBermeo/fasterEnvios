@@ -34,49 +34,50 @@ public class NewShipmentUseCase {
     private final CityRepository cityRepository;
     private final ShipmentRepository shipmentRepository;
 
-    public NewShipmentResponseDTO execute(NewShipmentRequestDTO dto) throws IOException, InterruptedException {
-
-        CityDescription cityOriginDB = findCityByNameUseCase.execute(dto.cityOrigin())
+    public NewShipmentResponseDTO execute(NewShipmentRequestDTO dto) {
+        //primero busco la ciudad si esta en la base de datos
+        CityDescription citySenderDB = findCityByNameUseCase.execute(dto.sender().city().name())
                 .orElseGet(() -> {
-                    try {
-                        return saveCityWhenIsEmpty(dto.cityOrigin());
+                    try {//en caso de que no este en la db hago llamada a la api para buscarla y traer informacion de esta ciudad
+                        return saveCityWhenIsEmpty(dto.sender().city().name());
                     } catch (IOException | InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                 });
-        CityDescription cityDestinationDB = findCityByNameUseCase.execute(dto.cityDestination())
+        CityDescription cityAddresseeDB = findCityByNameUseCase.execute(dto.addressee().city().name())
                 .orElseGet(() -> {
                     try {
-                        return saveCityWhenIsEmpty(dto.cityDestination());
+                        return saveCityWhenIsEmpty(dto.addressee().city().name());
                     } catch (IOException | InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                 });
-
-        ClientRequestDTO client = ClientAppMapper.toClient(cityOriginDB, cityDestinationDB);
+        //una vez ya tenga las ciudads en orden consulto al cliente ara la distancia entre las ciudades
+        ClientRequestDTO client = ClientAppMapper.toClient(citySenderDB, cityAddresseeDB);
         ClientResponseDTO info = openRoutServiceClient.requestDistance(client);
         LocalDateTime estimatedDeliveryDate = LocalDateTime.now().plusDays(3);
         StateEnum state = dto.status();
-
         if (state == null) {
             state = StateEnum.RECEIVED;
         }
-
         BigDecimal totalAmount = calculatedTotalAmount(info.distance(), dto.packages().weightKg(), dto.packages().declaredValue());
-
+        //armo en el mapper toda la informacion del envio y lo pongo en la clase shipment
         Shipment shipment = ShipmentAppMapper.toModel(dto, estimatedDeliveryDate, info.distance(), state, totalAmount, cityOriginDB, cityDestinationDB);
-
+        //mando a guardar el envio en el repository
         Shipment savedShipment = shipmentRepository.save(shipment);
-
+        //retorno el dto con la informacion necesaria del shipment
         return ShipmentAppMapper.toDto(savedShipment);
     }
 
 
-    private CityDescription saveCityWhenIsEmpty(String city) throws IOException, InterruptedException {
+    private CityDescription saveCityWhenIsEmpty(String city) {
         String country = "Colombia";
+        //creo el dto con la ciudad y el pais con el mapper
         CityCoordinatesRequestDTO cityForClient = CityAppMapper.toClientCityCoordinates(city, country);
+        //envio ese dto al cliente y recibo un dto con la informacion de la ciudad
         CityCoordinatesResponseDTO coordinates = openRoutServiceClient.requestCoordinates(cityForClient);
-        return cityRepository.save(CityAppMapper.toDomain(city, coordinates))
+        //acá paso la informacion obtenida en el cliente para guardarla en la base de datos
+        return cityRepository.save(CityAppMapper.toDomain(city, country, coordinates))
                 .orElseThrow(() -> new SaveErrorDataBaseException(city));
     }
 

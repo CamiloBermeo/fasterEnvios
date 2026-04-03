@@ -11,7 +11,6 @@ public record NewShipmentResponseDTO (
         double distance,
         BigDecimal totalAmount,      // Costo total del envío
         LocalDateTime estimatedDate, // Fecha estimada de llegada
-        LocalDateTime createdAt,     // Fecha de creación
-        int packageCount
+        LocalDateTime createdAt     // Fecha de creación
 ){
 }

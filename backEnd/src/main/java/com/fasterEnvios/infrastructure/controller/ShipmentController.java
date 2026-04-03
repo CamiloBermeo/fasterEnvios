@@ -21,7 +21,7 @@ public class ShipmentController {
     private final NewShipmentUseCase newShipmentUseCase;
 
     @PostMapping
-    public ResponseEntity<NewShipmentResponseDTO> newShipment (@Valid @RequestBody NewShipmentRequestDTO dto) throws IOException, InterruptedException {
+    public ResponseEntity<NewShipmentResponseDTO> newShipment (@Valid @RequestBody NewShipmentRequestDTO dto) {
         NewShipmentResponseDTO shipmentResponseDTO = newShipmentUseCase.execute(dto);
         return ResponseEntity.ok(shipmentResponseDTO);
     }

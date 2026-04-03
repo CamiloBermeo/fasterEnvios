@@ -9,6 +9,7 @@ import java.util.List;
 
 public record PaymentTransactionRequestDTO(
         PaymentStatusEnum paymentStatus,
-        BigDecimal amount
+        BigDecimal amount,
+        String methodPaymentName
 ) {
 }

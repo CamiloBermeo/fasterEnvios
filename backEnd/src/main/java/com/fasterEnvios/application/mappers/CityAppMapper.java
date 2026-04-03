@@ -5,10 +5,10 @@ import com.fasterEnvios.application.dto.client.CityCoordinatesResponseDTO;
 import com.fasterEnvios.domain.model.CityDescription;
 
 public class CityAppMapper {
-    public static CityDescription toDomain (String city, CityCoordinatesResponseDTO coordinates){
+    public static CityDescription toDomain (String city,String country, CityCoordinatesResponseDTO coordinates){
         return CityDescription.builder()
                 .withName(city)
-                .withCountry("Colombia")
+                .withCountry(country)
                 .withLatitude(coordinates.latitude())
                 .withLongitude(coordinates.longitude())
                 .build();

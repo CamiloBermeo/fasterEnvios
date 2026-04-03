@@ -10,36 +10,61 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class ShipmentAppMapper {
+/*
 
+    private PaymentTransaction paymentTransaction;
+    private PackageModel packageModels;
+    */
     public static Shipment toModel(NewShipmentRequestDTO dto,
                                    LocalDateTime estimatedDeliveryDate,
                                    double distance,
                                    StateEnum state,
                                    BigDecimal totalAmount,
-                                   CityDescription cityOriginDB,
-                                   CityDescription cityDestinationDB) {
+                                   CityDescription citySenderDB,
+                                   CityDescription cityAddresseeDB) {
 
         return Shipment.builder()
-                .withCityOrigin(cityOriginDB)
-                .withCityDestination(cityDestinationDB)
+                .withSender(Person.builder()
+                        .withName(dto.sender().name())
+                        .withLastName(dto.sender().lastName())
+                        .withIdentityDocument(dto.sender().identityDocument())
+                        .withPhoneNumber(dto.sender().phoneNumber())
+                        .withAddress(dto.sender().address())
+                        .withCity(citySenderDB)
+                        .build()
+
+                )
+                .withAddressee(Person.builder()
+                        .withName(dto.addressee().name())
+                        .withLastName(dto.addressee().lastName())
+                        .withIdentityDocument(dto.addressee().identityDocument())
+                        .withPhoneNumber(dto.addressee().phoneNumber())
+                        .withAddress(dto.addressee().address())
+                        .withCity(cityAddresseeDB)
+                        .build()
+                )
                 .withState(state)
                 .withDistance(distance)
                 .withEstimatedDeliveryDate(estimatedDeliveryDate)
                 .withTotalAmount(totalAmount)
                 .withCreatedAt(LocalDateTime.now())
                 .withPackages(
-                        List.of(PackageModel.builder()
+                        PackageModel.builder()
                                 .withDeclaredValue(dto.packages().declaredValue())
                                 .withDescription(dto.packages().description())
                                 .withDimensions(dto.packages().dimensions())
                                 .withWeightKg(dto.packages().weightKg())
-                                .build()))
+                                .build())
+
                 .withPaymentTransaction(
                         PaymentTransaction.builder()
                                 .withAmount(dto.paymentTransaction().amount())
                                 .withPaymentStatus(PaymentStatusEnum.valueOf(dto.paymentTransaction().paymentStatus().toString()))
                                 .withPaymentDate(LocalDateTime.now())
-                                .withPaymentMethods(List.of())
+                                .withPaymentMethods(PaymentMethod.builder()
+                                        .withMethodName(dto.paymentTransaction().methodPaymentName())
+                                        .build()
+                                )
                                 .build()
                 ).build();
     }
@@ -48,13 +73,12 @@ public class ShipmentAppMapper {
         return new NewShipmentResponseDTO(
                 shipment.getId(),
                 shipment.getState().toString(),
-                shipment.getCityOrigin().getName(),
-                shipment.getCityDestination().getName(),
+                shipment.getSender().getCity().getName(),
+                shipment.getAddressee().getCity().getName(),
                 shipment.getDistance(),
                 shipment.getTotalAmount(),
                 shipment.getEstimatedDeliveryDate(),
-                shipment.getCreatedAt(),
-                shipment.getPackageModels().size()
+                shipment.getCreatedAt()
         );
     }
 

@@ -5,6 +5,7 @@ import com.fasterEnvios.application.dto.client.CityCoordinatesResponseDTO;
 import com.fasterEnvios.application.dto.client.ClientRequestDTO;
 import com.fasterEnvios.application.dto.client.ClientResponseDTO;
 import com.fasterEnvios.application.exceptions.client.ExternalServiceException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -24,11 +25,20 @@ import java.nio.charset.StandardCharsets;
 public class OpenRoutServiceClient {
     @Value("${client.openRouteService-apiKey}")
     private String apiKey;
-
-    public ClientResponseDTO requestDistance(ClientRequestDTO dto) throws IOException, InterruptedException {
+    private String nameApi = "Open Rout Service";
+    String jsonBody;
+    //eticion para saber la distancia entre dos ciudades
+    public ClientResponseDTO requestDistance(ClientRequestDTO dto)  {
         System.out.println(dto.coordinates());
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonBody = objectMapper.writeValueAsString(dto);
+        try{
+            jsonBody = objectMapper.writeValueAsString(dto);
+
+        }catch (IOException | JsonProcessingException e){
+            throw  new ExternalServiceException(nameApi);
+        }
+
+
         String url = "https://api.openrouteservice.org/v2/directions/driving-car";
 
         HttpClient client = HttpClient.newHttpClient();
@@ -42,7 +52,7 @@ public class OpenRoutServiceClient {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
-            String nameApi = "Open Rout Service";
+
             throw new ExternalServiceException(nameApi, response.statusCode(), response.body());
         }
 
@@ -53,7 +63,7 @@ public class OpenRoutServiceClient {
 
         return new ClientResponseDTO(distance, duration);
     }
-
+    //peticion para saber las coordenadas de las cudades
     public CityCoordinatesResponseDTO requestCoordinates(CityCoordinatesRequestDTO dto) throws IOException, InterruptedException {
         ObjectMapper objectMapper = new ObjectMapper();
         String encodeCity = URLEncoder.encode(dto.name(), StandardCharsets.UTF_8);

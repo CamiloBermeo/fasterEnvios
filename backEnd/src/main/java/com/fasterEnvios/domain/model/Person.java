@@ -1,6 +1,5 @@
 package com.fasterEnvios.domain.model;
 
-import com.fasterEnvios.infrastructure.entity.CityDescriptionEntity;
 import com.fasterEnvios.infrastructure.entity.UserEntity;
 
 public class Person {
@@ -10,13 +9,13 @@ public class Person {
     private String identityDocument;
     private String phoneNumber;
     private String address;
-    private CityDescriptionEntity city;
+    private CityDescription city;
     private UserEntity user;
 
     public Person() {
     }
 
-    public Person(Long id, String name, String lastName, String identityDocument, String phoneNumber, String address, CityDescriptionEntity city, UserEntity user) {
+    public Person(Long id, String name, String lastName, String identityDocument, String phoneNumber, String address, CityDescription city, UserEntity user) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -60,7 +59,7 @@ public class Person {
         private String identityDocument;
         private String phoneNumber;
         private String address;
-        private CityDescriptionEntity city;
+        private CityDescription city;
         private UserEntity user;
 
         public PersonBuilder withId(Long id) {
@@ -93,7 +92,7 @@ public class Person {
             return this;
         }
 
-        public PersonBuilder withCity(CityDescriptionEntity city) {
+        public PersonBuilder withCity(CityDescription city) {
             this.city = city;
             return this;
         }
@@ -132,7 +131,7 @@ public class Person {
         return address;
     }
 
-    public CityDescriptionEntity getCity() {
+    public CityDescription getCity() {
         return city;
     }
 

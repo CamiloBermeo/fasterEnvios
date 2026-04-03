@@ -21,23 +21,10 @@ public class CityInfraMapper {
 
     public static CityDescriptionEntity toEntity(CityDescription cityDescription) {
         return CityDescriptionEntity.builder()
-                .id(cityDescription.getId())
                 .name(cityDescription.getName())
                 .country(cityDescription.getCountry())
                 .latitude(cityDescription.getLatitude())
                 .longitude(cityDescription.getLongitude())
                 .build();
-    }
-
-    public static RowMapper<CityDescriptionEntity> cityRowMapperJDBC() {
-        return (rs, rowNum) -> {
-            CityDescriptionEntity city = new CityDescriptionEntity();
-            city.setId(rs.getLong("id"));
-            city.setName(rs.getString("name"));
-            city.setCountry(rs.getString("country"));
-            city.setLatitude(rs.getDouble("latitude"));
-            city.setLongitude(rs.getDouble("longitude"));
-            return city;
-        };
     }
 }
