@@ -5,6 +5,8 @@ import com.fasterEnvios.application.dto.client.CityCoordinatesResponseDTO;
 import com.fasterEnvios.application.dto.client.ClientRequestDTO;
 import com.fasterEnvios.application.dto.client.ClientResponseDTO;
 import com.fasterEnvios.application.exceptions.client.ExternalServiceException;
+import com.fasterEnvios.application.exceptions.client.JsonMapperInternalServiceException;
+import com.fasterEnvios.application.exceptions.client.JsonMapperResponseClientException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,17 +27,22 @@ import java.nio.charset.StandardCharsets;
 public class OpenRoutServiceClient {
     @Value("${client.openRouteService-apiKey}")
     private String apiKey;
-    private String nameApi = "Open Rout Service";
-    String jsonBody;
+
+
     //eticion para saber la distancia entre dos ciudades
-    public ClientResponseDTO requestDistance(ClientRequestDTO dto)  {
+    public ClientResponseDTO requestDistance(ClientRequestDTO dto) {
+        String jsonBody;
+        JsonNode root;
+        HttpResponse<String> response = null;
+        String nameApi = "Open Rout Service";
         System.out.println(dto.coordinates());
         ObjectMapper objectMapper = new ObjectMapper();
-        try{
+
+        try {
             jsonBody = objectMapper.writeValueAsString(dto);
 
-        }catch (IOException | JsonProcessingException e){
-            throw  new ExternalServiceException(nameApi);
+        } catch (IOException e) {
+            throw new JsonMapperInternalServiceException(nameApi);
         }
 
 
@@ -49,22 +56,39 @@ public class OpenRoutServiceClient {
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
                 .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        if (response.statusCode() != 200) {
-
-            throw new ExternalServiceException(nameApi, response.statusCode(), response.body());
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new ExternalServiceException(nameApi, 502, "ERROR al conectar con el cliente");
+        }catch (IOException e){
+            throw new ExternalServiceException(nameApi, 502, "ERROR al conectar con el cliente");
         }
 
-        JsonNode root = objectMapper.readTree(response.body());
+        if (response.statusCode() != 200) {
+            throw new ExternalServiceException(nameApi, response.statusCode(), response.body());
+        }
+        try {
+
+            root = objectMapper.readTree(response.body());
+        } catch (JsonProcessingException e) {
+            throw new JsonMapperResponseClientException(nameApi);
+        }
+
         JsonNode location = root.path("routes").get(0).path("summary");
         double distance = location.path("distance").asDouble();
         double duration = location.path("duration").asDouble();
 
         return new ClientResponseDTO(distance, duration);
     }
+
     //peticion para saber las coordenadas de las cudades
-    public CityCoordinatesResponseDTO requestCoordinates(CityCoordinatesRequestDTO dto) throws IOException, InterruptedException {
+    public CityCoordinatesResponseDTO requestCoordinates(CityCoordinatesRequestDTO dto) {
+        String jsonBody;
+        JsonNode root;
+        HttpResponse<String> response = null;
+        String nameApi = "Open Rout Service";
+
         ObjectMapper objectMapper = new ObjectMapper();
         String encodeCity = URLEncoder.encode(dto.name(), StandardCharsets.UTF_8);
         String encodeCountry = URLEncoder.encode(dto.country(), StandardCharsets.UTF_8);
@@ -76,13 +100,26 @@ public class OpenRoutServiceClient {
                 .GET()
                 .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        try {
+
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new ExternalServiceException(nameApi, 502, "Error al conectar con el cliente");
+        }catch (IOException e){
+            throw new ExternalServiceException(nameApi, 502, "Error al conectar con el cliente");
+        }
         if (response.statusCode() != 200) {
-            String nameApi = "Open Rout Service";
+            nameApi = "Open Rout Service";
             throw new ExternalServiceException(nameApi, response.statusCode(), response.body());
         }
+        try {
 
-        JsonNode root = objectMapper.readTree(response.body());
+            root = objectMapper.readTree(response.body());
+        } catch (JsonProcessingException e) {
+
+            throw new JsonMapperResponseClientException(nameApi);
+        }
         JsonNode firstFeature = root.path("features").get(0);
         JsonNode coordinates = firstFeature.path("geometry").path("coordinates");
 

@@ -38,19 +38,15 @@ public class NewShipmentUseCase {
         //primero busco la ciudad si esta en la base de datos
         CityDescription citySenderDB = findCityByNameUseCase.execute(dto.sender().city().name())
                 .orElseGet(() -> {
-                    try {//en caso de que no este en la db hago llamada a la api para buscarla y traer informacion de esta ciudad
+                 //en caso de que no este en la db hago llamada a la api para buscarla y traer informacion de esta ciudad
                         return saveCityWhenIsEmpty(dto.sender().city().name());
-                    } catch (IOException | InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+
                 });
         CityDescription cityAddresseeDB = findCityByNameUseCase.execute(dto.addressee().city().name())
                 .orElseGet(() -> {
-                    try {
+
                         return saveCityWhenIsEmpty(dto.addressee().city().name());
-                    } catch (IOException | InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+
                 });
         //una vez ya tenga las ciudads en orden consulto al cliente ara la distancia entre las ciudades
         ClientRequestDTO client = ClientAppMapper.toClient(citySenderDB, cityAddresseeDB);
@@ -62,7 +58,7 @@ public class NewShipmentUseCase {
         }
         BigDecimal totalAmount = calculatedTotalAmount(info.distance(), dto.packages().weightKg(), dto.packages().declaredValue());
         //armo en el mapper toda la informacion del envio y lo pongo en la clase shipment
-        Shipment shipment = ShipmentAppMapper.toModel(dto, estimatedDeliveryDate, info.distance(), state, totalAmount, cityOriginDB, cityDestinationDB);
+        Shipment shipment = ShipmentAppMapper.toModel(dto, estimatedDeliveryDate, info.distance(), state, totalAmount, citySenderDB, cityAddresseeDB);
         //mando a guardar el envio en el repository
         Shipment savedShipment = shipmentRepository.save(shipment);
         //retorno el dto con la informacion necesaria del shipment
