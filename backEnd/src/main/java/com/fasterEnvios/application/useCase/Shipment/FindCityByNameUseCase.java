@@ -1,7 +1,7 @@
 package com.fasterEnvios.application.useCase.Shipment;
 
 import com.fasterEnvios.domain.model.CityDescription;
-import com.fasterEnvios.domain.repository.CityRepository;
+import com.fasterEnvios.domain.repository.ICityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +11,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class FindCityByNameUseCase {
 
-    private final CityRepository cityRepository;
+    private final ICityRepository ICityRepository;
 
     public Optional<CityDescription> execute (String name){
-        return cityRepository.findCityByName(name);
+        return ICityRepository.findCityByName(name);
     }
 
 }

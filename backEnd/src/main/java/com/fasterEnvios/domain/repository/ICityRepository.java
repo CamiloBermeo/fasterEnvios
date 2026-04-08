@@ -4,7 +4,7 @@ import com.fasterEnvios.domain.model.CityDescription;
 
 import java.util.Optional;
 
-public interface CityRepository {
+public interface ICityRepository {
 
     Optional<CityDescription> findCityByName(String name);
     Optional<CityDescription> save(CityDescription city);

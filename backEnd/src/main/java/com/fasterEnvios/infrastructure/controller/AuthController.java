@@ -1,0 +1,30 @@
+package com.fasterEnvios.infrastructure.controller;
+
+import com.fasterEnvios.application.dto.auth.AuthDataDTO;
+import com.fasterEnvios.application.dto.auth.TokenDataDTO;
+import com.fasterEnvios.infrastructure.security.CustomUserDetails;
+import com.fasterEnvios.infrastructure.security.TokenService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/v1/auth")
+public class AuthController {
+    private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
+
+    @PostMapping("login")
+    public ResponseEntity<TokenDataDTO> login (@RequestBody AuthDataDTO dto, @AuthenticationPrincipal CustomUserDetails customUserDetails){
+
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(dto.email(), dto.password());
+        var authentication = authenticationManager.authenticate(authenticationToken);
+        String accessToken = tokenService.generateToken(customUserDetails);
+
+        return ResponseEntity.ok(new TokenDataDTO(accessToken));
+    }
+}

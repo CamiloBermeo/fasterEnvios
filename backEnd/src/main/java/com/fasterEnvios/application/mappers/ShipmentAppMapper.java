@@ -10,11 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class ShipmentAppMapper {
-/*
 
-    private PaymentTransaction paymentTransaction;
-    private PackageModel packageModels;
-    */
     public static Shipment toModel(NewShipmentRequestDTO dto,
                                    LocalDateTime estimatedDeliveryDate,
                                    double distance,

@@ -11,19 +11,16 @@ import com.fasterEnvios.application.mappers.CityAppMapper;
 import com.fasterEnvios.application.mappers.ClientAppMapper;
 import com.fasterEnvios.application.mappers.ShipmentAppMapper;
 import com.fasterEnvios.domain.model.CityDescription;
-import com.fasterEnvios.domain.model.PaymentStatusEnum;
 import com.fasterEnvios.domain.model.Shipment;
 import com.fasterEnvios.domain.model.StateEnum;
-import com.fasterEnvios.domain.repository.CityRepository;
-import com.fasterEnvios.domain.repository.ShipmentRepository;
+import com.fasterEnvios.domain.repository.ICityRepository;
+import com.fasterEnvios.domain.repository.IShipmentRepository;
 import com.fasterEnvios.infrastructure.client.OpenRoutServiceClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -31,8 +28,8 @@ public class NewShipmentUseCase {
 
     private final OpenRoutServiceClient openRoutServiceClient;
     private final FindCityByNameUseCase findCityByNameUseCase;
-    private final CityRepository cityRepository;
-    private final ShipmentRepository shipmentRepository;
+    private final ICityRepository ICityRepository;
+    private final IShipmentRepository IShipmentRepository;
 
     public NewShipmentResponseDTO execute(NewShipmentRequestDTO dto) {
         //primero busco la ciudad si esta en la base de datos
@@ -60,7 +57,7 @@ public class NewShipmentUseCase {
         //armo en el mapper toda la informacion del envio y lo pongo en la clase shipment
         Shipment shipment = ShipmentAppMapper.toModel(dto, estimatedDeliveryDate, info.distance(), state, totalAmount, citySenderDB, cityAddresseeDB);
         //mando a guardar el envio en el repository
-        Shipment savedShipment = shipmentRepository.save(shipment);
+        Shipment savedShipment = IShipmentRepository.save(shipment);
         //retorno el dto con la informacion necesaria del shipment
         return ShipmentAppMapper.toDto(savedShipment);
     }
@@ -73,7 +70,7 @@ public class NewShipmentUseCase {
         //envio ese dto al cliente y recibo un dto con la informacion de la ciudad
         CityCoordinatesResponseDTO coordinates = openRoutServiceClient.requestCoordinates(cityForClient);
         //acá paso la informacion obtenida en el cliente para guardarla en la base de datos
-        return cityRepository.save(CityAppMapper.toDomain(city, country, coordinates))
+        return ICityRepository.save(CityAppMapper.toDomain(city, country, coordinates))
                 .orElseThrow(() -> new SaveErrorDataBaseException(city));
     }
 

@@ -1,7 +1,7 @@
 package com.fasterEnvios.infrastructure.persistence.city;
 
 import com.fasterEnvios.domain.model.CityDescription;
-import com.fasterEnvios.domain.repository.CityRepository;
+import com.fasterEnvios.domain.repository.ICityRepository;
 import com.fasterEnvios.infrastructure.entity.CityDescriptionEntity;
 import com.fasterEnvios.infrastructure.mapper.CityInfraMapper;
 import jakarta.transaction.Transactional;
@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class CityRepositoryJpaAdapter implements CityRepository {
+public class ICityRepositoryJpaAdapter implements ICityRepository {
 
     private final CityRepositoryJpa jpa;
 
