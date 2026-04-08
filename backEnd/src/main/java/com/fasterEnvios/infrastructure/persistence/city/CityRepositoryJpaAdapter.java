@@ -12,9 +12,9 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class ICityRepositoryJpaAdapter implements ICityRepository {
+public class CityRepositoryJpaAdapter implements ICityRepository {
 
-    private final CityRepositoryJpa jpa;
+    private final ICityRepositoryJpa jpa;
 
     @Override
     @Transactional

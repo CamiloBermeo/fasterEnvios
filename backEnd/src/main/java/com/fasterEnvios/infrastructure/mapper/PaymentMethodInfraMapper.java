@@ -9,18 +9,11 @@ import java.util.List;
 @Component
 public class PaymentMethodInfraMapper {
 
-    public PaymentMethodEntity toEntity(PaymentMethod paymentMethod) {
+    public static PaymentMethodEntity toEntity(PaymentMethod paymentMethod) {
         return PaymentMethodEntity.builder()
                 .methodName(paymentMethod.getMethodName())
                 .status(paymentMethod.isStatus())
                 .build();
-    }
-
-    public List<PaymentMethodEntity> listToEntity(List<PaymentMethod> paymentMethods) {
-        if (paymentMethods == null) return List.of();
-        return paymentMethods.stream()
-                .map(this::toEntity)
-                .toList();
     }
 
     public List<PaymentMethod> toModelList(List<PaymentMethodEntity> entities) {
@@ -32,4 +25,12 @@ public class PaymentMethodInfraMapper {
         ).toList();
 
     }
+    /*con este metodo puedo mappear listas
+    public List<PaymentMethodEntity> listToEntity(List<PaymentMethod> paymentMethods) {
+        if (paymentMethods == null) return List.of();
+        return paymentMethods.stream()
+                .map(this::toEntity)
+                .toList();
+    }
+*/
 }

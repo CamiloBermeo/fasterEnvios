@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 public class PaymentTransactionInfraMapper {
 
-    public PaymentTransactionEntity toEntity(PaymentTransaction paymentTransaction, List<PaymentMethodEntity> paymentMethods) {
+    public static PaymentTransactionEntity toEntity(PaymentTransaction paymentTransaction, PaymentMethodEntity paymentMethods) {
         return PaymentTransactionEntity.builder()
                 .paymentDate(paymentTransaction.getPaymentDate())
                 .amount(paymentTransaction.getAmount())

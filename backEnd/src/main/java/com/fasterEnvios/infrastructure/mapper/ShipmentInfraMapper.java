@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public class ShipmentInfraMapper {
 
-    public static ShipmentEntity toEntity(Shipment shipment, List<PackageEntity> packageEntity, PaymentTransactionEntity paymentTransaction) {
+    public static ShipmentEntity toEntity(Shipment shipment, PackageEntity packageEntity, PaymentTransactionEntity paymentTransaction) {
         return ShipmentEntity.builder()
                 .cityDestination(CityInfraMapper.toEntity(shipment.getCityDestination()))
                 .cityOrigin(CityInfraMapper.toEntity(shipment.getCityOrigin()))
@@ -29,7 +29,7 @@ public class ShipmentInfraMapper {
 
     }
 
-    public static Shipment toModel(ShipmentEntity shipmentEntity, Long shipmentId, List<PackageModel> packageModel, PaymentTransaction paymentTransaction) {
+    public static Shipment toModel(ShipmentEntity shipmentEntity,PackageModel packageModel, PaymentTransaction paymentTransaction) {
         Shipment.ShipmentBuilder shipmentBuilder = Shipment.builder()
                 .withId(shipmentId)
                 .withCityDestination(CityInfraMapper.toDomain(shipmentEntity.getCityDestination()))

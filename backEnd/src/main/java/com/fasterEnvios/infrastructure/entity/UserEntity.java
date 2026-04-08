@@ -28,7 +28,7 @@ public class UserEntity {
     @Column(nullable = false,  unique = true)
     private String phoneNumber;
     @Column(nullable = false)
-    private String address;
+    private String identityDocument;
     @OneToOne
     @JoinColumn(name = "role_id")
     private RoleEntity role;
