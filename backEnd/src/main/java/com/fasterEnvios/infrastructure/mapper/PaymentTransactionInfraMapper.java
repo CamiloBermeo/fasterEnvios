@@ -13,21 +13,21 @@ import java.util.List;
 @Component
 public class PaymentTransactionInfraMapper {
 
-    public static PaymentTransactionEntity toEntity(PaymentTransaction paymentTransaction, PaymentMethodEntity paymentMethods) {
+    public static PaymentTransactionEntity toEntity(PaymentTransaction paymentTransaction) {
         return PaymentTransactionEntity.builder()
                 .paymentDate(paymentTransaction.getPaymentDate())
                 .amount(paymentTransaction.getAmount())
-                .paymentMethods(paymentMethods)
+                .paymentMethod(PaymentMethodInfraMapper.toEntity(paymentTransaction.getPaymentMethods()))
                 .paymentStatus(paymentTransaction.getPaymentStatus().toString())
                 .build();
     }
 
-    public PaymentTransaction toModel(PaymentTransactionEntity entity, Long paymentId, List<PaymentMethod> paymentMethods) {
+    public static PaymentTransaction toModel(PaymentTransactionEntity entity) {
         PaymentTransaction.PaymentTransactionBuilder paymentTransactionBuilder = PaymentTransaction.builder()
-                .withId(paymentId)
+                .withId(entity.getId())
                 .withPaymentDate(entity.getPaymentDate())
                 .withAmount(entity.getAmount())
-                .withPaymentMethods(paymentMethods)
+                .withPaymentMethods(PaymentMethodInfraMapper.toModel(entity.getPaymentMethod()))
                 .withPaymentStatus(PaymentStatusEnum.valueOf(entity.getPaymentStatus()))
                 .build().toBuilder();
         return paymentTransactionBuilder.build();

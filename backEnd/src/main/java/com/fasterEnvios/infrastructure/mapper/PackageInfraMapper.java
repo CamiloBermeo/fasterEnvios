@@ -21,7 +21,7 @@ public class PackageInfraMapper {
     }
 
 
-    public PackageModel toModel(PackageEntity entity) {
+    public static PackageModel toModel(PackageEntity entity) {
         return PackageModel.builder()
                 .withId(entity.getId())
                 .withDeclaredValue(entity.getDeclaredValue())

@@ -16,13 +16,12 @@ public class PaymentMethodInfraMapper {
                 .build();
     }
 
-    public List<PaymentMethod> toModelList(List<PaymentMethodEntity> entities) {
-        return entities.stream().map(entity -> PaymentMethod.builder()
+    public static PaymentMethod toModel(PaymentMethodEntity entity) {
+        return PaymentMethod.builder()
                 .withId(entity.getId())
                 .withMethodName(entity.getMethodName())
                 .withStatus(entity.isStatus())
-                .build()
-        ).toList();
+                .build();
 
     }
     /*con este metodo puedo mappear listas
