@@ -1,10 +1,7 @@
 package com.fasterEnvios.application.dto.person;
 
 import com.fasterEnvios.application.dto.city.CityRequestDTO;
-import com.fasterEnvios.infrastructure.entity.CityDescriptionEntity;
-import com.fasterEnvios.infrastructure.entity.UserEntity;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 public record PersonRequestDTO(
         @NotBlank(message = "debes colocar un nombre válido ")

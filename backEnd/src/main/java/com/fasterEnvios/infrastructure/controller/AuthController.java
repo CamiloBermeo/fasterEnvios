@@ -33,8 +33,8 @@ public class AuthController {
     }
 
     @PostMapping("register")
-    public ResponseEntity<RegisterSuccessDTO> register(@RequestBody NewUserRequestDTO dto){
-        RegisterSuccessDTO response= newUserUseCase.execute(dto);
+    public ResponseEntity<RegisterSuccessDTO> register(@RequestBody NewUserRequestDTO dto, @AuthenticationPrincipal CustomUserDetails customUserDetails){
+        RegisterSuccessDTO response= newUserUseCase.execute(dto, customUserDetails);
         return ResponseEntity.ok(response);
     }
 }

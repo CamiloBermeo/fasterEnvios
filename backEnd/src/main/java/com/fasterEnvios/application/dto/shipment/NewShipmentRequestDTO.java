@@ -3,7 +3,6 @@ package com.fasterEnvios.application.dto.shipment;
 import com.fasterEnvios.application.dto.packages.PackageRequestDTO;
 import com.fasterEnvios.application.dto.person.PersonRequestDTO;
 import com.fasterEnvios.domain.model.StateEnum;
-import jakarta.validation.constraints.NotBlank;
 
 public record NewShipmentRequestDTO(
         PersonRequestDTO sender,//remitente
