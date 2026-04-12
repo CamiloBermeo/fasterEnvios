@@ -2,7 +2,9 @@ package com.fasterEnvios.domain.repository;
 
 import com.fasterEnvios.domain.model.UserModel;
 
+import java.util.Optional;
+
 public interface IUserRepository {
-    UserModel findByEmail(String email);
+    Optional<UserModel> findByEmail(String email);
     UserModel save(UserModel user);
 }

@@ -22,7 +22,9 @@ public class NewUserUseCase {
 
     public RegisterSuccessDTO execute(NewUserRequestDTO dto, CustomUserDetails customUserDetails){
         String passwordHash = passwordEncoder.encode(dto.password());
+        //tengo que buscar el rol en la db
         UserModel user = UserAppMapper.toModel(dto,passwordHash);
+
         UserModel saveUser = userRepository.save(user);
         NewUserResponseDTO userResponseDTO = UserAppMapper.toUserResponse(saveUser);
         String token = tokenService.generateToken(customUserDetails);

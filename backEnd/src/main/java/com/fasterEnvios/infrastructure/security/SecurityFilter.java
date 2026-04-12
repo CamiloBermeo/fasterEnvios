@@ -1,5 +1,6 @@
 package com.fasterEnvios.infrastructure.security;
 
+import com.fasterEnvios.application.exceptions.user.UserNotFoundException;
 import com.fasterEnvios.domain.model.UserModel;
 import com.fasterEnvios.domain.repository.IUserRepository;
 import jakarta.servlet.FilterChain;
@@ -21,18 +22,18 @@ public class SecurityFilter extends OncePerRequestFilter {
     private final IUserRepository userRepository;
 
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-     String tokenJwt = recoverToken(request);
-     if (tokenJwt != null) {
-         String subject = tokenService.getSubject(tokenJwt);
-         UserModel userModel = userRepository.findByEmail(subject);
-         if (userModel != null) {
-             CustomUserDetails customUserDetails = new CustomUserDetails(userModel);
-             var authentication =  new UsernamePasswordAuthenticationToken(userModel, null, customUserDetails.getAuthorities());
-             SecurityContextHolder.getContext().setAuthentication(authentication);
-         }
+        String tokenJwt = recoverToken(request);
+        if (tokenJwt != null) {
+            String subject = tokenService.getSubject(tokenJwt);
+            UserModel userModel = userRepository.findByEmail(subject)
+                    .orElseThrow(() -> new UserNotFoundException(subject));
 
-     }
-     chain.doFilter(request, response);
+            CustomUserDetails customUserDetails = new CustomUserDetails(userModel);
+            var authentication = new UsernamePasswordAuthenticationToken(userModel, null, customUserDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        }
+        chain.doFilter(request, response);
     }
 
     private String recoverToken(HttpServletRequest request) {

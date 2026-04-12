@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IShipmentRepositoryJpa extends JpaRepository<Shipment, Long> {
-    ShipmentEntity save(ShipmentEntity shipmentEntity);
+public interface IShipmentRepositoryJpa extends JpaRepository<ShipmentEntity, Long> {
+
 }

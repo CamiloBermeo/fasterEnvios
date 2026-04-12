@@ -70,8 +70,7 @@ public class NewShipmentUseCase {
         //envio ese dto al cliente y recibo un dto con la informacion de la ciudad
         CityCoordinatesResponseDTO coordinates = openRoutServiceClient.requestCoordinates(cityForClient);
         //acá paso la informacion obtenida en el cliente para guardarla en la base de datos
-        return ICityRepository.save(CityAppMapper.toDomain(city, country, coordinates))
-                .orElseThrow(() -> new SaveErrorDataBaseException(city));
+        return ICityRepository.save(CityAppMapper.toDomain(city, country, coordinates));
     }
 
     private BigDecimal calculatedTotalAmount(double distance, double weight, BigDecimal declaredValue) {

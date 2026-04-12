@@ -7,6 +7,8 @@ import com.fasterEnvios.infrastructure.mapper.UserInfraMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class UserRepositoryJpaAdapter implements IUserRepository {
@@ -14,9 +16,9 @@ private final IUserRepositoryJpa jpa;
 
 
     @Override
-    public UserModel findByEmail(String email) {
-        UserEntity entity = jpa.findByEmail(email);
-        return UserInfraMapper.toModel(entity);
+    public Optional<UserModel> findByEmail(String email) {
+        Optional<UserEntity> entity = jpa.findByEmail(email);
+        return entity.map(UserInfraMapper::toModel);
     }
 
     @Override

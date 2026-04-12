@@ -25,10 +25,10 @@ public class CityRepositoryJpaAdapter implements ICityRepository {
 
     @Override
     @Transactional
-    public Optional<CityDescription> save(CityDescription city) {
+    public CityDescription save(CityDescription city) {
 
         CityDescriptionEntity cityEntity = CityInfraMapper.toEntity(city);
-        Optional<CityDescriptionEntity> result = jpa.save(cityEntity);
-        return result.map(CityInfraMapper::toDomain);
+        CityDescriptionEntity result = jpa.save(cityEntity);
+        return CityInfraMapper.toDomain(result);
     }
 }
