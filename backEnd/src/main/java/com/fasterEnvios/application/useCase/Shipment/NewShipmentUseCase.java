@@ -37,13 +37,10 @@ public class NewShipmentUseCase {
                 .orElseGet(() -> {
                  //en caso de que no este en la db hago llamada a la api para buscarla y traer informacion de esta ciudad
                         return saveCityWhenIsEmpty(dto.sender().city().name());
-
                 });
         CityDescription cityAddresseeDB = findCityByNameUseCase.execute(dto.addressee().city().name())
                 .orElseGet(() -> {
-
                         return saveCityWhenIsEmpty(dto.addressee().city().name());
-
                 });
         //una vez ya tenga las ciudads en orden consulto al cliente ara la distancia entre las ciudades
         ClientRequestDTO client = ClientAppMapper.toClient(citySenderDB, cityAddresseeDB);

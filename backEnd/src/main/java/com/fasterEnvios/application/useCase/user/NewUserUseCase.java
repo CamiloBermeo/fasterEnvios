@@ -27,7 +27,7 @@ public class NewUserUseCase {
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
 
-    public RegisterSuccessDTO execute(NewUserRequestDTO dto, CustomUserDetails customUserDetails){
+    public RegisterSuccessDTO execute(NewUserRequestDTO dto){
         String passwordHash = passwordEncoder.encode(dto.password());
         //tengo que buscar el rol en la db
         Role roleDb = findByNameRole.execute(dto.role());
@@ -35,7 +35,7 @@ public class NewUserUseCase {
 
         UserModel saveUser = userRepository.save(user);
         NewUserResponseDTO userResponseDTO = UserAppMapper.toUserResponse(saveUser);
-        String token = tokenService.generateToken(customUserDetails);
+        String token = tokenService.generateToken(new CustomUserDetails(saveUser));
         return UserAppMapper.toDto(userResponseDTO, token);
     }
 

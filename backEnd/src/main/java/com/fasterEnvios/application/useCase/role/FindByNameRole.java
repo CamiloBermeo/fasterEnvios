@@ -6,8 +6,6 @@ import com.fasterEnvios.domain.repository.IRoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class FindByNameRole {
@@ -17,5 +15,4 @@ public class FindByNameRole {
         return roleRepository.findByName(role)
                 .orElseThrow(() -> new RoleNotFoundDataBaseException(role));
     }
-
 }

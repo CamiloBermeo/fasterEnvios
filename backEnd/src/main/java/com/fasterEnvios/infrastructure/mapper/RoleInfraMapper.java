@@ -8,6 +8,7 @@ public class RoleInfraMapper {
 
     public static RoleEntity toEntity(Role role) {
         return RoleEntity.builder()
+                .id(role.getId())
                 .name(role.getRoleName())
                 .description(role.getDescription())
                 .build();
