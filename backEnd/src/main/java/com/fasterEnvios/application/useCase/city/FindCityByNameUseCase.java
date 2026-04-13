@@ -1,4 +1,4 @@
-package com.fasterEnvios.application.useCase.Shipment;
+package com.fasterEnvios.application.useCase.city;
 
 import com.fasterEnvios.domain.model.CityDescription;
 import com.fasterEnvios.domain.repository.ICityRepository;

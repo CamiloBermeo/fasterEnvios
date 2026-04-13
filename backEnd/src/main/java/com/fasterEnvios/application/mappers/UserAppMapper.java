@@ -9,7 +9,7 @@ import com.fasterEnvios.infrastructure.entity.RoleEntity;
 import org.aspectj.weaver.patterns.IToken;
 
 public class UserAppMapper {
-    public static UserModel toModel (NewUserRequestDTO dto, String passwordHash) {
+    public static UserModel toModel (NewUserRequestDTO dto, String passwordHash, Role role) {
         return UserModel.builder()
                 .withName(dto.name())
                 .withLastName(dto.lastName())
@@ -17,11 +17,7 @@ public class UserAppMapper {
                 .withPasswordHash(passwordHash)
                 .withPhoneNumber(dto.phoneNumber())
                 .withIdentityDocument(dto.identityDocument())
-                .withRole(
-                        Role.builder()
-                                .withRoleName(dto.role())
-                                .build()
-                )
+                .withRole(role)
                 .build();
 
     }

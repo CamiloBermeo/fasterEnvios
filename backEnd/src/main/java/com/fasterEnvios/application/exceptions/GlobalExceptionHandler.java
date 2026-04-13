@@ -4,6 +4,7 @@ import com.fasterEnvios.application.exceptions.client.ExternalServiceException;
 import com.fasterEnvios.application.exceptions.client.JsonMapperInternalServiceException;
 import com.fasterEnvios.application.exceptions.client.JsonMapperResponseClientException;
 import com.fasterEnvios.application.exceptions.jdbc.SaveErrorDataBaseException;
+import com.fasterEnvios.application.exceptions.role.RoleNotFoundDataBaseException;
 import com.fasterEnvios.application.exceptions.user.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorDetails> handleSaveErrorDataBaseException(RuntimeException ex) {
         return buildResponse(ex, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    @ExceptionHandler({UserNotFoundException.class})
+    @ExceptionHandler({UserNotFoundException.class, RoleNotFoundDataBaseException.class})
     public ResponseEntity<ErrorDetails> handleFindDataBaseException(RuntimeException ex) {
         return buildResponse(ex, HttpStatus.NOT_FOUND);
     }
