@@ -23,10 +23,11 @@ public class AuthController {
     private final NewUserUseCase newUserUseCase;
 
     @PostMapping("login")
-    public ResponseEntity<TokenDataDTO> login (@RequestBody AuthDataDTO dto, @AuthenticationPrincipal CustomUserDetails customUserDetails){
+    public ResponseEntity<TokenDataDTO> login (@RequestBody AuthDataDTO dto){
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(dto.email(), dto.password());
         var authentication = authenticationManager.authenticate(authenticationToken);
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         String accessToken = tokenService.generateToken(customUserDetails);
 
         return ResponseEntity.ok(new TokenDataDTO(accessToken));

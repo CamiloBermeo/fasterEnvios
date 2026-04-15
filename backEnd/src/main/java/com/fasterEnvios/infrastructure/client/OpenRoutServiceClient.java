@@ -123,11 +123,11 @@ public class OpenRoutServiceClient {
         JsonNode firstFeature = root.path("features").get(0);
         JsonNode coordinates = firstFeature.path("geometry").path("coordinates");
 
-        double latitude = coordinates.get(0).asDouble();
-        double longitude = coordinates.get(1).asDouble();
+        double longitude = coordinates.get(0).asDouble();
+        double latitude = coordinates.get(1).asDouble();
 
 
-        return new CityCoordinatesResponseDTO(latitude, longitude);
+        return new CityCoordinatesResponseDTO(longitude, latitude);
     }
 
 }
