@@ -21,6 +21,7 @@ public class CityInfraMapper {
 
     public static CityDescriptionEntity toEntity(CityDescription cityDescription) {
         return CityDescriptionEntity.builder()
+                .id(cityDescription.getId())
                 .name(cityDescription.getName())
                 .country(cityDescription.getCountry())
                 .latitude(cityDescription.getLatitude())

@@ -8,12 +8,16 @@ import com.fasterEnvios.application.dto.shipment.NewShipmentRequestDTO;
 import com.fasterEnvios.application.dto.shipment.NewShipmentResponseDTO;
 import com.fasterEnvios.application.mappers.CityAppMapper;
 import com.fasterEnvios.application.mappers.ClientAppMapper;
+import com.fasterEnvios.application.mappers.PersonAppMapper;
 import com.fasterEnvios.application.mappers.ShipmentAppMapper;
 import com.fasterEnvios.application.useCase.city.FindCityByNameUseCase;
+import com.fasterEnvios.application.useCase.person.FindPersonByIdentityDocument;
 import com.fasterEnvios.domain.model.CityDescription;
+import com.fasterEnvios.domain.model.Person;
 import com.fasterEnvios.domain.model.Shipment;
 import com.fasterEnvios.domain.model.StateEnum;
 import com.fasterEnvios.domain.repository.ICityRepository;
+import com.fasterEnvios.domain.repository.IPersonRepository;
 import com.fasterEnvios.domain.repository.IShipmentRepository;
 import com.fasterEnvios.infrastructure.client.OpenRoutServiceClient;
 import lombok.RequiredArgsConstructor;
@@ -33,16 +37,10 @@ public class NewShipmentUseCase {
 
     public NewShipmentResponseDTO execute(NewShipmentRequestDTO dto) {
         //primero busco la ciudad si esta en la base de datos
-        CityDescription citySenderDB = findCityByNameUseCase.execute(dto.sender().city().name())
-                .orElseGet(() -> {
-                 //en caso de que no este en la db hago llamada a la api para buscarla y traer informacion de esta ciudad
-                        return saveCityWhenIsEmpty(dto.sender().city().name());
-                });
-        CityDescription cityAddresseeDB = findCityByNameUseCase.execute(dto.addressee().city().name())
-                .orElseGet(() -> {
-                        return saveCityWhenIsEmpty(dto.addressee().city().name());
-                });
-        //una vez ya tenga las ciudads en orden consulto al cliente ara la distancia entre las ciudades
+        CityDescription citySenderDB = manageCity(dto.sender().city().name());
+        CityDescription cityAddresseeDB = manageCity(dto.addressee().city().name());
+
+        //una vez ya tenga las ciudades en orden consulto al cliente para la distancia entre las ciudades
         ClientRequestDTO client = ClientAppMapper.toClient(citySenderDB, cityAddresseeDB);
         ClientResponseDTO info = openRoutServiceClient.requestDistance(client);
         LocalDateTime estimatedDeliveryDate = LocalDateTime.now().plusDays(3);
@@ -51,14 +49,21 @@ public class NewShipmentUseCase {
             state = StateEnum.RECEIVED;
         }
         BigDecimal totalAmount = calculatedTotalAmount(info.distance(), dto.packages().weightKg(), dto.packages().declaredValue());
+
         //armo en el mapper toda la informacion del envio y lo pongo en la clase shipment
-        Shipment shipment = ShipmentAppMapper.toModel(dto, estimatedDeliveryDate, info.distance(), state, totalAmount, citySenderDB, cityAddresseeDB);
+        Shipment shipment = ShipmentAppMapper.toModel(dto, estimatedDeliveryDate, info.distance(), state, totalAmount, citySenderDB,cityAddresseeDB);
         //mando a guardar el envio en el repository
         Shipment savedShipment = IShipmentRepository.save(shipment);
-        //retorno el dto con la informacion necesaria del shipment
         return ShipmentAppMapper.toDto(savedShipment);
     }
-
+    private CityDescription manageCity (String cityName){
+        //primero busco la ciudad si esta en la base de datos
+        return findCityByNameUseCase.execute(cityName)
+                .orElseGet(() -> {
+                    //en caso de que no este en la db hago llamada a la api para buscarla y traer informacion de esta ciudad
+                    return saveCityWhenIsEmpty(cityName);
+                });
+    }
 
     private CityDescription saveCityWhenIsEmpty(String city) {
         String country = "Colombia";
@@ -69,7 +74,6 @@ public class NewShipmentUseCase {
         //acá paso la informacion obtenida en el cliente para guardarla en la base de datos
         return ICityRepository.save(CityAppMapper.toDomain(city, country, coordinates));
     }
-
     private BigDecimal calculatedTotalAmount(double distance, double weight, BigDecimal declaredValue) {
         BigDecimal percentage = new BigDecimal("0.05");
         BigDecimal costDistance = BigDecimal.valueOf(distance * 20);

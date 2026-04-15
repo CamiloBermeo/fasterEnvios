@@ -29,7 +29,7 @@ public class PersonEntity {
     @JoinColumn(name = "city_id")
     private CityDescriptionEntity city;
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
 }

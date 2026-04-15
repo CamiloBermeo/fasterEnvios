@@ -8,8 +8,8 @@ public record NewShipmentResponseDTO (
         String status,               // Estado actual
         String originCity,           // Ciudad de origen
         String destinationCity,      // Ciudad de destino
-        double distance,
-        BigDecimal totalAmount,      // Costo total del envío
+        String distance,
+        String totalAmount,      // Costo total del envío
         LocalDateTime estimatedDate, // Fecha estimada de llegada
         LocalDateTime createdAt     // Fecha de creación
 ){

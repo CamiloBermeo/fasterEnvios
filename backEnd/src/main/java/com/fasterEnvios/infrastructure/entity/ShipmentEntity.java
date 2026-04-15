@@ -18,16 +18,16 @@ public class ShipmentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sender_id",  nullable = false)
     private PersonEntity sender;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "addressee_id", nullable = false)
     private PersonEntity addressee;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_transaction_id")
     private PaymentTransactionEntity  paymentTransaction;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "package_id")
     private PackageEntity  packages;
     @Column(nullable = false)

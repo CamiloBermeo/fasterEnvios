@@ -33,7 +33,7 @@ public class TokenService {
     }
 
     private Instant  expirationDate() {
-        return LocalDateTime.now().plusMinutes(15).toInstant(ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now()));
+        return LocalDateTime.now().plusMinutes(30).toInstant(ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now()));
     }
     protected String getSubject(String token) {
         try {

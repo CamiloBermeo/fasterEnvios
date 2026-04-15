@@ -22,7 +22,7 @@ public class PaymentTransactionEntity {
     private Long id;
     @OneToOne(mappedBy = "paymentTransaction")
     private ShipmentEntity shipment;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_method_id")
     private PaymentMethodEntity paymentMethod;
     @Column(nullable = false)

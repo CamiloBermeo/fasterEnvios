@@ -71,8 +71,8 @@ public class ShipmentAppMapper {
                 shipment.getState().toString(),
                 shipment.getSender().getCity().getName(),
                 shipment.getAddressee().getCity().getName(),
-                shipment.getDistance(),
-                shipment.getTotalAmount(),
+                String.valueOf(shipment.getDistance()+"Km"),
+                String.valueOf("$"+shipment.getTotalAmount()+" COP"),
                 shipment.getEstimatedDeliveryDate(),
                 shipment.getCreatedAt()
         );

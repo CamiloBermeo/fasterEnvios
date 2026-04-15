@@ -7,6 +7,7 @@ public class PersonInfraMapper {
 
     public static PersonEntity toEntity(Person person) {
         return PersonEntity.builder()
+                .id(person.getId())
                 .name(person.getName())
                 .lastName(person.getLastName())
                 .identityDocument(person.getIdentityDocument())
