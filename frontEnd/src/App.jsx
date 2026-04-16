@@ -6,10 +6,12 @@ import LoginAliado from "./components/auth/LoginAliado";
 import Register from "./components/auth/Register";
 import DashboardAliado from "./components/dashboard/DashboardAliado";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthProvider";
 
 function App() {
   return (
   <Router>
+    <AuthProvider>
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/home" element={<Home />} />
@@ -18,6 +20,7 @@ function App() {
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/dashboard-aliado" element={<DashboardAliado />} />
       </Routes>
+    </AuthProvider>
     </Router>
   )
 }

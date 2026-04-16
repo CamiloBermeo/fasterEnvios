@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import IconoIr from "../../assets/home_icono.svg";
-import clienteAxios from "../../config/axios";
+import clienteAxios from "../../config/ClienteAxios";
 import { Link, useNavigate } from "react-router-dom";
 
 
@@ -113,12 +113,12 @@ console.log(cargando)
                         className={`w-full bg-indigo-500 border-none rounded-lg px-6 py-3 text-white text-base font-semibold transition-all duration-200 relative mb-6 
                         ${cargando ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-indigo-600 active:translate-y-0.5'}`}
                     >
-                        {/* Texto del botón */}
+                        
                         <span className={`transition-opacity duration-200 ${cargando ? 'opacity-0' : 'opacity-100'}`}>
                             Iniciar Sesión
                         </span>
 
-                        {/* Loader */}
+                    
                         <span className={`btn-loader absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 border-2 border-transparent border-t-white rounded-full animate-spin transition-opacity duration-200 
                         ${cargando ? 'opacity-100' : 'opacity-0'}`}>
                         </span>
