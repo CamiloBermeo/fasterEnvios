@@ -7,7 +7,7 @@ const Banner = () => {
     return (
         <div id="carouselExample" className="carousel slide contenedor-banner">
             <div className="carousel-inner">
-                <div claclasNames="carousel-item active">
+                <div className="carousel-item active">
                     <img className="d-block w-100 img-banner img-fluid" src={BannerImage1} alt="banner 1" />
                 </div>
             </div>

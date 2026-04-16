@@ -34,7 +34,7 @@ const Header = ({ titulo }) => {
                     </li>
                     <button
                         onClick={() => setMenuAbierto(!menuAbierto)}
-                        class="flex items-center w-36 text-sm text-white h-8 rounded-full hover:text-white py-3 px-6 bg-green-600 cursor-pointer hover:bg-green-800 "
+                        className="flex items-center w-36 text-sm text-white h-8 rounded-full hover:text-white py-3 px-6 bg-green-600 cursor-pointer hover:bg-green-800 "
                         type="button"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
