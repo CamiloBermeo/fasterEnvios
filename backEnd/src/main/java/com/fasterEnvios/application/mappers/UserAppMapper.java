@@ -3,6 +3,7 @@ package com.fasterEnvios.application.mappers;
 import com.fasterEnvios.application.dto.user.NewUserRequestDTO;
 import com.fasterEnvios.application.dto.user.NewUserResponseDTO;
 import com.fasterEnvios.application.dto.user.RegisterSuccessDTO;
+import com.fasterEnvios.application.dto.user.UserResponseDTO;
 import com.fasterEnvios.domain.model.Role;
 import com.fasterEnvios.domain.model.UserModel;
 import com.fasterEnvios.infrastructure.entity.RoleEntity;
@@ -33,6 +34,15 @@ public class UserAppMapper {
                 user.getId(),
                 user.getName(),
                 user.getEmail()
+        );
+    }
+
+    public static UserResponseDTO toDtoProfile(UserModel model){
+        return new UserResponseDTO(
+                model.getId(),
+                model.getName(),
+                model.getEmail(),
+                model.getRole().getRoleName()
         );
     }
 }

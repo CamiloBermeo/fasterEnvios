@@ -30,6 +30,10 @@ public class CustomUserDetails implements UserDetails {
         return this.mapAuthorities(user);
     }
 
+    public UserModel getUser() {
+        return this.user;
+    }
+
     @Override
     public @Nullable String getPassword() {
         return user.getPasswordHash();

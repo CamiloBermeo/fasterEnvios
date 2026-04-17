@@ -29,7 +29,7 @@ public class SecurityFilter extends OncePerRequestFilter {
                     .orElseThrow(() -> new UserNotFoundException(subject));
 
             CustomUserDetails customUserDetails = new CustomUserDetails(userModel);
-            var authentication = new UsernamePasswordAuthenticationToken(userModel, null, customUserDetails.getAuthorities());
+            var authentication = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
         }

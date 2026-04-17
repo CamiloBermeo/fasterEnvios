@@ -4,6 +4,8 @@ import com.fasterEnvios.application.dto.auth.AuthDataDTO;
 import com.fasterEnvios.application.dto.auth.TokenDataDTO;
 import com.fasterEnvios.application.dto.user.NewUserRequestDTO;
 import com.fasterEnvios.application.dto.user.RegisterSuccessDTO;
+import com.fasterEnvios.application.dto.user.UserResponseDTO;
+import com.fasterEnvios.application.mappers.UserAppMapper;
 import com.fasterEnvios.application.useCase.user.NewUserUseCase;
 import com.fasterEnvios.infrastructure.security.CustomUserDetails;
 import com.fasterEnvios.infrastructure.security.TokenService;
@@ -13,6 +15,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,4 +42,10 @@ public class AuthController {
         RegisterSuccessDTO response= newUserUseCase.execute(dto);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("profile")
+    public ResponseEntity<UserResponseDTO> myProfile (@AuthenticationPrincipal CustomUserDetails customUserDetails){
+    return ResponseEntity.ok(UserAppMapper.toDtoProfile(customUserDetails.getUser()));
+    }
+
 }
