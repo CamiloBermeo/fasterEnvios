@@ -2,6 +2,8 @@
 
 FasterEnvios es un sistema backend para la gestión de envíos y logística, inspirado en plataformas como Servientrega o Envía. El objetivo del proyecto es simular un entorno real donde se gestionan operaciones logísticas, incluyendo creación de envíos, administración de paquetes, manejo de usuarios y control de roles.
 
+Adicionalmente, el proyecto cuenta con una capa frontend desarrollada en React, que permite la interacción de los usuarios con el sistema a través de una interfaz moderna. Para los estilos se utiliza TailwindCSS, facilitando un diseño limpio, responsive y mantenible.
+
 Actualmente se encuentra en una etapa inicial de desarrollo, pero desde su concepción ha sido construido aplicando buenas prácticas, con un enfoque claro en mantenibilidad, escalabilidad y separación de responsabilidades.
 
 ---
@@ -25,6 +27,35 @@ Se ha implementado separación por capas:
 - **Application**: contiene los casos de uso y la orquestación de la lógica.
 - **Infrastructure**: implementación de persistencia, configuraciones y acceso a servicios externos.
 
+## Frontend
+
+El proyecto incluye una aplicación frontend desarrollada con React, enfocada en consumir los servicios expuestos por el backend.
+
+### Tecnologías utilizadas
+
+- React
+- Axios (para consumo de APIs)
+- TailwindCSS (para estilos)
+
+### Funcionalidad
+
+El frontend está orientado a dos tipos de usuarios:
+
+- Cliente: consulta de envíos y estado de pedidos
+- Aliado: gestión de operaciones logísticas
+
+La aplicación consume la API REST del backend, manejando autenticación mediante JWT y permitiendo interacción con los endpoints disponibles.
+
+---
+
+## Arquitectura general
+
+El sistema sigue una arquitectura cliente-servidor:
+
+- Backend: API REST desarrollada con Spring Boot
+- Frontend: aplicación SPA desarrollada en React
+
+Ambas capas se comunican a través de HTTP, utilizando JSON como formato de intercambio de datos.
 ### Principios aplicados
 
 - Separación de responsabilidades
