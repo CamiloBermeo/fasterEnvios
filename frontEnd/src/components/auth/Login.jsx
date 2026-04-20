@@ -1,21 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import IconoIr from "../../assets/home_icono.svg";
-import clienteAxios from "../../config/ClienteAxios";
+import clienteAxios from "../../config/clienteAxios.jsx";
 import { Link, useNavigate } from "react-router-dom";
-
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
 
-    const [usuario, guardarUsuario] = useState({
-        email: "",
-        password: ""
-    });
-
+    const navigate = useNavigate();
+    const { auth } = useAuth();
+    const [usuario, guardarUsuario] = useState({ email: "", password: "" });
     const [alerta, guardarAlerta] = useState(null);//state para mostrar alerta
     const [cargando, guardarCargando] = useState(false);//state para mostrar el spinner
-    const navigate = useNavigate();
     //extraer el usuario
     const { email, password } = usuario;
+
+    useEffect(() => {
+        if (auth?.id) {
+            navigate("");
+        }
+    }, [auth, navigate]);
 
     const onChange = e => {
         guardarUsuario({
@@ -44,11 +47,11 @@ const Login = () => {
         //intento de inicio de sesion
         try {
             //llamado al back
-            const respuesta = await clienteAxios.post("/api/auth/login", usuario);
+            const respuesta = await clienteAxios.post("/auth/login", usuario);
             //guardar el token en localStorage
             localStorage.setItem("token", respuesta.data.token);
             //redirecciono al dashboard 
-            navigate("/dashboard-aliado");
+            navigate("");
         } catch (error) {
             //utilizo los mensajes de error que me envia el back
             const mensaje = error.response?.data?.msg || "Hubo un error al iniciar sesión";
@@ -58,7 +61,7 @@ const Login = () => {
         }
 
     };
-console.log(cargando)
+    console.log(cargando)
     return (
 
         <div className="flex items-center justify-center min-h-screen bg-gray-100 font-sans text-gray-800 leading-relaxed">
@@ -113,12 +116,12 @@ console.log(cargando)
                         className={`w-full bg-indigo-500 border-none rounded-lg px-6 py-3 text-white text-base font-semibold transition-all duration-200 relative mb-6 
                         ${cargando ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-indigo-600 active:translate-y-0.5'}`}
                     >
-                        
+
                         <span className={`transition-opacity duration-200 ${cargando ? 'opacity-0' : 'opacity-100'}`}>
                             Iniciar Sesión
                         </span>
 
-                    
+
                         <span className={`btn-loader absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 border-2 border-transparent border-t-white rounded-full animate-spin transition-opacity duration-200 
                         ${cargando ? 'opacity-100' : 'opacity-0'}`}>
                         </span>

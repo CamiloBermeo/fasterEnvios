@@ -1,4 +1,4 @@
-import clienteAxios from "./ClienteAxios";
+import clienteAxios from "./clienteAxios.jsx";
 
 const tokenAuth = token => {
     if (token){

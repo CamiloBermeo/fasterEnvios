@@ -1,8 +1,8 @@
 //Este archivo hará tres cosas: autenticar al usuario, verificar el token al cargar la app y cerrar sesión.
 
 import { useState, useEffect, createContext } from "react";
-import clienteAxios from "../config/ClienteAxios";
-import tokenAuth from "../config/Token";
+import clienteAxios from "../config/clienteAxios.jsx";
+import tokenAuth from "../config/token.jsx";
 
 const AuthContext = createContext();
 
@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
             tokenAuth(token); //agrego el token a las cabeceras
             try {
                 //llamada al back para obtener los datos del usuario
-                const { data } = await clienteAxios.get("/auth/me");
+                const { data } = await clienteAxios.get("/auth/profile");
                 guardarAuth(data);
             } catch (error) {
                 console.log(error.response?.data?.msg || "Error al autenticar al usuario");
