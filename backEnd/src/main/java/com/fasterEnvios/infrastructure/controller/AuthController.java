@@ -3,6 +3,7 @@ package com.fasterEnvios.infrastructure.controller;
 import com.fasterEnvios.application.dto.auth.AuthDataDTO;
 import com.fasterEnvios.application.dto.auth.TokenDataDTO;
 import com.fasterEnvios.application.dto.user.NewUserRequestDTO;
+import com.fasterEnvios.application.dto.user.NewUserResponseDTO;
 import com.fasterEnvios.application.dto.user.RegisterSuccessDTO;
 import com.fasterEnvios.application.dto.user.UserResponseDTO;
 import com.fasterEnvios.application.mappers.UserAppMapper;
@@ -25,7 +26,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
     private final NewUserUseCase newUserUseCase;
-
+//1. implementar refresh token para no perder el login por caducidad del token inicial
     @PostMapping("login")
     public ResponseEntity<TokenDataDTO> login (@RequestBody AuthDataDTO dto){
 
@@ -34,7 +35,7 @@ public class AuthController {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         String accessToken = tokenService.generateToken(customUserDetails);
 
-        return ResponseEntity.ok(new TokenDataDTO(accessToken));
+        return ResponseEntity.ok(new TokenDataDTO(UserAppMapper.toUserResponse(customUserDetails.getUser()),accessToken));
     }
 
     @PostMapping("register")

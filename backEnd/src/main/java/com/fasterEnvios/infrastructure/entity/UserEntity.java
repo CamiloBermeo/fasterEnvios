@@ -29,7 +29,7 @@ public class UserEntity {
     private String phoneNumber;
     @Column(nullable = false)
     private String identityDocument;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "role_id")
     private RoleEntity role;
 }

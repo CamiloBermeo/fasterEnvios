@@ -1,4 +1,9 @@
 package com.fasterEnvios.application.dto.auth;
 
-public record TokenDataDTO (String token){
+import com.fasterEnvios.application.dto.user.NewUserResponseDTO;
+import com.fasterEnvios.application.dto.user.RegisterSuccessDTO;
+
+public record TokenDataDTO (
+        NewUserResponseDTO user,
+        String token){
 }
