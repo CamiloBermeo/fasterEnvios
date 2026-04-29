@@ -66,7 +66,7 @@ const Statistics = () => {
                 <h2 className="text-xl font-bold text-gray-800 mb-6">
                     Estadísticas de Envíos
                 </h2>
-                <div className="flex-1 w-full">
+                <div className="w-full" style={{ height: 250 }}>
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={data}>
                             <XAxis
@@ -122,7 +122,7 @@ const Statistics = () => {
 
                     {/* Gráfico Circular de Saturación */}
                     <div className="relative w-16 h-16">
-                        <ResponsiveContainer width="100%" height="100%">
+                        <ResponsiveContainer width={64} height={64}>
                             <PieChart>
                                 <Pie
                                     data={dataPie}

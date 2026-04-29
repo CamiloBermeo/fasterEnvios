@@ -51,7 +51,7 @@ const Login = () => {
             //guardar el token en localStorage
             localStorage.setItem("token", respuesta.data.token);
             //redirecciono al dashboard 
-            navigate("");
+            navigate("/dashboard-aliado");
         } catch (error) {
             //utilizo los mensajes de error que me envia el back
             const mensaje = error.response?.data?.msg || "Hubo un error al iniciar sesión";

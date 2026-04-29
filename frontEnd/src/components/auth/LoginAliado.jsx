@@ -51,9 +51,10 @@ const LoginAliado = () => {
 
                 //llamada al back
                 const respuesta = await clienteAxios.post("/auth/login", usuario);
+                console.log(respuesta.data);
                 //guardar el token en localStorage
                 localStorage.setItem("token", respuesta.data.token);
-                guardarAuth(respuesta.data.usuario);
+                guardarAuth(respuesta.data.user);
                 //redirecciono al dashboard 
                 navigate("/dashboard-aliado");
             
