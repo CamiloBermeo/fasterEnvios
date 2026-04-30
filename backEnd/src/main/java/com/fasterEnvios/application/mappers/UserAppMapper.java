@@ -14,6 +14,7 @@ public class UserAppMapper {
         return UserModel.builder()
                 .withName(dto.name())
                 .withLastName(dto.lastName())
+                .withCity()
                 .withEmail(dto.email())
                 .withPasswordHash(passwordHash)
                 .withPhoneNumber(dto.phoneNumber())

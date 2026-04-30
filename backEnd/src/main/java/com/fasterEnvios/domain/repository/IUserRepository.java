@@ -7,4 +7,5 @@ import java.util.Optional;
 public interface IUserRepository {
     Optional<UserModel> findByEmail(String email);
     UserModel save(UserModel user);
+    Optional<UserModel> findByDocument (String document);
 }

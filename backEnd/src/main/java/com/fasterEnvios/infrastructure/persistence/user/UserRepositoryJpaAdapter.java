@@ -26,4 +26,10 @@ private final IUserRepositoryJpa jpa;
         UserEntity entity = UserInfraMapper.toEntity(user);
         return UserInfraMapper.toModel(jpa.save(entity));
     }
+
+    @Override
+    public Optional<UserModel> findByDocument(String document) {
+        Optional<UserEntity> entity = jpa.findByDocument(document);
+        return entity.map(UserInfraMapper::toModel);
+    }
 }

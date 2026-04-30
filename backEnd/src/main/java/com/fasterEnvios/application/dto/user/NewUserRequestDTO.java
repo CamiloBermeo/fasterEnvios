@@ -5,6 +5,7 @@ public record NewUserRequestDTO (
   String lastName,
   String email,
   String password,
+  String city,
   String phoneNumber,
   String identityDocument,
   String role

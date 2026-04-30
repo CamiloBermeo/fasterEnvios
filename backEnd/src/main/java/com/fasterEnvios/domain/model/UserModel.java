@@ -7,6 +7,7 @@ public class UserModel {
     private String name;
     private String lastName;
     private String email;
+    private CityDescription city;
     private String passwordHash;
     private String phoneNumber;
     private String identityDocument;
@@ -15,11 +16,12 @@ public class UserModel {
     public UserModel() {
     }
 
-    private UserModel(Long id, String name, String lastName, String email, String passwordHash, String phoneNumber, String identityDocument, Role role) {
+    private UserModel(Long id, String name, String lastName, CityDescription city, String email, String passwordHash, String phoneNumber, String identityDocument, Role role) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
+        this.city = city;
         this.passwordHash = passwordHash;
         this.phoneNumber = phoneNumber;
         this.identityDocument = identityDocument;
@@ -34,6 +36,7 @@ public class UserModel {
         this.id = builder.id;
         this.name = builder.name;
         this.lastName = builder.lastName;
+        this.city=builder.city;
         this.email = builder.email;
         this.passwordHash = builder.passwordHash;
         this.phoneNumber = builder.phoneNumber;
@@ -46,6 +49,7 @@ public class UserModel {
                 .withId(this.id)
                 .withName(this.name)
                 .withLastName(this.lastName)
+                .withCity(this.city)
                 .withEmail(this.email)
                 .withPasswordHash(this.passwordHash)
                 .withPhoneNumber(this.phoneNumber)
@@ -58,6 +62,7 @@ public class UserModel {
         private String name;
         private String lastName;
         private String email;
+        CityDescription city;
         private String passwordHash;
         private String phoneNumber;
         private String identityDocument;
@@ -75,6 +80,11 @@ public class UserModel {
 
         public UserModelBuilder withLastName(String lastName) {
             this.lastName = lastName;
+            return this;
+        }
+
+        public UserModelBuilder withCity(CityDescription city) {
+            this.city = city;
             return this;
         }
 
@@ -122,6 +132,10 @@ public class UserModel {
 
     public String getEmail() {
         return email;
+    }
+
+    public CityDescription getCity() {
+        return city;
     }
 
     public String getPasswordHash() {

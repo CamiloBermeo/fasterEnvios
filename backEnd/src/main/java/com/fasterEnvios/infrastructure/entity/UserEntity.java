@@ -30,6 +30,9 @@ public class UserEntity {
     @Column(nullable = false)
     private String identityDocument;
     @ManyToOne
+    @JoinColumn(name = "city_id")
+    private CityDescriptionEntity city;
+    @ManyToOne
     @JoinColumn(name = "role_id")
     private RoleEntity role;
 }

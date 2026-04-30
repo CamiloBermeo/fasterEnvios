@@ -23,6 +23,7 @@ public class UserInfraMapper {
                 .withName(entity.getName())
                 .withLastName(entity.getLastName())
                 .withEmail(entity.getEmail())
+                .withCity(CityInfraMapper.toDomain(entity.getCity()))
                 .withPasswordHash(entity.getPasswordHash())
                 .withIdentityDocument(entity.getIdentityDocument())
                 .withPhoneNumber(entity.getPhoneNumber())
