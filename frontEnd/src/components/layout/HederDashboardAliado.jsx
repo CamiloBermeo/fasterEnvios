@@ -2,11 +2,13 @@ import React from "react";
 import BuscarDashboard from "../../assets/search.svg";
 import Campana from "../../assets/campana.svg";
 import FotoPerfil from "../../assets/foto-perfil.png";
-import { data } from "react-router-dom";
+import useAuth from "../../hooks/useAuth"; 
 
 const HederDashboardAliado = () => {
     const [buscar, setBuscar] = React.useState({ buscar: "" });
-    const nombre = data?.name;
+    const {auth} = useAuth();
+    const nombre = auth?.name;
+
     const onChange = e => {
         setBuscar({
             ...buscar,
@@ -17,7 +19,7 @@ const HederDashboardAliado = () => {
     return (
         <div className="flex justify-between rounded-2xl items-center gap-8   px-6 ">
             <div className="flex ">
-                <h1 className="text-2xl font-sans">{nombre}</h1>
+                <h1 className="text-2xl font-sans">Bienvenido {nombre}</h1>
             </div>
 
 

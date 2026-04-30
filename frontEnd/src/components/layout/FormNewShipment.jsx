@@ -21,9 +21,9 @@ const FormNewShipment = () => {
         metodoPago: ""
     });
     //extraigo la informacion del remitente y la guardo en una variable para usarla
-    const { nombreRemitente, apellidosRemitente, direccionRemitente, telefonoRemitente, ciudadRemitente
-        , nombreDestinatario, apellidosDestinatario, direccionDestinatario, telefonoDestinatario, ciudadDestinatario,
-        descripcionPaquete, pesoPaquete, valorDeclarado, tipoPaquete, metodoPago
+    const { nombreRemitente, apellidosRemitente, cedulaRemitente, direccionRemitente, telefonoRemitente, ciudadRemitente
+        , nombreDestinatario, apellidosDestinatario, cedulaDestinatario, direccionDestinatario, telefonoDestinatario, ciudadDestinatario,
+        descripcionPaquete, pesoPaquete, valorDeclarado, dimensionesPaquete, metodoPago
     } = envio;
     //funcion para actualizar el estado del remitente cada vez que se cambia un campo del formulario
     const onChange = (e) => {
@@ -47,12 +47,12 @@ const FormNewShipment = () => {
                                 id="nombreRemitente"
                                 value={nombreRemitente}
                                 name="nombreRemitente"
+                                placeholder="Nombre"
                                 required
                                 autoComplete="nombreRemitente"
                                 onChange={onChange}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
-                            <label htmlFor="nombreRemitente" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Nombre</label>
                         </div>
                         <div className="input-wrapper relative">
                             <input
@@ -61,11 +61,11 @@ const FormNewShipment = () => {
                                 value={apellidosRemitente}
                                 name="apellidosRemitente"
                                 required
+                                placeholder="Apellidos"
                                 autoComplete="apellidosRemitente"
                                 onChange={onChange}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
-                            <label htmlFor="apellidosRemitente" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Apellidos</label>
                         </div>
                         <div className="input-wrapper relative">
                             <input
@@ -73,30 +73,42 @@ const FormNewShipment = () => {
                                 id="telefonoRemitente"
                                 value={telefonoRemitente}
                                 name="telefonoRemitente"
+                                placeholder="Telefono"
                                 required
                                 autoComplete="telefonoRemitente"
                                 onChange={onChange}
 
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
-                            <label htmlFor="telefonoRemitente" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Teléfono</label>
                         </div>
                     </div>
 
                     <div className=" flex gap-3 items-center form-group mb-2">
-
+                        <div className="input-wrapper relative">
+                            <input
+                                type="text"
+                                id="CedulaRemitente"
+                                value={cedulaRemitente}
+                                name="cedulaRemitente"
+                                placeholder="Cédula"
+                                required
+                                autoComplete="cedulaRemitente"
+                                onChange={onChange}
+                                className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
+                            />
+                        </div>
                         <div className="input-wrapper relative">
                             <input
                                 type="text"
                                 id="direccionRemitente"
                                 value={direccionRemitente}
                                 name="direccionRemitente"
+                                placeholder="Direccion"
                                 required
                                 autoComplete="direccionRemitente"
                                 onChange={onChange}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
-                            <label htmlFor="direccionRemitente" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Dirección</label>
                         </div>
                         <div className="input-wrapper relative">
                             <input
@@ -105,11 +117,11 @@ const FormNewShipment = () => {
                                 value={ciudadRemitente}
                                 name="ciudadRemitente"
                                 required
+                                placeholder="Ciudad"
                                 autoComplete="ciudadRemitente"
                                 onChange={onChange}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
-                            <label htmlFor="ciudadRemitente" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Ciudad</label>
                         </div>
                     </div>
 
@@ -130,11 +142,11 @@ const FormNewShipment = () => {
                                 value={nombreDestinatario}
                                 name="nombreDestinatario"
                                 required
+                                placeholder="Nombre"
                                 autoComplete="nombreDestinatario"
                                 onChange={onChange}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
-                            <label htmlFor="nombreDestinatario" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Nombre</label>
                         </div>
                         <div className="input-wrapper relative">
                             <input
@@ -143,11 +155,11 @@ const FormNewShipment = () => {
                                 value={apellidosDestinatario}
                                 name="apellidosDestinatario"
                                 required
+                                placeholder="Apellidos"
                                 autoComplete="apellidosDestinatario"
                                 onChange={onChange}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
-                            <label htmlFor="apellidosDestinatario" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Apellidos</label>
                         </div>
                         <div className="input-wrapper relative">
                             <input
@@ -156,17 +168,29 @@ const FormNewShipment = () => {
                                 value={telefonoDestinatario}
                                 name="telefonoDestinatario"
                                 required
+                                placeholder="Telefono"
                                 autoComplete="telefonoDestinatario"
                                 onChange={onChange}
 
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
-                            <label htmlFor="telefonoDestinatario" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Teléfono</label>
                         </div>
                     </div>
 
                     <div className=" flex gap-3 items-center  form-group mb-2">
-
+                        <div className="input-wrapper relative">
+                            <input
+                                type="text"
+                                id="CedulaDestinatario"
+                                value={cedulaDestinatario}
+                                name="cedulaDestinatario"
+                                placeholder="Cédula"
+                                required
+                                autoComplete="cedulaDestinatario"
+                                onChange={onChange}
+                                className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
+                            />
+                        </div>
                         <div className="input-wrapper relative">
                             <input
                                 type="text"
@@ -174,11 +198,11 @@ const FormNewShipment = () => {
                                 value={direccionDestinatario}
                                 name="direccionDestinatario"
                                 required
+                                placeholder="Direccion"
                                 autoComplete="direccionDestinatario"
                                 onChange={onChange}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
-                            <label htmlFor="direccionDestinatario" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Dirección</label>
                         </div>
                         <div className="input-wrapper relative">
                             <input
@@ -187,17 +211,16 @@ const FormNewShipment = () => {
                                 value={ciudadDestinatario}
                                 name="ciudadDestinatario"
                                 required
+                                placeholder="Ciudad"
                                 autoComplete="ciudadDestinatario"
                                 onChange={onChange}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
-                            <label htmlFor="ciudad" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Ciudad</label>
                         </div>
                     </div>
-
-
-
                 </form>
+
+
             </div>
             <div
                 className="flex flex-col gap-4 w-full ">
@@ -207,16 +230,16 @@ const FormNewShipment = () => {
 
                         <div className="input-wrapper relative">
                             <input
-                                type="text"
+                                type="number"
                                 id="pesoPaquete"
                                 value={pesoPaquete}
                                 name="pesoPaquete"
                                 required
+                                placeholder="Peso en KG"
                                 autoComplete="pesoPaquete"
                                 onChange={onChange}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
-                            <label htmlFor="pesoPaquete" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Peso</label>
                         </div>
                         <div className="input-wrapper relative">
                             <input
@@ -225,25 +248,25 @@ const FormNewShipment = () => {
                                 value={valorDeclarado}
                                 name="valorDeclarado"
                                 required
+                                placeholder="Valor Declarado"
                                 autoComplete="valorDeclarado"
                                 onChange={onChange}
 
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
-                            <label htmlFor="valorDeclarado" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Valor Declarado</label>
                         </div>
                         <div className="input-wrapper relative">
                             <input
-                                type="text"
-                                id="tipoPaquete"
-                                value={tipoPaquete}
-                                name="tipoPaquete"
+                                type="number"
+                                id="DimensionesPaquete"
+                                value={dimensionesPaquete}
+                                name="dimensionesPaquete"
                                 required
-                                autoComplete="tipoPaquete"
+                                placeholder="Dimensiones en CM^3(largo x ancho x alto)"
+                                autoComplete="dimensionesPaquete"
                                 onChange={onChange}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
-                            <label htmlFor="tipoPaquete" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Tipo de Paquete</label>
                         </div>
                     </div>
 
@@ -257,11 +280,11 @@ const FormNewShipment = () => {
                                 value={descripcionPaquete}
                                 name="descripcionPaquete"
                                 required
+                                placeholder="Descripcion del Paquete"
                                 autoComplete="descripcionPaquete"
                                 onChange={onChange}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
-                            <label htmlFor="descripcionPaquete" className="absolute left-4 top-3 text-slate-500 text-base transition-all duration-200 pointer-events-none origin-top-left peer-focus:-translate-y-2 peer-focus:scale-75 peer-focus:text-indigo-500 peer-focus:font-normal">Descripción</label>
                         </div>
 
                     </div>

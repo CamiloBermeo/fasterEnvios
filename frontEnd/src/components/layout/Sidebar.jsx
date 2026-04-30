@@ -11,7 +11,18 @@ import AyudaIAIcon from "../../assets/robot-ia.svg";
 import ConfiguracionesIcon from "../../assets/configuraciones.svg";
 import SalirIcon from "../../assets/salir.svg";
 import DashboardIcon from "../../assets/dashboard.svg";
+import { useNavigate } from 'react-router-dom';
+
 const Sidebar = () => {
+
+    const navigate = useNavigate();
+    //funcion para cerrar sesion
+    const salir = () => {
+        navigate("/home");
+        localStorage.removeItem("token");
+    }
+    
+
     return (
         <aside className='fixed inset-y-0 left-0 w-64 bg-white flex flex-col h-screen border-r border-gray-200 z-50 overflow-y-auto'>
             
@@ -72,7 +83,10 @@ const Sidebar = () => {
                     <img src={ConfiguracionesIcon} alt="Configuraciones" className='w-5 h-5' />
                     <h3 className='text-base'>Configuraciones</h3>
                 </div>
-                <div className='flex items-center w-auto h-10 gap-4 pl-8 pr-2 py-2 rounded-lg cursor-pointer hover:bg-gray-200'>
+                <div 
+                className='flex items-center w-auto h-10 gap-4 pl-8 pr-2 py-2 rounded-lg cursor-pointer hover:bg-gray-200'
+                onClick={salir}>
+                
                     <img src={SalirIcon} alt="Salir" className='w-5 h-5' />
                     <h3 className='text-base'>Salir</h3>
                 </div>
