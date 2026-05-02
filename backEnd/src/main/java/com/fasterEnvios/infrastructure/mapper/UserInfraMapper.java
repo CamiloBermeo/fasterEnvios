@@ -10,6 +10,7 @@ public class UserInfraMapper {
                 .name(user.getName())
                 .lastName(user.getLastName())
                 .identityDocument(user.getIdentityDocument())
+                .city(CityInfraMapper.toEntity(user.getCity()))
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
                 .passwordHash(user.getPasswordHash())

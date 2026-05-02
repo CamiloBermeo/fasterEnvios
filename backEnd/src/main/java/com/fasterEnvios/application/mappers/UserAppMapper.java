@@ -4,17 +4,18 @@ import com.fasterEnvios.application.dto.user.NewUserRequestDTO;
 import com.fasterEnvios.application.dto.user.NewUserResponseDTO;
 import com.fasterEnvios.application.dto.user.RegisterSuccessDTO;
 import com.fasterEnvios.application.dto.user.UserResponseDTO;
+import com.fasterEnvios.domain.model.CityDescription;
 import com.fasterEnvios.domain.model.Role;
 import com.fasterEnvios.domain.model.UserModel;
 import com.fasterEnvios.infrastructure.entity.RoleEntity;
 import org.aspectj.weaver.patterns.IToken;
 
 public class UserAppMapper {
-    public static UserModel toModel (NewUserRequestDTO dto, String passwordHash, Role role) {
+    public static UserModel toModel (NewUserRequestDTO dto, CityDescription city, String passwordHash, Role role) {
         return UserModel.builder()
                 .withName(dto.name())
                 .withLastName(dto.lastName())
-                .withCity()
+                .withCity(city)
                 .withEmail(dto.email())
                 .withPasswordHash(passwordHash)
                 .withPhoneNumber(dto.phoneNumber())

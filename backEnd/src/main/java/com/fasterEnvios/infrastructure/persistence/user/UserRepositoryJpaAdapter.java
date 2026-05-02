@@ -29,7 +29,7 @@ private final IUserRepositoryJpa jpa;
 
     @Override
     public Optional<UserModel> findByDocument(String document) {
-        Optional<UserEntity> entity = jpa.findByDocument(document);
+        Optional<UserEntity> entity = jpa.findByIdentityDocument(document);
         return entity.map(UserInfraMapper::toModel);
     }
 }

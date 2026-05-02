@@ -11,6 +11,7 @@ import com.fasterEnvios.application.mappers.ClientAppMapper;
 import com.fasterEnvios.application.mappers.PersonAppMapper;
 import com.fasterEnvios.application.mappers.ShipmentAppMapper;
 import com.fasterEnvios.application.useCase.city.FindCityByNameUseCase;
+import com.fasterEnvios.application.useCase.city.SaveCityUseCase;
 import com.fasterEnvios.application.useCase.person.FindPersonByIdentityDocument;
 import com.fasterEnvios.domain.model.CityDescription;
 import com.fasterEnvios.domain.model.Person;
@@ -31,14 +32,13 @@ import java.time.LocalDateTime;
 public class NewShipmentUseCase {
 
     private final OpenRoutServiceClient openRoutServiceClient;
-    private final FindCityByNameUseCase findCityByNameUseCase;
-    private final ICityRepository ICityRepository;
+    private final SaveCityUseCase saveCityUseCase;
     private final IShipmentRepository IShipmentRepository;
 
     public NewShipmentResponseDTO execute(NewShipmentRequestDTO dto) {
         //primero busco la ciudad si esta en la base de datos
-        CityDescription citySenderDB = manageCity(dto.sender().city().name());
-        CityDescription cityAddresseeDB = manageCity(dto.addressee().city().name());
+        CityDescription citySenderDB = saveCityUseCase.execute(dto.sender().city().name());
+        CityDescription cityAddresseeDB = saveCityUseCase.execute(dto.addressee().city().name());
 
         //una vez ya tenga las ciudades en orden consulto al cliente para la distancia entre las ciudades
         ClientRequestDTO client = ClientAppMapper.toClient(citySenderDB, cityAddresseeDB);
@@ -56,24 +56,7 @@ public class NewShipmentUseCase {
         Shipment savedShipment = IShipmentRepository.save(shipment);
         return ShipmentAppMapper.toDto(savedShipment);
     }
-    private CityDescription manageCity (String cityName){
-        //primero busco la ciudad si esta en la base de datos
-        return findCityByNameUseCase.execute(cityName)
-                .orElseGet(() -> {
-                    //en caso de que no este en la db hago llamada a la api para buscarla y traer informacion de esta ciudad
-                    return saveCityWhenIsEmpty(cityName);
-                });
-    }
 
-    private CityDescription saveCityWhenIsEmpty(String city) {
-        String country = "Colombia";
-        //creo el dto con la ciudad y el pais con el mapper
-        CityCoordinatesRequestDTO cityForClient = CityAppMapper.toClientCityCoordinates(city, country);
-        //envio ese dto al cliente y recibo un dto con la informacion de la ciudad
-        CityCoordinatesResponseDTO coordinates = openRoutServiceClient.requestCoordinates(cityForClient);
-        //acá paso la informacion obtenida en el cliente para guardarla en la base de datos
-        return ICityRepository.save(CityAppMapper.toDomain(city, country, coordinates));
-    }
     private BigDecimal calculatedTotalAmount(double distance, double weight, BigDecimal declaredValue) {
         BigDecimal percentage = new BigDecimal("0.05");
         BigDecimal costDistance = BigDecimal.valueOf(distance * 20);
