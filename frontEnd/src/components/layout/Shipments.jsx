@@ -30,7 +30,7 @@ const Shipments = () => {
                         <div className="flex items-center justify-center gap-4">
                             <button
                             className="cursor-pointer w-full h-full bg-blue-800 text-white rounded-2xl p-3 transition-all duration-500 ease-in-out hover:bg-blue-600 hover:shadow-lg shadow-blue-800 hover:scale-100 active:scale-90">
-                                Gurdar Envío
+                                Pagar
                             </button>
                             <button
                             className="cursor-pointer w-72 h-full bg-red-800 text-white rounded-2xl p-3 transition-all duration-500 ease-in-out hover:bg-red-600 hover:shadow-lg shadow-red-800 hover:scale-100 active:scale-90"

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import IconoIr from "../../assets/home_icono.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import clienteAxios from "../../config/clienteAxios";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [usuario, guardarUsuario] = useState({
     name: "",
     lastName: "",
@@ -18,6 +19,7 @@ const Register = () => {
   });
   const [alerta, guardarAlerta] = useState(null);//state para mostrar alerta
   const [cargando, guardarCargando] = useState(false);//state para mostrar el spinner
+  const [exitoso, guardarExitoso] = useState(false);//state cuando ha salido bien
 
   //extraer el usuario
   const { name, lastName, city, phoneNumber, identityDocument, email, password, passwordConfirmation, cedulaConfirmation, emailConfirmation } = usuario;
@@ -66,20 +68,22 @@ const Register = () => {
     //peticion al backend
 
     try {
+      //limpio cualquier token que interfiera 
+      localStorage.removeItem("token")
+      delete clienteAxios.defaults.headers.common["Authorization"];
       //llamado al back
       const respuesta = await clienteAxios.post("/auth/register", usuario);
       console.log(respuesta.data);
-      guardarAlerta("Registro exitoso");
+      guardarExitoso("Registro exitoso");
       localStorage.setItem("token", respuesta.data.token)
       guardarCargando(false);
+      navigate("/home-cliente")
     } catch (error) {
       console.log(usuario)
       const mensaje = error.response?.data?.msg || "Hubo un error al iniciar sesión";
       guardarAlerta(mensaje);
     } finally {
       guardarCargando(false);
-
-
     }
 
   };
@@ -97,6 +101,14 @@ const Register = () => {
             {alerta}
           </div>
         )}
+        {exitoso && (
+          <div
+          className="bg-green-400 border-l-4 border-green-600 text-green-950 p-3 mb-4 text-sm"
+          >
+            {exitoso}
+          </div>
+        )
+        }
         <form
           className="login-form"
           id="loginForm"
@@ -310,6 +322,7 @@ const Register = () => {
         Inicio
       </Link>
 
+        
 
     </div>
     </div >

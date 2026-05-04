@@ -58,8 +58,6 @@ const LoginAliado = () => {
                 //redirecciono al dashboard 
                 navigate("/dashboard-aliado");
             
-
-
         } catch (error) {
             //utilizo los mensajes de error que me envia el back
             const mensaje = error.response?.data?.msg || "Hubo un error al iniciar sesión";
