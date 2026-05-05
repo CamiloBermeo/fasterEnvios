@@ -6,7 +6,36 @@ import BuscarRepartidores from "../../assets/buscar-persona.svg";
 
 const Shipments = () => {
 
+    const [cargando, guardarCargando] = useState(false) 
+    const [pagar, guardarPagar] = useState(false);
+    const [envio, guardarEnvio] = useState({
+        nombreRemitente: "",
+        direccionRemitente: "",
+        apellidosRemitente: "",
+        telefonoRemitente: "",
+        ciudadRemitente: "",
+        nombreDestinatario: "",
+        apellidosDestinatario: "",
+        direccionDestinatario: "",
+        telefonoDestinatario: "",
+        ciudadDestinatario: "",
+        descripcionPaquete: "",
+        pesoPaquete: "",
+        valorDeclarado: "",
+        tipoPaquete: "",
+        metodoPago: ""
+    });
     const [formNuevoEnvio, setFormNuevoEnvio] = useState(false);
+ const onChange = (e) => {
+        guardarEnvio({
+            ...envio,
+            [e.target.name]: e.target.value
+        });
+    }
+    const onSubmit = async e=>{
+
+        //conectarme con el back
+    }
 
 
     return (
@@ -26,9 +55,11 @@ const Shipments = () => {
                         <div className="text-center text-2xl ">
                             <h2>Formulario de Nuevo Envío</h2>
                         </div>
-                        <FormNewShipment />
+                        <FormNewShipment envio={envio} onChange={onChange}/>
                         <div className="flex items-center justify-center gap-4">
                             <button
+                            type="submit"
+                            disabled={cargando}
                             className="cursor-pointer w-full h-full bg-blue-800 text-white rounded-2xl p-3 transition-all duration-500 ease-in-out hover:bg-blue-600 hover:shadow-lg shadow-blue-800 hover:scale-100 active:scale-90">
                                 Pagar
                             </button>
