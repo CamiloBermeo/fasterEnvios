@@ -1,20 +1,16 @@
 import React from "react";
-import { useState } from "react";
 
 const FormNewShipment = ({ envio, onChange }) => {
 
-    const [pago, guardarPago] = useState(false)
+    
     
     //extraigo la informacion del remitente y la guardo en una variable para usarla
     const { nombreRemitente, apellidosRemitente, cedulaRemitente, direccionRemitente, telefonoRemitente, ciudadRemitente
         , nombreDestinatario, apellidosDestinatario, cedulaDestinatario, direccionDestinatario, telefonoDestinatario, ciudadDestinatario,
-        descripcionPaquete, pesoPaquete, valorDeclarado, dimensionesPaquete, metodoPago
+        descripcionPaquete, pesoPaquete, valorDeclarado, dimensionesPaquete
     } = envio;
     //funcion para actualizar el estado del remitente cada vez que se cambia un campo del formulario
-   
-    const onSubmit = async e => {
 
-    }
     return (
         <div className=" flex flex-col gap-4 items-center  overflow-y-auto max-h-96">
 
@@ -268,15 +264,7 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
                         </div>
-
                     </div>
-
-                    {pago && (
-
-                    )
-                    };
-
-
                 </form>
             </div>
         </div>

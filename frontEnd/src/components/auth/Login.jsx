@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import IconoIr from "../../assets/home_icono.svg";
 import clienteAxios from "../../config/clienteAxios.jsx";
 import { Link, useNavigate } from "react-router-dom";
+import tokenAuth from "../../config/token.jsx";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
@@ -50,6 +51,8 @@ const Login = () => {
             const respuesta = await clienteAxios.post("/auth/login", usuario);
             //guardar el token en localStorage
             localStorage.setItem("token", respuesta.data.token);
+            //agrega el token al header
+            tokenAuth(respuesta.data.token)
             //redirecciono al dashboard 
             navigate("/dashboard-aliado");
         } catch (error) {

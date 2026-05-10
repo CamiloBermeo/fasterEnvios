@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import clienteAxios from "../../config/clienteAxios.jsx";
 import IconoIr from "../../assets/home_icono.svg";
 import useAuth from "../../hooks/useAuth";
+import tokenAuth from "../../config/token.jsx";
 import { Link, useNavigate } from "react-router-dom";
 
 
@@ -44,7 +45,7 @@ const LoginAliado = () => {
 
         //intento de inicio de sesion
         try {
-           
+        
                 //limpio el token viejo antes de hacer login
                 localStorage.removeItem("token");
                 delete clienteAxios.defaults.headers.common["Authorization"];
@@ -54,7 +55,10 @@ const LoginAliado = () => {
                 console.log(respuesta.data);
                 //guardar el token en localStorage
                 localStorage.setItem("token", respuesta.data.token);
+                //guarda los datos del usuario autenticado
                 guardarAuth(respuesta.data.user);
+                //agreg el token al header
+                tokenAuth(respuesta.data.token);
                 //redirecciono al dashboard 
                 navigate("/dashboard-aliado");
             
