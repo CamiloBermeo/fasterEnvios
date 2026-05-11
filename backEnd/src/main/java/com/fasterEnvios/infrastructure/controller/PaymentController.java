@@ -1,7 +1,7 @@
 package com.fasterEnvios.infrastructure.controller;
 
 import com.fasterEnvios.application.dto.payment.PaymentRequestDTO;
-import com.fasterEnvios.application.dto.payment.PaymentResponseDTO;
+import com.fasterEnvios.application.dto.payment.InvoiceResponseDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class PaymentController {
 
-    @PostMapping("payment")
-    public ResponseEntity<PaymentResponseDTO> newPayment(@Valid @RequestBody PaymentRequestDTO){
+    private PaymentUseCase paymentUseCase;
 
+    @PostMapping("payment")
+    public ResponseEntity<InvoiceResponseDTO> newPayment(@Valid @RequestBody PaymentRequestDTO dto){
+        InvoiceResponseDTO invoice = paymentUseCase.execute(dto);
+        return ResponseEntity.ok(invoice);
     }
 
 }

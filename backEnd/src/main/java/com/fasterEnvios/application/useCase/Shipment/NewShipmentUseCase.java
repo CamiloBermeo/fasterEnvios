@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -44,10 +45,11 @@ public class NewShipmentUseCase {
         ClientResponseDTO info = openRoutServiceClient.requestDistance(ClientAppMapper.toClient(citySenderDB, cityAddresseeDB));
         LocalDateTime estimatedDeliveryDate = LocalDateTime.now().plusDays(3);
         StateEnum state = stateShipment(dto.state());
+        String trackingNumber = UUID.randomUUID().toString();
         BigDecimal totalAmount = calculatedTotalAmount(info.distance(), dto.packages().weightKg(), dto.packages().declaredValue());
 
         //armo en el mapper toda la informacion del envio y lo pongo en la clase shipment
-        Shipment shipment = ShipmentAppMapper.toModel(dto, estimatedDeliveryDate, info.distance(), state, totalAmount, citySenderDB,cityAddresseeDB);
+        Shipment shipment = ShipmentAppMapper.toModel(dto,trackingNumber, estimatedDeliveryDate, info.distance(), state, totalAmount, citySenderDB,cityAddresseeDB);
         //mando a guardar el envio en el repository
         Shipment savedShipment = IShipmentRepository.save(shipment);
         return ShipmentAppMapper.toDto(savedShipment);
@@ -60,6 +62,7 @@ public class NewShipmentUseCase {
         BigDecimal secure = percentage.multiply(declaredValue);
         return costDistance.add(costWeight).add(secure);
     }
+
     private StateEnum stateShipment(StateEnum state){
         if (state == null) {
             return state = StateEnum.RECEIVED;

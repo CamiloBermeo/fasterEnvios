@@ -7,6 +7,8 @@ import com.fasterEnvios.infrastructure.mapper.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class ShipmentRepositoryJpaAdapter implements IShipmentRepository {
@@ -15,5 +17,11 @@ public class ShipmentRepositoryJpaAdapter implements IShipmentRepository {
     public Shipment save (Shipment shipmentModel){
         ShipmentEntity shipmentEntity = ShipmentInfraMapper.toEntity(shipmentModel);
         return ShipmentInfraMapper.toModel( jpa.save(shipmentEntity));
+    }
+
+    @Override
+    public Optional<Shipment> findByTrackingNumber(String trackingNumber) {
+        Optional<ShipmentEntity> shipment = jpa.findByTrackingNumber(trackingNumber);
+        return shipment.map(ShipmentInfraMapper::toModel);
     }
 }

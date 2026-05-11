@@ -12,6 +12,7 @@ import java.util.List;
 public class ShipmentAppMapper {
 
     public static Shipment toModel(NewShipmentRequestDTO dto,
+                                   String trackingNumber,
                                    LocalDateTime estimatedDeliveryDate,
                                    double distance,
                                    StateEnum state,
@@ -20,6 +21,7 @@ public class ShipmentAppMapper {
                                    CityDescription cityAddresseeDB) {
 
         return Shipment.builder()
+                .withTrackingNumber(trackingNumber)
                 .withSender(Person.builder()
                         .withName(dto.sender().name())
                         .withLastName(dto.sender().lastName())
@@ -56,7 +58,7 @@ public class ShipmentAppMapper {
 
     public static NewShipmentResponseDTO toDto(Shipment shipment){
         return new NewShipmentResponseDTO(
-                shipment.getId(),
+                shipment.getTrackingNumber(),
                 shipment.getState().toString(),
                 shipment.getSender().getCity().getName(),
                 shipment.getAddressee().getCity().getName(),

@@ -1,5 +1,9 @@
 package com.fasterEnvios.infrastructure.entity;
 
+import com.fasterEnvios.domain.model.PaymentMethod;
+import com.fasterEnvios.domain.model.PaymentStatusEnum;
+import com.fasterEnvios.domain.model.Person;
+import com.fasterEnvios.domain.model.Shipment;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +27,9 @@ public class PaymentTransactionEntity {
     @OneToOne()
     @JoinColumn(name = "shipment_id", nullable = false)
     private ShipmentEntity shipment;
+    @OneToOne()
+    @JoinColumn(name = "person_id", nullable = false)
+    private PersonEntity payingPerson;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_method_id")
     private PaymentMethodEntity paymentMethod;
@@ -32,4 +39,6 @@ public class PaymentTransactionEntity {
     private LocalDateTime paymentDate;
     @Column(nullable = false)
     private String paymentStatus;
+    @Column
+    private String observations;
 }

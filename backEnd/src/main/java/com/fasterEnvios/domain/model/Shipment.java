@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Shipment {
     private Long id;
+    private String trackingNumber;
     private Person sender;
     private Person addressee;
     private PaymentTransaction paymentTransaction;
@@ -20,8 +21,9 @@ public class Shipment {
     public Shipment() {
     }
 
-    private Shipment(Long id, Person sender, Person addressee,PaymentTransaction paymentTransaction, PackageModel packageModels, LocalDateTime createdAt, BigDecimal totalAmount,LocalDateTime estimatedDeliveryDate, double distance, StateEnum state) {
+    private Shipment(Long id,String trackingNumber, Person sender, Person addressee,PaymentTransaction paymentTransaction, PackageModel packageModels, LocalDateTime createdAt, BigDecimal totalAmount,LocalDateTime estimatedDeliveryDate, double distance, StateEnum state) {
         this.id = id;
+        this.trackingNumber = trackingNumber;
         this.sender = sender;
         this.addressee = addressee;
         this.paymentTransaction = paymentTransaction;
@@ -39,6 +41,7 @@ public class Shipment {
 
     private Shipment(ShipmentBuilder builder) {
         this.id = builder.id;
+        this.trackingNumber = builder.trackingNumber;
         this.sender = builder.sender;
         this.addressee= builder.addressee;
         this.paymentTransaction = builder.paymentTransaction;
@@ -53,6 +56,7 @@ public class Shipment {
     public ShipmentBuilder toBuilder() {
         return new ShipmentBuilder()
                 .withId(this.id)
+                .withTrackingNumber(this.trackingNumber)
                 .withSender(this.sender)
                 .withAddressee(this.addressee)
                 .withPaymentTransaction(this.paymentTransaction)
@@ -66,6 +70,7 @@ public class Shipment {
 
     public static class ShipmentBuilder {
         private Long id;
+        private String trackingNumber;
         private Person sender;
         private Person addressee;
         private PaymentTransaction paymentTransaction;
@@ -78,6 +83,10 @@ public class Shipment {
 
         public ShipmentBuilder withId(Long id) {
             this.id = id;
+            return this;
+        }
+        public ShipmentBuilder withTrackingNumber(String trackingNumber) {
+            this.trackingNumber = trackingNumber;
             return this;
         }
 
@@ -128,6 +137,10 @@ public class Shipment {
 
     public Long getId() {
         return id;
+    }
+
+    public String getTrackingNumber() {
+        return trackingNumber;
     }
 
     public PaymentTransaction getPaymentTransaction() {

@@ -18,6 +18,8 @@ public class ShipmentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
+    @Column(nullable = false)
+    private String trackingNumber;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sender_id",  nullable = false)
     private PersonEntity sender;

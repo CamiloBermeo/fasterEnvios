@@ -14,6 +14,7 @@ public class ShipmentInfraMapper {
 
     public static ShipmentEntity toEntity(Shipment shipment) {
         return ShipmentEntity.builder()
+                .trackingNumber(shipment.getTrackingNumber())
                 .sender(PersonInfraMapper.toEntity(shipment.getSender()))
                 .addressee(PersonInfraMapper.toEntity(shipment.getAddressee()))
                 .distance(shipment.getDistance())
@@ -29,6 +30,7 @@ public class ShipmentInfraMapper {
     public static Shipment toModel(ShipmentEntity shipmentEntity) {
         Shipment.ShipmentBuilder shipmentBuilder = Shipment.builder()
                 .withId(shipmentEntity.getId())
+                .withTrackingNumber(shipmentEntity.getTrackingNumber())
                 .withSender(PersonInfraMapper.toModel(shipmentEntity.getSender()))
                 .withAddressee(PersonInfraMapper.toModel(shipmentEntity.getAddressee()))
                 .withDistance(shipmentEntity.getDistance())
