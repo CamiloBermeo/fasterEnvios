@@ -27,7 +27,7 @@ public class ShipmentController {
 
     private final NewShipmentUseCase newShipmentUseCase;
 
-    @PostMapping
+    @PostMapping("newShipment")
     @Operation(
             summary = "Crea un nuevo envío",
             description = """

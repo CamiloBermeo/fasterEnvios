@@ -51,18 +51,7 @@ public class ShipmentAppMapper {
                                 .withDimensions(dto.packages().dimensions())
                                 .withWeightKg(dto.packages().weightKg())
                                 .build())
-
-                .withPaymentTransaction(
-                        PaymentTransaction.builder()
-                                .withAmount(dto.paymentTransaction().amount())
-                                .withPaymentStatus(PaymentStatusEnum.valueOf(dto.paymentTransaction().paymentStatus().toString()))
-                                .withPaymentDate(LocalDateTime.now())
-                                .withPaymentMethods(PaymentMethod.builder()
-                                        .withMethodName(dto.paymentTransaction().methodPaymentName())
-                                        .build()
-                                )
-                                .build()
-                ).build();
+               .build();
     }
 
     public static NewShipmentResponseDTO toDto(Shipment shipment){

@@ -20,7 +20,8 @@ public class PaymentTransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(mappedBy = "paymentTransaction")
+    @OneToOne()
+    @JoinColumn(name = "shipment_id", nullable = false)
     private ShipmentEntity shipment;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_method_id")

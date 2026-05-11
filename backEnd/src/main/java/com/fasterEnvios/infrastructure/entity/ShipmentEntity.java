@@ -24,8 +24,7 @@ public class ShipmentEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "addressee_id", nullable = false)
     private PersonEntity addressee;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "payment_transaction_id")
+    @OneToOne(mappedBy = "shipment")
     private PaymentTransactionEntity  paymentTransaction;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "package_id")

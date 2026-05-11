@@ -22,7 +22,6 @@ public class ShipmentInfraMapper {
                 .state(shipment.getState().toString())
                 .totalAmount(shipment.getTotalAmount())
                 .packages(PackageInfraMapper.toEntity(shipment.getPackageModels()))
-                .paymentTransaction(PaymentTransactionInfraMapper.toEntity(shipment.getPaymentTransaction()))
                 .build();
 
     }

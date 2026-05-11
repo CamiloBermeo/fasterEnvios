@@ -8,7 +8,6 @@ public record NewShipmentRequestDTO(
         PersonRequestDTO sender,//remitente
         PersonRequestDTO addressee,//destinatario
         PackageRequestDTO packages,
-        StateEnum status,
-        PaymentTransactionRequestDTO paymentTransaction
+        StateEnum state
 ) {
 }

@@ -41,13 +41,9 @@ public class NewShipmentUseCase {
         CityDescription cityAddresseeDB = saveCityUseCase.execute(dto.addressee().city().name());
 
         //una vez ya tenga las ciudades en orden consulto al cliente para la distancia entre las ciudades
-        ClientRequestDTO client = ClientAppMapper.toClient(citySenderDB, cityAddresseeDB);
-        ClientResponseDTO info = openRoutServiceClient.requestDistance(client);
+        ClientResponseDTO info = openRoutServiceClient.requestDistance(ClientAppMapper.toClient(citySenderDB, cityAddresseeDB));
         LocalDateTime estimatedDeliveryDate = LocalDateTime.now().plusDays(3);
-        StateEnum state = dto.status();
-        if (state == null) {
-            state = StateEnum.RECEIVED;
-        }
+        StateEnum state = stateShipment(dto.state());
         BigDecimal totalAmount = calculatedTotalAmount(info.distance(), dto.packages().weightKg(), dto.packages().declaredValue());
 
         //armo en el mapper toda la informacion del envio y lo pongo en la clase shipment
@@ -63,5 +59,11 @@ public class NewShipmentUseCase {
         BigDecimal costWeight = BigDecimal.valueOf(weight * 100);
         BigDecimal secure = percentage.multiply(declaredValue);
         return costDistance.add(costWeight).add(secure);
+    }
+    private StateEnum stateShipment(StateEnum state){
+        if (state == null) {
+            return state = StateEnum.RECEIVED;
+        }
+        return state;
     }
 }

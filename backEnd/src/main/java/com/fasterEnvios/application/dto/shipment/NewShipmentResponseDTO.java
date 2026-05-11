@@ -12,5 +12,6 @@ public record NewShipmentResponseDTO (
         String totalAmount,      // Costo total del envío
         LocalDateTime estimatedDate, // Fecha estimada de llegada
         LocalDateTime createdAt     // Fecha de creación
+
 ){
 }
