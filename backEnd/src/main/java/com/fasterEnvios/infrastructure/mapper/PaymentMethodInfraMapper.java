@@ -11,7 +11,7 @@ public class PaymentMethodInfraMapper {
 
     public static PaymentMethodEntity toEntity(PaymentMethod paymentMethod) {
         return PaymentMethodEntity.builder()
-                .methodName(paymentMethod.getMethodName())
+                .name(paymentMethod.getMethodName())
                 .status(paymentMethod.isStatus())
                 .build();
     }
@@ -19,7 +19,7 @@ public class PaymentMethodInfraMapper {
     public static PaymentMethod toModel(PaymentMethodEntity entity) {
         return PaymentMethod.builder()
                 .withId(entity.getId())
-                .withMethodName(entity.getMethodName())
+                .withMethodName(entity.getName())
                 .withStatus(entity.isStatus())
                 .build();
 

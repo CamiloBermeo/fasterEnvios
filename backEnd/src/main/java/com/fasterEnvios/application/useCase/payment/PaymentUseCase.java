@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -30,12 +31,12 @@ public class PaymentUseCase {
         //obtengo el metodo de pago por el nombre y lo asigno
         PaymentMethod paymentMethod = findPaymentMethodByName.execute(dto.methodPaymentName())
                 .orElseThrow(() -> new PaymentMethodNotFoundException(dto.methodPaymentName()));
-
+        String idTransaction = UUID.randomUUID().toString();
         //estado del pago
         PaymentStatusEnum paymentStatus = statusAssignment(dto.methodPaymentName(), dto.payingPerson());
 
-        PaymentTransaction paymentTransaction = paymentRepository.save(PaymentAppMapper.toModel(dto,shipmentDb,payingPerson, paymentMethod, paymentStatus ));
-
+        PaymentTransaction paymentTransaction = paymentRepository.save(PaymentAppMapper.toModel(dto,shipmentDb,payingPerson, paymentMethod, paymentStatus ,idTransaction));
+        return PaymentAppMapper.toDto(paymentTransaction);
     }
 
     private PaymentStatusEnum statusAssignment(String methodPaymentName, String payingPerson){

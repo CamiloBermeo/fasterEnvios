@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 public class PaymentTransaction {
     private Long id;
+    private String idTransaction;
     private Shipment shipments;
     private Person payingPerson;
     private PaymentMethod paymentMethods;
@@ -16,8 +17,9 @@ public class PaymentTransaction {
     public PaymentTransaction() {
     }
 
-    private PaymentTransaction(Long id, Shipment shipments, Person payingPerson,PaymentMethod paymentMethods, BigDecimal amount, LocalDateTime paymentDate, PaymentStatusEnum paymentStatus, String observations) {
+    private PaymentTransaction(Long id, String idTransaction,Shipment shipments, Person payingPerson,PaymentMethod paymentMethods, BigDecimal amount, LocalDateTime paymentDate, PaymentStatusEnum paymentStatus, String observations) {
         this.id = id;
+        this.idTransaction = idTransaction;
         this.shipments = shipments;
         this.payingPerson = payingPerson;
         this.paymentMethods = paymentMethods;
@@ -33,6 +35,7 @@ public class PaymentTransaction {
 
     private PaymentTransaction(PaymentTransactionBuilder builder) {
         this.id = builder.id;
+        this.idTransaction = builder.idTransaction;
         this.shipments = builder.shipments;
         this.payingPerson = builder.payingPerson;
         this.paymentMethods = builder.paymentMethods;
@@ -45,6 +48,7 @@ public class PaymentTransaction {
     public PaymentTransactionBuilder toBuilder() {
         return new PaymentTransactionBuilder()
                 .withId(this.id)
+                .withIdTransaction(this.idTransaction)
                 .withShipments(this.shipments)
                 .withPayingPerson(this.payingPerson)
                 .withPaymentMethods(this.paymentMethods)
@@ -56,6 +60,7 @@ public class PaymentTransaction {
 
     public static class PaymentTransactionBuilder {
         private Long id;
+        private String idTransaction;
         private Shipment shipments;
         private Person payingPerson;
         private PaymentMethod paymentMethods;
@@ -66,6 +71,10 @@ public class PaymentTransaction {
 
         public PaymentTransactionBuilder withId(Long id) {
             this.id = id;
+            return this;
+        }
+        public PaymentTransactionBuilder withIdTransaction(String idTransaction) {
+            this.idTransaction = idTransaction;
             return this;
         }
 
@@ -109,6 +118,10 @@ public class PaymentTransaction {
 
     public Long getId() {
         return id;
+    }
+
+    public String getIdTransaction() {
+        return idTransaction;
     }
 
     public Shipment getShipments() {
