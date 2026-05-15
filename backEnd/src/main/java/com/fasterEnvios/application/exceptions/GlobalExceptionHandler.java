@@ -5,6 +5,7 @@ import com.fasterEnvios.application.exceptions.client.JsonMapperInternalServiceE
 import com.fasterEnvios.application.exceptions.client.JsonMapperResponseClientException;
 import com.fasterEnvios.application.exceptions.jdbc.SaveErrorDataBaseException;
 import com.fasterEnvios.application.exceptions.payment.PaymentMethodNotFoundException;
+import com.fasterEnvios.application.exceptions.person.PersonNotFoundException;
 import com.fasterEnvios.application.exceptions.role.RoleNotFoundDataBaseException;
 import com.fasterEnvios.application.exceptions.shipment.ShipmentNotFoundException;
 import com.fasterEnvios.application.exceptions.user.UserNotFoundException;
@@ -23,7 +24,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({UserNotFoundException.class,
             ShipmentNotFoundException.class,
             PaymentMethodNotFoundException.class,
-            RoleNotFoundDataBaseException.class})
+            RoleNotFoundDataBaseException.class,
+            PersonNotFoundException.class})
     public ResponseEntity<ErrorDetails> handleFindDataBaseException(RuntimeException ex) {
         return buildResponse(ex, HttpStatus.NOT_FOUND);
     }

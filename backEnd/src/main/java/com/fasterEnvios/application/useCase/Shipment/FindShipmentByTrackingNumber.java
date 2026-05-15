@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class FindShipmentByTrackingNumber {
-    private IShipmentRepository shipmentRepository;
+    private final IShipmentRepository shipmentRepository;
 
     public Optional<Shipment> execute(String tracingNumber){
         return shipmentRepository.findByTrackingNumber(tracingNumber);

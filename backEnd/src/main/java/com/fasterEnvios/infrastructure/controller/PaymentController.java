@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class PaymentController {
 
-    private PaymentUseCase paymentUseCase;
+    private final PaymentUseCase paymentUseCase;
 
     @PostMapping("payment")
     @Operation(

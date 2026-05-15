@@ -28,10 +28,11 @@ public class PaymentTransactionInfraMapper {
     }
 
     public static PaymentTransaction toModel(PaymentTransactionEntity entity) {
+        if (entity == null) return null;
         PaymentTransaction.PaymentTransactionBuilder paymentTransactionBuilder = PaymentTransaction.builder()
                 .withId(entity.getId())
-                .withIdTransaction(entity.getIdTransaction())
                 .withShipments(ShipmentInfraMapper.toModel(entity.getShipment()))
+                .withIdTransaction(entity.getIdTransaction())
                 .withPayingPerson(PersonInfraMapper.toModel(entity.getPayingPerson()))
                 .withPaymentDate(entity.getPaymentDate())
                 .withAmount(entity.getAmount())

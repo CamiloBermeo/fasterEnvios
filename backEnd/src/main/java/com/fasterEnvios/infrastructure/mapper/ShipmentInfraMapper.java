@@ -39,7 +39,7 @@ public class ShipmentInfraMapper {
                 .withState(StateEnum.valueOf(shipmentEntity.getState()))
                 .withTotalAmount(shipmentEntity.getTotalAmount())
                 .withPackages(PackageInfraMapper.toModel(shipmentEntity.getPackages()))
-                .withPaymentTransaction(PaymentTransactionInfraMapper.toModel(shipmentEntity.getPaymentTransaction()))
+                .withPaymentTransaction(shipmentEntity.getPaymentTransaction() != null ? PaymentTransactionInfraMapper.toModel(shipmentEntity.getPaymentTransaction()) : null)
                 .build().toBuilder();
         return shipmentBuilder.build();
     }
