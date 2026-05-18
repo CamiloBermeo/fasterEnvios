@@ -32,7 +32,7 @@ public class PaymentTransactionEntity {
     @OneToOne()
     @JoinColumn(name = "person_id", nullable = false)
     private PersonEntity payingPerson;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "payment_method_id")
     private PaymentMethodEntity paymentMethod;
     @Column(nullable = false)

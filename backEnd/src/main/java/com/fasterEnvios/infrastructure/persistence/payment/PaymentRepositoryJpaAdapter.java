@@ -14,6 +14,7 @@ import com.fasterEnvios.infrastructure.mapper.PaymentMethodInfraMapper;
 import com.fasterEnvios.infrastructure.mapper.PaymentTransactionInfraMapper;
 import com.fasterEnvios.infrastructure.persistence.person.IPersonRepositoryJpa;
 import com.fasterEnvios.infrastructure.persistence.shipment.IShipmentRepositoryJpa;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -34,6 +35,7 @@ public class PaymentRepositoryJpaAdapter implements IPaymentRepository {
     }
 
     @Override
+    @Transactional
     public PaymentTransaction save(PaymentTransaction paymentTransaction) {
         PaymentTransactionEntity entity = buildManagedEntity(paymentTransaction);
         return PaymentTransactionInfraMapper.toModel(jpa.save(entity));
