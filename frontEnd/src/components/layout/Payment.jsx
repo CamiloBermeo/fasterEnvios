@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // Componente Payment: Modal para recopilar y validar información de pago del usuario
-const Payment = ({ pago, onChangePago, onSubmit }) => {
+const Payment = ({ pago, envio,onChangePago }) => {
     // Estado que almacena los errores de validación de cada campo
     const [errores, setErrores] = useState({});
 
@@ -56,7 +56,7 @@ const Payment = ({ pago, onChangePago, onSubmit }) => {
                 <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
                     <span className="text-white text-lg">💳</span>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-800">Información de Pago</h3>
+                <h3 className="text-2xl font-bold text-gray-800">Información de Pago del envio: </h3>
             </div>
 
             {/* Tarjeta que muestra el número de referencia (ID del envío) */}
@@ -84,7 +84,7 @@ const Payment = ({ pago, onChangePago, onSubmit }) => {
                 {/* Muestra el mensaje de error si el campo no es válido */}
                 {errores.payingPerson && (
                     <p className="text-red-600 text-sm mt-1 flex items-center gap-1">
-                        ⚠️ {errores.payingPerson}
+                    {errores.payingPerson}
                     </p>
                 )}
             </div>

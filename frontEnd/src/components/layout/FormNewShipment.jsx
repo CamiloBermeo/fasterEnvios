@@ -1,6 +1,6 @@
 import React from "react";
 
-const FormNewShipment = ({ envio, onChange }) => {
+const FormNewShipment = ({ envio, onChangeEnvio }) => {
 
     
     
@@ -17,7 +17,7 @@ const FormNewShipment = ({ envio, onChange }) => {
             <div
                 className="flex flex-col gap-2 items-start  ">
                 <h1 className="text-blue-600"> Información Remitente</h1>
-                <form >
+                
                     <div className="flex gap-1 form-group mb-2">
                         <div className="input-wrapper relative">
                             <input
@@ -28,7 +28,7 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 placeholder="Nombre"
                                 required
                                 autoComplete="nombreRemitente"
-                                onChange={onChange}
+                                onChange={onChangeEnvio}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
                         </div>
@@ -41,7 +41,7 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 required
                                 placeholder="Apellidos"
                                 autoComplete="apellidosRemitente"
-                                onChange={onChange}
+                                onChange={onChangeEnvio}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
                         </div>
@@ -54,7 +54,7 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 placeholder="Telefono"
                                 required
                                 autoComplete="telefonoRemitente"
-                                onChange={onChange}
+                                onChange={onChangeEnvio}
 
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
@@ -71,7 +71,7 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 placeholder="Cédula"
                                 required
                                 autoComplete="cedulaRemitente"
-                                onChange={onChange}
+                                onChange={onChangeEnvio}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
                         </div>
@@ -84,7 +84,7 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 placeholder="Direccion"
                                 required
                                 autoComplete="direccionRemitente"
-                                onChange={onChange}
+                                onChange={onChangeEnvio}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
                         </div>
@@ -97,21 +97,17 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 required
                                 placeholder="Ciudad"
                                 autoComplete="ciudadRemitente"
-                                onChange={onChange}
+                                onChange={onChangeEnvio}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
                         </div>
                     </div>
-
-
-
-                </form>
             </div>
 
             <div
                 className="flex flex-col gap-4  ">
                 <h1 className="text-emerald-600"> Información Destinatario</h1>
-                <form >
+                
                     <div className="flex gap-3 form-group mb-2">
                         <div className="input-wrapper relative">
                             <input
@@ -122,7 +118,7 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 required
                                 placeholder="Nombre"
                                 autoComplete="nombreDestinatario"
-                                onChange={onChange}
+                                onChange={onChangeEnvio}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
                         </div>
@@ -135,7 +131,7 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 required
                                 placeholder="Apellidos"
                                 autoComplete="apellidosDestinatario"
-                                onChange={onChange}
+                                onChange={onChangeEnvio}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
                         </div>
@@ -148,7 +144,7 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 required
                                 placeholder="Telefono"
                                 autoComplete="telefonoDestinatario"
-                                onChange={onChange}
+                                onChange={onChangeEnvio}
 
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
@@ -165,7 +161,7 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 placeholder="Cédula"
                                 required
                                 autoComplete="cedulaDestinatario"
-                                onChange={onChange}
+                                onChange={onChangeEnvio}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
                         </div>
@@ -178,7 +174,7 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 required
                                 placeholder="Direccion"
                                 autoComplete="direccionDestinatario"
-                                onChange={onChange}
+                                onChange={onChangeEnvio}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
                         </div>
@@ -191,19 +187,19 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 required
                                 placeholder="Ciudad"
                                 autoComplete="ciudadDestinatario"
-                                onChange={onChange}
+                                onChange={onChangeEnvio}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
                         </div>
                     </div>
-                </form>
+                
 
 
             </div>
             <div
                 className="flex flex-col gap-4 w-full ">
                 <h1 className="text-amber-600"> Información Paquete</h1>
-                <form >
+                
                     <div className="flex gap-3 form-group mb-2">
 
                         <div className="input-wrapper relative">
@@ -215,7 +211,7 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 required
                                 placeholder="Peso en KG"
                                 autoComplete="pesoPaquete"
-                                onChange={onChange}
+                                onChange={onChangeEnvio}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
                         </div>
@@ -228,7 +224,7 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 required
                                 placeholder="Valor Declarado"
                                 autoComplete="valorDeclarado"
-                                onChange={onChange}
+                                onChange={onChangeEnvio}
 
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
@@ -242,7 +238,7 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 required
                                 placeholder="Dimensiones en CM^3(largo x ancho x alto)"
                                 autoComplete="dimensionesPaquete"
-                                onChange={onChange}
+                                onChange={onChangeEnvio}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
                         </div>
@@ -260,12 +256,11 @@ const FormNewShipment = ({ envio, onChange }) => {
                                 required
                                 placeholder="Descripcion del Paquete"
                                 autoComplete="descripcionPaquete"
-                                onChange={onChange}
+                                onChange={onChangeEnvio}
                                 className="bg-white border-2 border-slate-200 rounded-lg px-4 pb-2 pt-3 text-slate-800 text-base transition-all duration-200 w-full outline-none focus:border-indigo-500 peer placeholder:text-slate-400"
                             />
                         </div>
                     </div>
-                </form>
             </div>
         </div>
     );

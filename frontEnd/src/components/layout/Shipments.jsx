@@ -10,26 +10,59 @@ import clienteAxios from "../../config/clienteAxios";
 
 const Shipments = () => {
 
+    let respuestaEnvio ;
     const [cargando, guardarCargando] = useState(false)
     const [alerta, guardarAlerta] = useState(null)
     const [irPagar, guardarIrPagar] = useState(false);
-    const [factura, guardarFactura]= useState(null)
+    const [factura, guardarFactura] = useState(null)
+    const [irFactura, guardarIrFactura] = useState(false)
     const [envio, guardarEnvio] = useState({
         nombreRemitente: "",
         direccionRemitente: "",
+        cedulaRemitente: "",
         apellidosRemitente: "",
         telefonoRemitente: "",
         ciudadRemitente: "",
         nombreDestinatario: "",
         apellidosDestinatario: "",
+        cedulaDestinatario: "",
         direccionDestinatario: "",
         telefonoDestinatario: "",
         ciudadDestinatario: "",
         descripcionPaquete: "",
         pesoPaquete: "",
         valorDeclarado: "",
-        tipoPaquete: "",
+        dimensionesPaquete: "",
     });
+    const buildShipmentPayload = (envio) => ({
+        sender: {
+            name: envio.nombreRemitente,
+            lastName: envio.apellidosRemitente,
+            identityDocument: envio.cedulaRemitente,
+            phoneNumber: envio.telefonoRemitente,
+            address: envio.direccionRemitente,
+            city: {
+                name: envio.ciudadRemitente
+            }
+        },
+        addressee: {
+            name: envio.nombreDestinatario,
+            lastName: envio.apellidosDestinatario,
+            identityDocument: envio.cedulaDestinatario,
+            phoneNumber: envio.telefonoDestinatario,
+            address: envio.direccionDestinatario,
+            city: {
+                name: envio.ciudadDestinatario
+            }
+        },
+        packages: {
+            weightKg: envio.pesoPaquete,
+            dimensions: envio.dimensionesPaquete,
+            declaredValue: envio.valorDeclarado,
+            description: envio.descripcionPaquete
+        }
+    });
+    
     const [pago, guardarPago] = useState({
 
         orderId: "",
@@ -39,7 +72,7 @@ const Shipments = () => {
         observation: ''
 
     })
-    const [formNuevoEnvio, setFormNuevoEnvio] = useState(false);
+    const [ventanaEnvio, setVentanaEnvio] = useState(false);
     const onChangeEnvio = (e) => {
         guardarEnvio({
             ...envio,
@@ -53,12 +86,14 @@ const Shipments = () => {
         });
     }
     const onSubmit = async e => {
+        const payload = buildShipmentPayload(envio);
         //evita, que el navegador recargue y se pierdan los datos si no que empieza a manejarlo react
         e.preventDefault();
         //conectarme con el back
         try {
-            const respuesta = await clienteAxios.post("/shipments/newShipment", envio)
+            const respuesta = await clienteAxios.post("/shipments/newShipment", payload)
             guardarIrPagar(true)
+            respuestaEnvio = respuesta.data;
             const trackingNumber = respuesta.data.trackingNumber;
             const amount = respuesta.data.amount;
             guardarPago(prev => ({
@@ -76,11 +111,12 @@ const Shipments = () => {
 
         //guardar pago
         try {
-            const respuesta = await clienteAxios.post("/payments/newPayment", pago)
+            const respuesta = await clienteAxios.post("/payments/payment", pago)
             guardarFactura(respuesta.data)
+            guardarIrFactura(true)
         } catch (error) {
             const mensaje = error.response?.data?.msg || "Hubo un error al guardar el envío"
-            guardarAlerta({mensaje})
+            guardarAlerta({ mensaje })
         } finally {
             guardarCargando(true)
         }
@@ -91,7 +127,7 @@ const Shipments = () => {
         <div className="flex justify-around items-center w-full h-20  ">
             <div className="flex justify-center items-center w-44 h-20 ">
                 <button
-                    onClick={() => setFormNuevoEnvio(!formNuevoEnvio)}
+                    onClick={() => setVentanaEnvio(!ventanaEnvio)}
                     className="flex flex-col justify-center items-center  w-40 h-16 transition-all duration-500 ease-in-out hover:bg-emerald-600 
             rounded-2xl hover:shadow-lg shadow-emerald-800 hover:scale-110 active:scale-95
             bg-linear-to-r from-gray-300 to-gray-500 cursor-pointer text-white"
@@ -99,7 +135,7 @@ const Shipments = () => {
                     <img className="size-10" src={NuevoEnvio} alt="Nuevo Envío" />
                     Nuevo Envío
                 </button>
-                {formNuevoEnvio && (
+                {ventanaEnvio && (
                     <div className="flex flex-col absolute top-9 left-1/2 -translate-x-1/2 gap-4 bg-white rounded-lg shadow-lg p-6 z-50">
                         <div className="text-center text-2xl ">
                             <h2>Formulario de Nuevo Envío</h2>
@@ -109,30 +145,11 @@ const Shipments = () => {
                                 {alerta}
                             </div>
                         )}
-                        <form onSubmit={onSubmit}
-                        //envuelvo todo en un form para poder usar el onSubmit
-                        >
-                            <FormNewShipment 
-                            envio={envio} 
-                            onChangeEnvio={onChangeEnvio} 
+                        <form onSubmit={onSubmit}>
+                            <FormNewShipment
+                                envio={envio}
+                                onChangeEnvio={onChangeEnvio}
                             />
-
-                            {irPagar && (
-                                <Payment
-                                    pago={pago}
-                                    onChangePago={onChangePago}
-                                    onSubmit={onSubmit}
-                                />
-                            )
-                            };
-                            {factura && (
-                                <Factura 
-                                    factura={factura}
-
-                                />
-                            )}
-
-                            {!irPagar && (
                             <div className="flex items-center justify-center gap-4">
                                 <button
                                     type="submit"
@@ -143,17 +160,26 @@ const Shipments = () => {
                                 <button
                                     className="cursor-pointer w-72 h-full bg-red-800 text-white rounded-2xl p-3 transition-all duration-500 ease-in-out hover:bg-red-600 hover:shadow-lg shadow-red-800 hover:scale-100 active:scale-90"
                                     type="button"
-                                    onClick={() => setFormNuevoEnvio(!formNuevoEnvio)}
+                                    onClick={() => setVentanaEnvio(!ventanaEnvio)}
                                 >
                                     Cancelar
                                 </button>
                             </div>
-                            )}
                         </form>
                     </div>
-
                 )}
-
+                {irPagar && (
+                    <Payment
+                        pago={pago}
+                        respuestaEnvio={respuestaEnvio}
+                        onChangePago={onChangePago}
+                    />
+                )}
+                {irFactura && (
+                    <Factura
+                    factura={factura}
+                    />
+                )}
             </div>
             <div className="flex justify-center items-center  w-44 h-20">
                 <button
