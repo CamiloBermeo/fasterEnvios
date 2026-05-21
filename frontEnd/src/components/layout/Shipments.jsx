@@ -10,7 +10,7 @@ import clienteAxios from "../../config/clienteAxios";
 
 const Shipments = () => {
 
-    let respuestaEnvio ;
+    const [respuestaEnvio, guardarRespuestaEnvio] = useState(null);
     const [cargando, guardarCargando] = useState(false)
     const [alerta, guardarAlerta] = useState(null)
     const [irPagar, guardarIrPagar] = useState(false);
@@ -62,12 +62,11 @@ const Shipments = () => {
             description: envio.descripcionPaquete
         }
     });
-    
+
     const [pago, guardarPago] = useState({
 
         orderId: "",
         payingPerson: "",
-        amount: "",
         methodPaymentName: "",
         observation: ''
 
@@ -80,10 +79,11 @@ const Shipments = () => {
         });
     }
     const onChangePago = (e) => {
-        guardarPago({
-            ...pago,
-            [e.target.name]: e.target.value
-        });
+        
+        guardarPago(prev => ({
+        ...prev,
+        [e.target.name]: e.target.value
+    }));
     }
     const onSubmit = async e => {
         const payload = buildShipmentPayload(envio);
@@ -92,28 +92,27 @@ const Shipments = () => {
         //conectarme con el back
         try {
             const respuesta = await clienteAxios.post("/shipments/newShipment", payload)
+            setVentanaEnvio(false)
             guardarIrPagar(true)
-            respuestaEnvio = respuesta.data;
-            const trackingNumber = respuesta.data.trackingNumber;
-            const amount = respuesta.data.amount;
+            guardarRespuestaEnvio(respuesta.data);
             guardarPago(prev => ({
                 ...prev,
-                orderId: trackingNumber,
-                amount: amount
+                orderId: respuesta.data.trackingNumber
             }));
-
         } catch (error) {
             const mensaje = error.response?.data?.msg || "Hubo un error al guardar el envio";
             guardarAlerta({ mensaje })
         } finally {
             guardarCargando(true)
         }
-
+    }
+    const onSubmitPago = async () => {
         //guardar pago
         try {
             const respuesta = await clienteAxios.post("/payments/payment", pago)
-            guardarFactura(respuesta.data)
-            guardarIrFactura(true)
+            guardarIrPagar(false);
+            guardarFactura(respuesta.data);
+            guardarIrFactura(true);
         } catch (error) {
             const mensaje = error.response?.data?.msg || "Hubo un error al guardar el envío"
             guardarAlerta({ mensaje })
@@ -168,17 +167,44 @@ const Shipments = () => {
                         </form>
                     </div>
                 )}
+
                 {irPagar && (
-                    <Payment
-                        pago={pago}
-                        respuestaEnvio={respuestaEnvio}
-                        onChangePago={onChangePago}
-                    />
+                    <div className="flex flex-col absolute top-9 left-1/2 -translate-x-1/2 gap-4 bg-white rounded-lg shadow-lg p-6 z-50">
+                        <div className="text-center text-2xl">
+                            <h2>Información de Pago</h2>
+                        </div>
+                        <Payment
+                            pago={pago}
+                            respuestaEnvio={respuestaEnvio}
+                            onChangePago={onChangePago}
+                            onSubmitPago={onSubmitPago}
+                        />
+                        <button
+                            className="cursor-pointer w-full h-full bg-red-800 text-white rounded-2xl p-3 transition-all duration-500 ease-in-out hover:bg-red-600 hover:shadow-lg shadow-red-800 hover:scale-100 active:scale-90"
+                            type="button"
+                            onClick={() => guardarIrPagar(false)}
+                        >
+                            Cancelar
+                        </button>
+                    </div>
                 )}
+
                 {irFactura && (
-                    <Factura
-                    factura={factura}
-                    />
+                    <div className="flex flex-col absolute top-9 left-1/2 -translate-x-1/2 gap-4 bg-white rounded-lg shadow-lg p-6 z-50 max-w-2xl w-96">
+                        <div className="text-center text-2xl">
+                            <h2>Factura de Pago</h2>
+                        </div>
+                        <Factura
+                            factura={factura}
+                        />
+                        <button
+                            className="cursor-pointer w-full h-full bg-red-800 text-white rounded-2xl p-3 transition-all duration-500 ease-in-out hover:bg-red-600 hover:shadow-lg shadow-red-800 hover:scale-100 active:scale-90"
+                            type="button"
+                            onClick={() => guardarIrFactura(false)}
+                        >
+                            Cancelar
+                        </button>
+                    </div>
                 )}
             </div>
             <div className="flex justify-center items-center  w-44 h-20">
