@@ -4,6 +4,7 @@ import com.fasterEnvios.application.dto.payment.InvoiceResponseDTO;
 import com.fasterEnvios.application.dto.payment.PaymentRequestDTO;
 import com.fasterEnvios.domain.model.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class PaymentAppMapper {
@@ -19,7 +20,7 @@ public class PaymentAppMapper {
                 .withShipments(shipment)
                 .withPayingPerson(payingPerson)
                 .withPaymentMethods(paymentMethod)
-                .withAmount(dto.amount())
+                .withAmount(shipment.getTotalAmount())
                 .withPaymentDate(LocalDateTime.now())
                 .withPaymentStatus(paymentStatus)
                 .withObservation(dto.observation())
