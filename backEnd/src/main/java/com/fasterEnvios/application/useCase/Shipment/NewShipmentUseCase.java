@@ -1,26 +1,16 @@
 package com.fasterEnvios.application.useCase.Shipment;
 
-import com.fasterEnvios.application.dto.client.CityCoordinatesRequestDTO;
-import com.fasterEnvios.application.dto.client.CityCoordinatesResponseDTO;
-import com.fasterEnvios.application.dto.client.ClientRequestDTO;
 import com.fasterEnvios.application.dto.client.ClientResponseDTO;
 import com.fasterEnvios.application.dto.shipment.NewShipmentRequestDTO;
 import com.fasterEnvios.application.dto.shipment.NewShipmentResponseDTO;
-import com.fasterEnvios.application.mappers.CityAppMapper;
 import com.fasterEnvios.application.mappers.ClientAppMapper;
-import com.fasterEnvios.application.mappers.PersonAppMapper;
 import com.fasterEnvios.application.mappers.ShipmentAppMapper;
-import com.fasterEnvios.application.useCase.city.FindCityByNameUseCase;
 import com.fasterEnvios.application.useCase.city.SaveCityUseCase;
-import com.fasterEnvios.application.useCase.person.FindPersonByIdentityDocument;
 import com.fasterEnvios.domain.model.CityDescription;
-import com.fasterEnvios.domain.model.Person;
 import com.fasterEnvios.domain.model.Shipment;
 import com.fasterEnvios.domain.model.StateEnum;
-import com.fasterEnvios.domain.repository.ICityRepository;
-import com.fasterEnvios.domain.repository.IPersonRepository;
 import com.fasterEnvios.domain.repository.IShipmentRepository;
-import com.fasterEnvios.infrastructure.client.OpenRoutServiceClient;
+import com.fasterEnvios.infrastructure.client.OpenRouteServiceClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +22,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class NewShipmentUseCase {
 
-    private final OpenRoutServiceClient openRoutServiceClient;
+    private final OpenRouteServiceClient openRouteServiceClient;
     private final SaveCityUseCase saveCityUseCase;
     private final IShipmentRepository IShipmentRepository;
 
@@ -42,7 +32,7 @@ public class NewShipmentUseCase {
         CityDescription cityAddresseeDB = saveCityUseCase.execute(dto.addressee().city().name());
 
         //una vez ya tenga las ciudades en orden consulto al cliente para la distancia entre las ciudades
-        ClientResponseDTO info = openRoutServiceClient.requestDistance(ClientAppMapper.toClient(citySenderDB, cityAddresseeDB));
+        ClientResponseDTO info = openRouteServiceClient.requestDistance(ClientAppMapper.toClient(citySenderDB, cityAddresseeDB));
         LocalDateTime estimatedDeliveryDate = LocalDateTime.now().plusDays(3);
         StateEnum state = stateShipment(dto.state());
         String trackingNumber = UUID.randomUUID().toString();

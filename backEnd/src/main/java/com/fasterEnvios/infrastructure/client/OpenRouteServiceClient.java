@@ -24,7 +24,7 @@ import java.nio.charset.StandardCharsets;
 
 @Component
 @RequiredArgsConstructor
-public class OpenRoutServiceClient {
+public class OpenRouteServiceClient {
     @Value("${client.openRouteService-apiKey}")
     private String apiKey;
 
