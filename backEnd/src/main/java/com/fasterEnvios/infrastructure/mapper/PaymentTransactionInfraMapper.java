@@ -17,11 +17,8 @@ public class PaymentTransactionInfraMapper {
     public static PaymentTransactionEntity toEntity(PaymentTransaction paymentTransaction) {
         return PaymentTransactionEntity.builder()
                 .idTransaction(paymentTransaction.getIdTransaction())
-                .shipment(ShipmentInfraMapper.toEntity(paymentTransaction.getShipments()))
-                .payingPerson(PersonInfraMapper.toEntity(paymentTransaction.getPayingPerson()))
                 .paymentDate(paymentTransaction.getPaymentDate())
                 .amount(paymentTransaction.getAmount())
-                .paymentMethod(PaymentMethodInfraMapper.toEntity(paymentTransaction.getPaymentMethods()))
                 .paymentStatus(paymentTransaction.getPaymentStatus().toString())
                 .observations(paymentTransaction.getObservations())
                 .build();

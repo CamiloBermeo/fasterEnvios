@@ -1,4 +1,4 @@
-package com.fasterEnvios.application.exceptions.role;
+package com.fasterEnvios.domain.exceptions.role;
 
 public class RoleNotFoundDataBaseException extends RuntimeException {
     public RoleNotFoundDataBaseException(String role) {

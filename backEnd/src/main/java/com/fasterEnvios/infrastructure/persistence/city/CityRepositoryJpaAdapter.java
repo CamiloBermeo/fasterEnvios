@@ -1,5 +1,6 @@
 package com.fasterEnvios.infrastructure.persistence.city;
 
+import com.fasterEnvios.domain.exceptions.city.CityNotFoundException;
 import com.fasterEnvios.domain.model.CityDescription;
 import com.fasterEnvios.domain.repository.ICityRepository;
 import com.fasterEnvios.infrastructure.entity.CityDescriptionEntity;

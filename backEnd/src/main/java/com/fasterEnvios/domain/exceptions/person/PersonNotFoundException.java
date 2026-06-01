@@ -1,4 +1,4 @@
-package com.fasterEnvios.application.exceptions.person;
+package com.fasterEnvios.domain.exceptions.person;
 
 public class PersonNotFoundException extends RuntimeException {
     public PersonNotFoundException(String identifier) {

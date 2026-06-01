@@ -1,4 +1,4 @@
-package com.fasterEnvios.application.exceptions.payment;
+package com.fasterEnvios.domain.exceptions.payment;
 
 public class PaymentMethodNotFoundException extends RuntimeException {
     public PaymentMethodNotFoundException(String paymentMethodName) {

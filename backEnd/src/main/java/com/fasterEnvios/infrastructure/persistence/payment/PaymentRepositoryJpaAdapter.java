@@ -1,8 +1,8 @@
 package com.fasterEnvios.infrastructure.persistence.payment;
 
-import com.fasterEnvios.application.exceptions.payment.PaymentMethodNotFoundException;
-import com.fasterEnvios.application.exceptions.person.PersonNotFoundException;
-import com.fasterEnvios.application.exceptions.shipment.ShipmentNotFoundException;
+import com.fasterEnvios.domain.exceptions.payment.PaymentMethodNotFoundException;
+import com.fasterEnvios.domain.exceptions.person.PersonNotFoundException;
+import com.fasterEnvios.domain.exceptions.shipment.ShipmentNotFoundException;
 import com.fasterEnvios.domain.model.PaymentMethod;
 import com.fasterEnvios.domain.model.PaymentTransaction;
 import com.fasterEnvios.domain.repository.IPaymentRepository;

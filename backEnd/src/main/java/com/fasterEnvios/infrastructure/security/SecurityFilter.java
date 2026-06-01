@@ -1,6 +1,6 @@
 package com.fasterEnvios.infrastructure.security;
 
-import com.fasterEnvios.application.exceptions.user.UserNotFoundException;
+import com.fasterEnvios.domain.exceptions.user.UserNotFoundException;
 import com.fasterEnvios.domain.model.UserModel;
 import com.fasterEnvios.domain.repository.IUserRepository;
 import jakarta.servlet.FilterChain;

@@ -3,7 +3,9 @@ package com.fasterEnvios.infrastructure.mapper;
 import com.fasterEnvios.domain.model.Role;
 import com.fasterEnvios.infrastructure.entity.RoleEntity;
 import com.fasterEnvios.infrastructure.entity.UserEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RoleInfraMapper {
 
     public static RoleEntity toEntity(Role role) {

@@ -2,8 +2,8 @@ package com.fasterEnvios.application.useCase.payment;
 
 import com.fasterEnvios.application.dto.payment.InvoiceResponseDTO;
 import com.fasterEnvios.application.dto.payment.PaymentRequestDTO;
-import com.fasterEnvios.application.exceptions.payment.PaymentMethodNotFoundException;
-import com.fasterEnvios.application.exceptions.shipment.ShipmentNotFoundException;
+import com.fasterEnvios.domain.exceptions.payment.PaymentMethodNotFoundException;
+import com.fasterEnvios.domain.exceptions.shipment.ShipmentNotFoundException;
 import com.fasterEnvios.application.mappers.PaymentAppMapper;
 import com.fasterEnvios.application.useCase.Shipment.FindShipmentByTrackingNumber;
 import com.fasterEnvios.domain.model.*;
@@ -11,8 +11,6 @@ import com.fasterEnvios.domain.repository.IPaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service

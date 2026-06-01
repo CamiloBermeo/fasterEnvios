@@ -1,4 +1,4 @@
-package com.fasterEnvios.application.exceptions.client;
+package com.fasterEnvios.domain.exceptions.client;
 
 public class JsonMapperResponseClientException extends RuntimeException {
     public JsonMapperResponseClientException(String nameApi) {

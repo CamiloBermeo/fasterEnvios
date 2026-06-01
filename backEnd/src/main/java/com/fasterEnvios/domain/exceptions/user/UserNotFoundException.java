@@ -1,4 +1,4 @@
-package com.fasterEnvios.application.exceptions.user;
+package com.fasterEnvios.domain.exceptions.user;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(String email) {

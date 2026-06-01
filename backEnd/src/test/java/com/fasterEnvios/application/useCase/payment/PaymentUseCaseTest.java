@@ -1,7 +1,7 @@
 package com.fasterEnvios.application.useCase.payment;
 
 import com.fasterEnvios.application.dto.payment.PaymentRequestDTO;
-import com.fasterEnvios.application.exceptions.shipment.ShipmentNotFoundException;
+import com.fasterEnvios.domain.exceptions.shipment.ShipmentNotFoundException;
 import com.fasterEnvios.application.useCase.Shipment.FindShipmentByTrackingNumber;
 import com.fasterEnvios.domain.repository.IPaymentRepository;
 import org.junit.jupiter.api.Test;

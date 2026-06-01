@@ -2,7 +2,9 @@ package com.fasterEnvios.infrastructure.mapper;
 
 import com.fasterEnvios.domain.model.Person;
 import com.fasterEnvios.infrastructure.entity.PersonEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PersonInfraMapper {
 
     public static PersonEntity toEntity(Person person) {

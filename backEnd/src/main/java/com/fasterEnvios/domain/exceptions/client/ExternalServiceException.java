@@ -1,4 +1,4 @@
-package com.fasterEnvios.application.exceptions.client;
+package com.fasterEnvios.domain.exceptions.client;
 
 public class ExternalServiceException extends RuntimeException {
     public ExternalServiceException(String serviceName, int statusCode, String body) {

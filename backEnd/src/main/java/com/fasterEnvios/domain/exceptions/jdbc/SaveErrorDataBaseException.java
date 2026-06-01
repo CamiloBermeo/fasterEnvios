@@ -1,4 +1,4 @@
-package com.fasterEnvios.application.exceptions.jdbc;
+package com.fasterEnvios.domain.exceptions.jdbc;
 
 public class SaveErrorDataBaseException extends RuntimeException {
     public SaveErrorDataBaseException(String city) {

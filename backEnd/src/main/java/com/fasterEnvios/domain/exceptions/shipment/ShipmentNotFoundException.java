@@ -1,4 +1,4 @@
-package com.fasterEnvios.application.exceptions.shipment;
+package com.fasterEnvios.domain.exceptions.shipment;
 
 public class ShipmentNotFoundException extends RuntimeException {
     public ShipmentNotFoundException(String trackingNumber) {

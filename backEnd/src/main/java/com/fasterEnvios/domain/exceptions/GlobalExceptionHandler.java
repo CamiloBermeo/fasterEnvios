@@ -1,14 +1,15 @@
-package com.fasterEnvios.application.exceptions;
+package com.fasterEnvios.domain.exceptions;
 
-import com.fasterEnvios.application.exceptions.client.ExternalServiceException;
-import com.fasterEnvios.application.exceptions.client.JsonMapperInternalServiceException;
-import com.fasterEnvios.application.exceptions.client.JsonMapperResponseClientException;
-import com.fasterEnvios.application.exceptions.jdbc.SaveErrorDataBaseException;
-import com.fasterEnvios.application.exceptions.payment.PaymentMethodNotFoundException;
-import com.fasterEnvios.application.exceptions.person.PersonNotFoundException;
-import com.fasterEnvios.application.exceptions.role.RoleNotFoundDataBaseException;
-import com.fasterEnvios.application.exceptions.shipment.ShipmentNotFoundException;
-import com.fasterEnvios.application.exceptions.user.UserNotFoundException;
+import com.fasterEnvios.domain.exceptions.city.CityNotFoundException;
+import com.fasterEnvios.domain.exceptions.client.ExternalServiceException;
+import com.fasterEnvios.domain.exceptions.client.JsonMapperInternalServiceException;
+import com.fasterEnvios.domain.exceptions.client.JsonMapperResponseClientException;
+import com.fasterEnvios.domain.exceptions.jdbc.SaveErrorDataBaseException;
+import com.fasterEnvios.domain.exceptions.payment.PaymentMethodNotFoundException;
+import com.fasterEnvios.domain.exceptions.person.PersonNotFoundException;
+import com.fasterEnvios.domain.exceptions.role.RoleNotFoundDataBaseException;
+import com.fasterEnvios.domain.exceptions.shipment.ShipmentNotFoundException;
+import com.fasterEnvios.domain.exceptions.user.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -25,7 +26,8 @@ public class GlobalExceptionHandler {
             ShipmentNotFoundException.class,
             PaymentMethodNotFoundException.class,
             RoleNotFoundDataBaseException.class,
-            PersonNotFoundException.class})
+            PersonNotFoundException.class,
+            CityNotFoundException.class})
     public ResponseEntity<ErrorDetails> handleFindDataBaseException(RuntimeException ex) {
         return buildResponse(ex, HttpStatus.NOT_FOUND);
     }

@@ -3,7 +3,7 @@ package com.fasterEnvios.application.useCase.user;
 import com.fasterEnvios.application.dto.user.NewUserRequestDTO;
 import com.fasterEnvios.application.dto.user.NewUserResponseDTO;
 import com.fasterEnvios.application.dto.user.RegisterSuccessDTO;
-import com.fasterEnvios.application.exceptions.user.ExistingUserDatabaseException;
+import com.fasterEnvios.domain.exceptions.user.ExistingUserDatabaseException;
 import com.fasterEnvios.application.mappers.UserAppMapper;
 import com.fasterEnvios.application.useCase.city.FindCityByNameUseCase;
 import com.fasterEnvios.application.useCase.city.SaveCityUseCase;
@@ -30,7 +30,7 @@ public class NewUserUseCase {
     private final TokenService tokenService;
 
 
-    public RegisterSuccessDTO execute(NewUserRequestDTO dto){
+    public RegisterSuccessDTO execute(NewUserRequestDTO dto) {
         Role roleDb;
         //si el usuario existe lanza la excepcion y si no, no hace nada y la ejecucion continua
         findUserByDocument.execute(dto.identityDocument())
@@ -40,7 +40,7 @@ public class NewUserUseCase {
 
         String passwordHash = passwordEncoder.encode(dto.password());
 
-        roleDb = (dto.role()==null || dto.role().isEmpty()) ?
+        roleDb = (dto.role() == null || dto.role().isEmpty()) ?
                 findByNameRole.execute("CLIENT") :
                 findByNameRole.execute(dto.role());
 
@@ -49,7 +49,8 @@ public class NewUserUseCase {
                     return saveCityUseCase.execute(dto.city());
                 });
 
-        UserModel user = UserAppMapper.toModel(dto, cityDb, passwordHash,roleDb);
+
+        UserModel user = UserAppMapper.toModel(dto, cityDb, passwordHash, roleDb);
 
         UserModel saveUser = userRepository.save(user);
         NewUserResponseDTO userResponseDTO = UserAppMapper.toUserResponse(saveUser);

@@ -2,7 +2,9 @@ package com.fasterEnvios.infrastructure.mapper;
 
 import com.fasterEnvios.domain.model.UserModel;
 import com.fasterEnvios.infrastructure.entity.UserEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserInfraMapper {
 
     public static UserEntity toEntity (UserModel user) {
@@ -10,11 +12,9 @@ public class UserInfraMapper {
                 .name(user.getName())
                 .lastName(user.getLastName())
                 .identityDocument(user.getIdentityDocument())
-                .city(CityInfraMapper.toEntity(user.getCity()))
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
                 .passwordHash(user.getPasswordHash())
-                .role(RoleInfraMapper.toEntity(user.getRole()))
                 .build();
     }
 

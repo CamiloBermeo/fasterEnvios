@@ -1,6 +1,6 @@
 package com.fasterEnvios.application.useCase.role;
 
-import com.fasterEnvios.application.exceptions.role.RoleNotFoundDataBaseException;
+import com.fasterEnvios.domain.exceptions.role.RoleNotFoundDataBaseException;
 import com.fasterEnvios.domain.model.Role;
 import com.fasterEnvios.domain.repository.IRoleRepository;
 import lombok.RequiredArgsConstructor;
