@@ -2,6 +2,7 @@ package com.fasterEnvios.domain.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class PaymentTransaction {
     private Long id;
@@ -17,6 +18,30 @@ public class PaymentTransaction {
     public PaymentTransaction() {
     }
 
+    public static PaymentTransaction create (Shipment shipment, PaymentMethod paymentMethod,
+                                              String payingPersonDto,
+                                             String observations){
+        return PaymentTransaction.builder()
+                .withIdTransaction(UUID.randomUUID().toString())
+                .withShipments(shipment)
+                .withPayingPerson(resolvePayingPerson(shipment, payingPersonDto))
+                .withPaymentMethods(paymentMethod)
+                .withAmount(shipment.getTotalAmount())
+                .withPaymentDate(LocalDateTime.now())
+                .withPaymentStatus(statusAssignment(paymentMethod.getMethodName(),payingPersonDto))
+                .withObservation(observations)
+                .build();
+    }
+    private static PaymentStatusEnum statusAssignment(String methodPaymentName, String payingPerson){
+        if(payingPerson.equals("DESTINATARIO") || methodPaymentName.equals("CONTRAENTREGA")){
+            return PaymentStatusEnum.PENDING;
+        }else{
+            return PaymentStatusEnum.PAYMENT;
+        }
+    }
+    private static Person resolvePayingPerson(Shipment shipmentDb, String payingPersonDto){
+        return payingPersonDto.equals("DESTINATARIO") ? shipmentDb.getAddressee(): shipmentDb.getSender() ;
+    }
     private PaymentTransaction(Long id, String idTransaction,Shipment shipments, Person payingPerson,PaymentMethod paymentMethods, BigDecimal amount, LocalDateTime paymentDate, PaymentStatusEnum paymentStatus, String observations) {
         this.id = id;
         this.idTransaction = idTransaction;

@@ -4,6 +4,7 @@ package com.fasterEnvios.domain.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 public class Shipment {
     private Long id;
@@ -19,6 +20,30 @@ public class Shipment {
     private StateEnum state;
 
     public Shipment() {
+    }
+
+    public static Shipment create(double distance,
+                                  Person sender,
+                                  Person addressee,
+                                  PackageModel packageModel){
+        return Shipment.builder()
+                .withTrackingNumber(UUID.randomUUID().toString())
+                .withCreatedAt(LocalDateTime.now())
+                .withEstimatedDeliveryDate(LocalDateTime.now().plusDays(3))
+                .withState(StateEnum.RECEIVED)
+                .withTotalAmount(calculateAmount(distance, packageModel.getWeightKg(), packageModel.getDeclaredValue()))
+                .withDistance(distance)
+                .withSender(sender)
+                .withAddressee(addressee)
+                .withPackages(packageModel)
+                .build();
+    };
+    private static BigDecimal calculateAmount(double distance, double weight, BigDecimal declaredValue) {
+        BigDecimal percentage = new BigDecimal("0.05");
+        BigDecimal costDistance = BigDecimal.valueOf(distance * 20);
+        BigDecimal costWeight = BigDecimal.valueOf(weight * 100);
+        BigDecimal secure = percentage.multiply(declaredValue);
+        return costDistance.add(costWeight).add(secure);
     }
 
     private Shipment(Long id,String trackingNumber, Person sender, Person addressee,PaymentTransaction paymentTransaction, PackageModel packageModels, LocalDateTime createdAt, BigDecimal totalAmount,LocalDateTime estimatedDeliveryDate, double distance, StateEnum state) {

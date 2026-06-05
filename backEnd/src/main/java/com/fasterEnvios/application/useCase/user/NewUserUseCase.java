@@ -31,7 +31,7 @@ public class NewUserUseCase {
 
 
     public RegisterSuccessDTO execute(NewUserRequestDTO dto) {
-        Role roleDb;
+
         //si el usuario existe lanza la excepcion y si no, no hace nada y la ejecucion continua
         findUserByDocument.execute(dto.identityDocument())
                 .ifPresent(userModelSave -> {
@@ -39,10 +39,8 @@ public class NewUserUseCase {
                 });
 
         String passwordHash = passwordEncoder.encode(dto.password());
-
-        roleDb = (dto.role() == null || dto.role().isEmpty()) ?
-                findByNameRole.execute("CLIENT") :
-                findByNameRole.execute(dto.role());
+        String roleName = (dto.role() == null || dto.role().isEmpty()) ? "CLIENT" : dto.role();
+        Role roleDb = findByNameRole.execute(roleName);
 
         CityDescription cityDb = findCityByNameUseCase.execute(dto.city())
                 .orElseGet(() -> {

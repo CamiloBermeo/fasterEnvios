@@ -16,6 +16,7 @@ public class UserModel {
     public UserModel() {
     }
 
+
     private UserModel(Long id, String name, String lastName, CityDescription city, String email, String passwordHash, String phoneNumber, String identityDocument, Role role) {
         this.id = id;
         this.name = name;

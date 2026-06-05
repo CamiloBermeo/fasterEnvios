@@ -24,25 +24,15 @@ public class PaymentUseCase {
         //consultar y traer el envio por el trackingNumber
         Shipment shipmentDb = findShipmentByTrackingNumber.execute(dto.orderId())
                 .orElseThrow(() -> new ShipmentNotFoundException(dto.orderId()));
-        //obtener informacion de la persona que paga
-        Person payingPerson = dto.payingPerson().equals("DESTINATARIO") ? shipmentDb.getAddressee(): shipmentDb.getSender() ;
+
         //obtengo el metodo de pago por el nombre y lo asigno
         PaymentMethod paymentMethod = findPaymentMethodByName.execute(dto.methodPaymentName())
                 .orElseThrow(() -> new PaymentMethodNotFoundException(dto.methodPaymentName()));
-        String idTransaction = UUID.randomUUID().toString();
-        //estado del pago
-        PaymentStatusEnum paymentStatus = statusAssignment(dto.methodPaymentName(), dto.payingPerson());
 
-        PaymentTransaction paymentTransaction = paymentRepository.save(PaymentAppMapper.toModel(dto,shipmentDb,payingPerson, paymentMethod, paymentStatus ,idTransaction));
+        PaymentTransaction paymentTransaction = paymentRepository.save(PaymentTransaction.create(shipmentDb, paymentMethod, dto.payingPerson(), dto.observation()));
         return PaymentAppMapper.toDto(paymentTransaction);
     }
 
-    private PaymentStatusEnum statusAssignment(String methodPaymentName, String payingPerson){
-        if(payingPerson.equals("DESTINATARIO") || methodPaymentName.equals("CONTRAENTREGA")){
-            return PaymentStatusEnum.PENDING;
-        }else{
-            return PaymentStatusEnum.PAYMENT;
-        }
-    }
+
 
 }

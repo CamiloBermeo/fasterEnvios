@@ -4,6 +4,7 @@ import com.fasterEnvios.application.dto.client.CityCoordinatesRequestDTO;
 import com.fasterEnvios.application.dto.client.CityCoordinatesResponseDTO;
 import com.fasterEnvios.application.dto.client.ClientRequestDTO;
 import com.fasterEnvios.application.dto.client.ClientResponseDTO;
+import com.fasterEnvios.application.port.out.IRouteServiceClient;
 import com.fasterEnvios.domain.exceptions.client.ExternalServiceException;
 import com.fasterEnvios.domain.exceptions.client.JsonMapperInternalServiceException;
 import com.fasterEnvios.domain.exceptions.client.JsonMapperResponseClientException;
@@ -24,7 +25,7 @@ import java.nio.charset.StandardCharsets;
 
 @Component
 @RequiredArgsConstructor
-public class OpenRouteServiceClient {
+public class OpenRouteServiceClient implements IRouteServiceClient {
     @Value("${client.openRouteService-apiKey}")
     private String apiKey;
 

@@ -9,24 +9,6 @@ import java.time.LocalDateTime;
 
 public class PaymentAppMapper {
 
-    public static PaymentTransaction toModel (PaymentRequestDTO dto,
-                                              Shipment shipment,
-                                              Person payingPerson,
-                                              PaymentMethod paymentMethod,
-                                              PaymentStatusEnum paymentStatus,
-                                              String idTransaction) {
-        return PaymentTransaction.builder()
-                .withIdTransaction(idTransaction)
-                .withShipments(shipment)
-                .withPayingPerson(payingPerson)
-                .withPaymentMethods(paymentMethod)
-                .withAmount(shipment.getTotalAmount())
-                .withPaymentDate(LocalDateTime.now())
-                .withPaymentStatus(paymentStatus)
-                .withObservation(dto.observation())
-                .build();
-    }
-
     public static InvoiceResponseDTO toDto(PaymentTransaction paymentTransaction) {
         return new InvoiceResponseDTO(
                 paymentTransaction.getShipments().getTrackingNumber(),

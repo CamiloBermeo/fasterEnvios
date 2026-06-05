@@ -1,6 +1,7 @@
 package com.fasterEnvios.infrastructure.mapper;
 
 import com.fasterEnvios.domain.model.Person;
+import com.fasterEnvios.infrastructure.entity.CityDescriptionEntity;
 import com.fasterEnvios.infrastructure.entity.PersonEntity;
 import org.springframework.stereotype.Component;
 
@@ -12,9 +13,9 @@ public class PersonInfraMapper {
                 .id(person.getId())
                 .name(person.getName())
                 .lastName(person.getLastName())
+                .city(CityInfraMapper.toEntity(person.getCity()))
                 .identityDocument(person.getIdentityDocument())
                 .phoneNumber(person.getPhoneNumber())
-                .city(CityInfraMapper.toEntity(person.getCity()))
                 .address(person.getAddress())
                 .build();
     }
