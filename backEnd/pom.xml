@@ -114,6 +114,16 @@
 				</goals>
 				</execution>
 			</executions>
+				<configuration>
+					<excludes>
+						<exclude>com/fasterEnvios/application/dto/**</exclude>
+						<exclude>com/fasterEnvios/domain/exceptions/**</exclude>
+						<exclude>com/fasterEnvios/infrastructure/configuration/**</exclude>
+						<exclude>com/fasterEnvios/infrastructure/docs/**</exclude>
+						<exclude>com/fasterEnvios/infrastructure/persistence/**</exclude>
+						<exclude>com/fasterEnvios/infrastructure/entity/**</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
