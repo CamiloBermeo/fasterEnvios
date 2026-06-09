@@ -12,8 +12,8 @@ import java.util.Optional;
 public class FindShipmentByTrackingNumber {
     private final IShipmentRepository shipmentRepository;
 
-    public Optional<Shipment> execute(String tracingNumber){
-        return shipmentRepository.findByTrackingNumber(tracingNumber);
+    public Optional<Shipment> execute(String trackingNumber){
+        return shipmentRepository.findByTrackingNumber(trackingNumber);
     }
 
 }
