@@ -1,13 +1,16 @@
 package com.fasterEnvios.application.useCase.Shipment;
 
 import com.fasterEnvios.application.dto.city.CityRequestDTO;
+import com.fasterEnvios.application.dto.client.ClientResponseDTO;
 import com.fasterEnvios.application.dto.packages.PackageRequestDTO;
 import com.fasterEnvios.application.dto.person.PersonRequestDTO;
 import com.fasterEnvios.application.dto.shipment.NewShipmentRequestDTO;
+import com.fasterEnvios.application.dto.shipment.NewShipmentResponseDTO;
+import com.fasterEnvios.application.port.out.IRouteServiceClient;
 import com.fasterEnvios.application.useCase.city.FindCityByNameUseCase;
-import com.fasterEnvios.domain.model.CityDescription;
-import com.fasterEnvios.domain.model.Person;
-import com.fasterEnvios.domain.model.StateEnum;
+import com.fasterEnvios.application.useCase.city.SaveCityUseCase;
+import com.fasterEnvios.domain.model.*;
+import com.fasterEnvios.domain.repository.IShipmentRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,13 +21,20 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class NewShipmentUseCaseTest {
 
     @Mock
-    FindCityByNameUseCase findCityByNameUseCase;
+    FindCityByNameUseCase findCityByName;
+    @Mock
+    SaveCityUseCase saveCityUseCase;
+    @Mock
+    IRouteServiceClient routeServiceClient;
+    @Mock
+    IShipmentRepository shipmentRepository;
 
     @InjectMocks
     NewShipmentUseCase newShipmentUseCase;
@@ -38,10 +48,51 @@ class NewShipmentUseCaseTest {
         NewShipmentRequestDTO dto = buildNewShipmentRequestDtoForTest();
         CityDescription city = buildCityForTest();
 
-        when(findCityByNameUseCase.execute(dto.sender().name()))
+        when(findCityByName.execute(dto.sender().city().name()))
                 .thenReturn(Optional.of(city));
+        when(findCityByName.execute(dto.addressee().city().name()))
+                .thenReturn(Optional.of(city));
+        when(routeServiceClient.requestDistance(any()))
+                .thenReturn(new ClientResponseDTO(150.0, 2.2));
 
-
+        when(shipmentRepository.save(any()))
+                .thenReturn(buildShipmentForTest());
+        newShipmentUseCase.execute(dto);
+        verify(saveCityUseCase, never()).execute(any());
+    }
+    private Shipment buildShipmentForTest() {
+        PackageModel packageModel = PackageModel.builder()
+                .withId(11L)
+                .withDimensions(1)
+                .withDeclaredValue(BigDecimal.valueOf(111))
+                .withDescription("MOTO")
+                .build();
+        CityDescription city = CityDescription.builder()
+                .withId(10L)
+                .withCountry("COLOMBIA")
+                .withName("Cali")
+                .build();
+        Person sender = Person.builder()
+                .withId(1L)
+                .withName("Camilo")
+                .withIdentityDocument("1004036028")
+                .withCity(city)
+                .build();
+        Person addressee = Person.builder()
+                .withId(2L)
+                .withName("Andres")
+                .withIdentityDocument("1004036029")
+                .withCity(city)
+                .build();
+        return Shipment.builder()
+                .withId(3L)
+                .withTrackingNumber("TRACKING-REAL")
+                .withSender(sender)
+                .withAddressee(addressee)
+                .withPackages(packageModel)
+                .withTotalAmount(BigDecimal.valueOf(500000))
+                .withState(StateEnum.RECEIVED)
+                .build();
     }
 
     private CityDescription buildCityForTest(){
