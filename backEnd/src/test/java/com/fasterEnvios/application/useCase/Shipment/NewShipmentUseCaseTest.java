@@ -44,7 +44,7 @@ class NewShipmentUseCaseTest {
 
     * */
     @Test
-    void execute_whenCityExistInDb_youShouldReturnCity() {
+    void execute_whenCityExistInDb_youShouldNeverCallSaveCityUseCase() {
         NewShipmentRequestDTO dto = buildNewShipmentRequestDtoForTest();
         CityDescription city = buildCityForTest();
 
@@ -59,6 +59,27 @@ class NewShipmentUseCaseTest {
                 .thenReturn(buildShipmentForTest());
         newShipmentUseCase.execute(dto);
         verify(saveCityUseCase, never()).execute(any());
+    }
+    @Test
+    void execute_whenCityNotExistInDb_youShouldCalledSaveCityUseCase() {
+        NewShipmentRequestDTO dto = buildNewShipmentRequestDtoForTest();
+        CityDescription city = buildCityForTest();
+
+        when(findCityByName.execute(dto.sender().city().name()))
+                .thenReturn(Optional.empty());
+        when(findCityByName.execute(dto.addressee().city().name()))
+                .thenReturn(Optional.empty());
+        when(saveCityUseCase.execute(dto.sender().city().name()))
+                .thenReturn(city);
+        when(saveCityUseCase.execute(dto.addressee().city().name()))
+                .thenReturn(city);
+        when(routeServiceClient.requestDistance(any()))
+                .thenReturn(new ClientResponseDTO(150.0, 2.2));
+
+        when(shipmentRepository.save(any()))
+                .thenReturn(buildShipmentForTest());
+        newShipmentUseCase.execute(dto);
+        verify(saveCityUseCase, times(2)).execute(any());
     }
     private Shipment buildShipmentForTest() {
         PackageModel packageModel = PackageModel.builder()
