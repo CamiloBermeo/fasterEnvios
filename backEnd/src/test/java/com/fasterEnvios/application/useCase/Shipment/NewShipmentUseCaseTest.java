@@ -80,7 +80,7 @@ class NewShipmentUseCaseTest {
                 .thenReturn(buildShipmentForTest());
         newShipmentUseCase.execute(dto);
         verify(saveCityUseCase, times(2)).execute(any());
-    }
+}
     private Shipment buildShipmentForTest() {
         PackageModel packageModel = PackageModel.builder()
                 .withId(11L)
