@@ -54,11 +54,11 @@ class NewUserUseCaseTest {
         when(findUserByDocument.execute("1234"))
                 .thenReturn(Optional.of(user));
 
-        assertThrows(ExistingUserDatabaseException.class, ()-> newUserUseCase.execute(dto));
+        assertThrows(ExistingUserDatabaseException.class, () -> newUserUseCase.execute(dto));
     }
 
     @Test
-    void execute_whenRegisterIsSuccess_youShouldReturnRegisterSuccessDto(){
+    void execute_whenRegisterIsSuccess_youShouldReturnRegisterSuccessDto() {
         NewUserRequestDTO dto = buildNewUserRequestDTOfOrTest();
         CityDescription city = buildCityForTest();
         UserModel user = buildUserForTest();
@@ -73,8 +73,9 @@ class NewUserUseCaseTest {
 
         assertNotNull(response);
     }
+
     @Test
-    void execute_whenRegisterIsSuccessWithCallSaveCity_youShouldReturnRegisterSuccessDto(){
+    void execute_whenRegisterIsSuccessWithCallSaveCity_youShouldReturnRegisterSuccessDto() {
         NewUserRequestDTO dto = buildNewUserRequestDTOfOrTest();
         CityDescription city = buildCityForTest();
         UserModel user = buildUserForTest();
@@ -93,7 +94,7 @@ class NewUserUseCaseTest {
     }
 
     @Test
-    void execute_whenRoleIsEmpty_youShouldAssignedRoleClient(){
+    void execute_whenRoleIsEmpty_youShouldAssignedRoleClient() {
         NewUserRequestDTO dto = new NewUserRequestDTO(
                 "NOMBRE_TEST",
                 "APELLIDO_TEST",
@@ -117,8 +118,9 @@ class NewUserUseCaseTest {
         newUserUseCase.execute(dto);
         verify(findByNameRole, times(1)).execute("CLIENT");
     }
+
     @Test
-    void execute_whenRoleIsNull_youShouldAssignedRoleClient(){
+    void execute_whenRoleIsNull_youShouldAssignedRoleClient() {
         NewUserRequestDTO dto = new NewUserRequestDTO(
                 "NOMBRE_TEST",
                 "APELLIDO_TEST",
@@ -142,7 +144,8 @@ class NewUserUseCaseTest {
         newUserUseCase.execute(dto);
         verify(findByNameRole, times(1)).execute("CLIENT");
     }
-    private CityDescription buildCityForTest(){
+
+    private CityDescription buildCityForTest() {
         return CityDescription.builder()
                 .withId(4L)
                 .withName("CITY_TEST")
@@ -151,13 +154,15 @@ class NewUserUseCaseTest {
                 .withLatitude(432.1)
                 .build();
     }
-    private Role buildRoleForTest(){
+
+    private Role buildRoleForTest() {
         return Role.builder()
                 .withId(6L)
                 .withRoleName("ROLE_TEST")
                 .withDescription("DESCRIPTION_ROLE_TEST")
                 .build();
     }
+
     private UserModel buildUserForTest() {
         CityDescription city = CityDescription.builder()
                 .withId(3L)

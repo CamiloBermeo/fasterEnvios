@@ -38,6 +38,7 @@ class NewShipmentUseCaseTest {
 
     @InjectMocks
     NewShipmentUseCase newShipmentUseCase;
+
     /*
      CityDescription citySenderDB = findCityByName.execute(dto.sender().city().name())
                         .orElseGet( () -> saveCityUseCase.execute(dto.sender().city().name()));
@@ -60,6 +61,7 @@ class NewShipmentUseCaseTest {
         newShipmentUseCase.execute(dto);
         verify(saveCityUseCase, never()).execute(any());
     }
+
     @Test
     void execute_whenCityNotExistInDb_youShouldCalledSaveCityUseCase() {
         NewShipmentRequestDTO dto = buildNewShipmentRequestDtoForTest();
@@ -80,7 +82,8 @@ class NewShipmentUseCaseTest {
                 .thenReturn(buildShipmentForTest());
         newShipmentUseCase.execute(dto);
         verify(saveCityUseCase, times(2)).execute(any());
-}
+    }
+
     private Shipment buildShipmentForTest() {
         PackageModel packageModel = PackageModel.builder()
                 .withId(11L)
@@ -116,7 +119,7 @@ class NewShipmentUseCaseTest {
                 .build();
     }
 
-    private CityDescription buildCityForTest(){
+    private CityDescription buildCityForTest() {
         return CityDescription.builder()
                 .withId(4L)
                 .withName("Cali")
@@ -125,13 +128,14 @@ class NewShipmentUseCaseTest {
                 .withCountry("Colombia")
                 .build();
     }
-    private NewShipmentRequestDTO buildNewShipmentRequestDtoForTest(){
+
+    private NewShipmentRequestDTO buildNewShipmentRequestDtoForTest() {
         CityRequestDTO city = new CityRequestDTO("Cali");
         PersonRequestDTO sender = new PersonRequestDTO(
-                "Antonio","perez","123","321","321cv",city
+                "Antonio", "perez", "123", "321", "321cv", city
         );
         PersonRequestDTO addressee = new PersonRequestDTO(
-                "Andres","pinzon","123","321","123cv",city
+                "Andres", "pinzon", "123", "321", "123cv", city
         );
         PackageRequestDTO packages = new PackageRequestDTO(
                 3.2,

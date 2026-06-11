@@ -32,7 +32,7 @@ class SaveCityUseCaseTest {
     @Test
     void execute_whenCityNameIsProvided_shouldReturnSavedCityDescription() {
 
-        CityCoordinatesRequestDTO requestDTO = new CityCoordinatesRequestDTO("Cali","Colombia");
+        CityCoordinatesRequestDTO requestDTO = new CityCoordinatesRequestDTO("Cali", "Colombia");
         CityCoordinatesResponseDTO responseDTO = new CityCoordinatesResponseDTO(12.21, 13.87);
         CityDescription city = buildCityForTest();
         when(routeServiceClient.requestCoordinates(requestDTO))

@@ -76,6 +76,7 @@ class PaymentUseCaseTest {
         InvoiceResponseDTO result = paymentUseCase.execute(dto);
         assertNotNull(result);
     }
+
     @Test
     void execute_whenPaymentMethodNotExist_youShouldThrowPaymentMethodNotFoundException() {
         PaymentRequestDTO dto = new PaymentRequestDTO(
@@ -125,7 +126,7 @@ class PaymentUseCaseTest {
                 .build();
     }
 
-    private PaymentTransaction buildPaymentTransaction(){
+    private PaymentTransaction buildPaymentTransaction() {
         PaymentMethod paymentMethod = PaymentMethod.builder()
                 .withId(8L)
                 .withMethodName("METHOD_ONE")

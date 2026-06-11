@@ -44,7 +44,8 @@ class FindByNameRoleTest {
         Role roleDb = findByNameRole.execute("ADMIN_FALSO");
         assertEquals(role, roleDb);
     }
-    private Role buildRoleForTest(){
+
+    private Role buildRoleForTest() {
         return Role.builder()
                 .withId(1L)
                 .withRoleName("ADMIN_FALSO")
