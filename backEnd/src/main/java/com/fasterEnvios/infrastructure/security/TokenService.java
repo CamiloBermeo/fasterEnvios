@@ -19,7 +19,7 @@ public class TokenService {
     private String secret;
 
     public String generateToken(CustomUserDetails customUserDetails) {
-        try {
+
             //se encripta la clave secreta con encriptacion HMAC256
             var algorithm = Algorithm.HMAC256("secret");
             return JWT.create()
@@ -27,16 +27,14 @@ public class TokenService {
                     .withSubject(customUserDetails.getUsername())//se extrae el username que es el email en userdetails
                     .withExpiresAt(expirationDate())//se le da un tiempo de expiracion
                     .sign(algorithm);//y se le aigna la clave secreta codificada
-        } catch (JWTCreationException e) {
-            throw new RuntimeException("Error creating token");
-        }
+
     }
 
     private Instant  expirationDate() {
         return LocalDateTime.now().plusMinutes(30).toInstant(ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now()));
     }
     protected String getSubject(String token) {
-        try {
+
             var algorithm = Algorithm.HMAC256("secret");
             return JWT.require(algorithm)
                     .withIssuer("fasterEnvios")
@@ -44,9 +42,6 @@ public class TokenService {
                     .verify(token)
                     .getSubject();
 
-        }catch (JWTVerificationException e) {
-            throw new RuntimeException("Error verifying token");
-        }
     }
 
 }

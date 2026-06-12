@@ -120,7 +120,7 @@
 						<exclude>com/fasterEnvios/domain/exceptions/**</exclude>
 						<exclude>com/fasterEnvios/infrastructure/configuration/**</exclude>
 						<exclude>com/fasterEnvios/infrastructure/docs/**</exclude>
-						<exclude>com/fasterEnvios/infrastructure/persistence/**</exclude>
+						<exclude>com/fasterEnvios/infrastructure/persistence/role/**</exclude>
 						<exclude>com/fasterEnvios/infrastructure/entity/**</exclude>
 					</excludes>
 				</configuration>
