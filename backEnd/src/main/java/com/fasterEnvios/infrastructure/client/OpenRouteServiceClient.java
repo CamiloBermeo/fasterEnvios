@@ -24,11 +24,17 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
 @Component
-@RequiredArgsConstructor
 public class OpenRouteServiceClient implements IRouteServiceClient {
-    @Value("${client.openRouteService-apiKey}")
-    private String apiKey;
 
+    private final String apiKey;
+    private final ObjectMapper objectMapper;
+    private final HttpClient httpClient;
+
+    public OpenRouteServiceClient(ObjectMapper objectMapper, HttpClient httpClient, @Value("${client.openRouteService-apiKey}") String apiKey) {
+        this.objectMapper = objectMapper;
+        this.httpClient = httpClient;
+        this.apiKey = apiKey;
+    }
 
     //eticion para saber la distancia entre dos ciudades
     public ClientResponseDTO requestDistance(ClientRequestDTO dto) {
@@ -36,20 +42,15 @@ public class OpenRouteServiceClient implements IRouteServiceClient {
         JsonNode root;
         HttpResponse<String> response = null;
         String nameApi = "Open Rout Service";
-        System.out.println(dto.coordinates());
-        ObjectMapper objectMapper = new ObjectMapper();
 
         try {
             jsonBody = objectMapper.writeValueAsString(dto);
-
         } catch (IOException e) {
             throw new JsonMapperInternalServiceException(nameApi);
         }
 
-
         String url = "https://api.openrouteservice.org/v2/directions/driving-car";
 
-        HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
@@ -58,11 +59,11 @@ public class OpenRouteServiceClient implements IRouteServiceClient {
                 .build();
 
         try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new ExternalServiceException(nameApi, 502, "ERROR al conectar con el cliente");
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new ExternalServiceException(nameApi, 502, "ERROR al conectar con el cliente");
         }
 
@@ -85,29 +86,25 @@ public class OpenRouteServiceClient implements IRouteServiceClient {
 
     //peticion para saber las coordenadas de las cudades
     public CityCoordinatesResponseDTO requestCoordinates(CityCoordinatesRequestDTO dto) {
-        String jsonBody;
         JsonNode root;
         HttpResponse<String> response = null;
         String nameApi = "Open Rout Service";
 
-        ObjectMapper objectMapper = new ObjectMapper();
         String encodeCity = URLEncoder.encode(dto.name(), StandardCharsets.UTF_8);
         String encodeCountry = URLEncoder.encode(dto.country(), StandardCharsets.UTF_8);
         String url = "https://api.openrouteservice.org/geocode/search?api_key=" + apiKey + "&text=" + encodeCity + "," + encodeCountry + "&size=1";
 
-        HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .GET()
                 .build();
 
         try {
-
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new ExternalServiceException(nameApi, 502, "Error al conectar con el cliente");
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new ExternalServiceException(nameApi, 502, "Error al conectar con el cliente");
         }
         if (response.statusCode() != 200) {

@@ -101,7 +101,6 @@ class SecurityFilterTest {
         Authentication result = SecurityContextHolder.getContext().getAuthentication();
 
         assertNull(result);
-
     }
     @Test
     void doFilterInternal_whenRecoverTokenReturnNullWithoutBearer_youShouldNotSetAuthentication() throws ServletException, IOException {
