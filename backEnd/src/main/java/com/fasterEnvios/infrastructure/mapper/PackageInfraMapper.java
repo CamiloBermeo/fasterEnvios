@@ -12,6 +12,7 @@ public class PackageInfraMapper {
     public static PackageEntity toEntity(PackageModel model) {
 
         return PackageEntity.builder()
+                .id(model.getId())
                 .declaredValue(model.getDeclaredValue())
                 .description(model.getDescription())
                 .dimensions(model.getDimensions())

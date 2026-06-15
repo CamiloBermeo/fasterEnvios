@@ -20,15 +20,15 @@ public class ShipmentEntity {
     private  Long id;
     @Column(nullable = false)
     private String trackingNumber;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id",  nullable = false)
     private PersonEntity sender;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "addressee_id", nullable = false)
     private PersonEntity addressee;
     @OneToOne(mappedBy = "shipment")
     private PaymentTransactionEntity  paymentTransaction;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "package_id")
     private PackageEntity  packages;
     @Column(nullable = false)
