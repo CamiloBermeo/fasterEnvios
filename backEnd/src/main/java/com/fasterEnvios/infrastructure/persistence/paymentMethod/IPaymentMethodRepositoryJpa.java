@@ -1,7 +1,6 @@
-package com.fasterEnvios.infrastructure.persistence.payment;
+package com.fasterEnvios.infrastructure.persistence.paymentMethod;
 
 import com.fasterEnvios.infrastructure.entity.PaymentMethodEntity;
-import com.fasterEnvios.infrastructure.entity.PaymentTransactionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

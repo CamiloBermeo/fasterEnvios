@@ -12,6 +12,7 @@ import com.fasterEnvios.infrastructure.entity.PersonEntity;
 import com.fasterEnvios.infrastructure.entity.ShipmentEntity;
 import com.fasterEnvios.infrastructure.mapper.PaymentMethodInfraMapper;
 import com.fasterEnvios.infrastructure.mapper.PaymentTransactionInfraMapper;
+import com.fasterEnvios.infrastructure.persistence.paymentMethod.IPaymentMethodRepositoryJpa;
 import com.fasterEnvios.infrastructure.persistence.person.IPersonRepositoryJpa;
 import com.fasterEnvios.infrastructure.persistence.shipment.IShipmentRepositoryJpa;
 import jakarta.transaction.Transactional;
@@ -28,11 +29,6 @@ public class PaymentRepositoryJpaAdapter implements IPaymentRepository {
     private final IPaymentMethodRepositoryJpa jpaMethod;
     private final IPersonRepositoryJpa jpaPerson;
 
-    @Override
-    public Optional<PaymentMethod> findPaymentMethodByName(String paymentMethodName) {
-        Optional<PaymentMethodEntity> entity = jpaMethod.findByName(paymentMethodName);
-        return entity.map(PaymentMethodInfraMapper::toModel);
-    }
 
     @Override
     @Transactional
