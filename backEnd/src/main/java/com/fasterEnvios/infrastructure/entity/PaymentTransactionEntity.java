@@ -29,7 +29,7 @@ public class PaymentTransactionEntity {
     @OneToOne()
     @JoinColumn(name = "shipment_id", nullable = false)
     private ShipmentEntity shipment;
-    @OneToOne()
+    @ManyToOne()
     @JoinColumn(name = "person_id", nullable = false)
     private PersonEntity payingPerson;
     @ManyToOne

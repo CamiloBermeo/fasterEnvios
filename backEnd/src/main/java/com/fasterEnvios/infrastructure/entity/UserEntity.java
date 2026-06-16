@@ -27,7 +27,7 @@ public class UserEntity {
     private String identityDocument;
     @Column(nullable = false,  unique = true)
     private String email;
-    @Column(nullable = false,  unique = true)
+    @Column(nullable = false)
     private String passwordHash;
     @ManyToOne
     @JoinColumn(name = "city_id")

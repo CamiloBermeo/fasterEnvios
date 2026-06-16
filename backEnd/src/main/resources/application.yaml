@@ -1,6 +1,16 @@
 spring:
   profiles:
     active: dev
-
     application:
       name: fasterEnvios
+    jpa:
+      open-in-view: false
+
+client:
+  openRouteService-apiKey: ${ORS_API_KEY}
+
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET}
+      expiration: 86400
