@@ -122,6 +122,7 @@
 				<configuration>
 					<excludes>
 						<exclude>com/fasterEnvios/application/dto/**</exclude>
+						<exclude>com/fasterEnvios/application/useCase/person/**</exclude>
 						<exclude>com/fasterEnvios/domain/exceptions/**</exclude>
 						<exclude>com/fasterEnvios/infrastructure/configuration/**</exclude>
 						<exclude>com/fasterEnvios/infrastructure/docs/**</exclude>
