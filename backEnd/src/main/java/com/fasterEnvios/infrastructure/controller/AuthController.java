@@ -58,7 +58,6 @@ public class AuthController {
         var authentication = authenticationManager.authenticate(authenticationToken);
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         String accessToken = tokenService.generateToken(customUserDetails);
-
         return ResponseEntity.ok(new TokenDataDTO(UserAppMapper.toUserResponse(customUserDetails.getUser()), accessToken));
     }
 
