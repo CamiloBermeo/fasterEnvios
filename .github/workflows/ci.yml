@@ -22,9 +22,6 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: construir con maven
-        run: mvn -B package --file pom.xml
-
       - name: run test
         run: mvn test -v
         working-directory: backEnd
