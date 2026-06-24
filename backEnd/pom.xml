@@ -140,7 +140,6 @@
                 <configuration>
                     <argLine>
                         @{argLine}
-                        -javaagent:${org.mockito:mockito-agent:jar}
                     </argLine>
                 </configuration>
             </plugin>
