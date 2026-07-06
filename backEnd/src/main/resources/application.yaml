@@ -1,10 +1,10 @@
 spring:
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:dev}
-    application:
-      name: fasterEnvios
-    jpa:
-      open-in-view: false
+  application:
+    name: fasterEnvios
+  jpa:
+    open-in-view: false
 
 client:
   openRouteService-apiKey: ${ORS_API_KEY}
