@@ -48,7 +48,7 @@ const Login = () => {
         //intento de inicio de sesion
         try {
             //llamado al back
-            const respuesta = await clienteAxios.post("/auth/login", usuario);
+            const respuesta = await clienteAxios.post(`${import.meta.env.VITE_API_URL}/auth/login`, usuario);
             //guardar el token en localStorage
             localStorage.setItem("token", respuesta.data.token);
             //agrega el token al header
