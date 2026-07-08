@@ -3,6 +3,7 @@ package com.fasterEnvios.infrastructure.configuration;
 import com.fasterEnvios.infrastructure.security.SecurityFilter;
 import com.fasterEnvios.infrastructure.security.SecurityUserDetailService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -49,12 +50,12 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource(){
+    public CorsConfigurationSource corsConfigurationSource(@Value("${app.cors.allowed-origins}") String allowedOrigins){
         CorsConfiguration configuration = new CorsConfiguration();
-        //esto define quien puede entrar
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+        //esto define quien puede entrar, se instancia en las variables de entorno
+        configuration.setAllowedOrigins(Arrays.asList(allowedOrigins.split(",")));
         //aca le defino que metodos de los endpoint puede hacer este front
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         //aca hago que permita headers para los tokens
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
         //con este permite envir credenciales
