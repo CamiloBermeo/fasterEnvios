@@ -27,7 +27,7 @@ public class OpenApiConfig {
     }
 
     private Server productionServer(){
-        return new Server().url("https://faster-envios.duckdns.org");
+        return new Server().url("https://faster-envios-backend.up.railway.app/");
     }
     private Server devServer(){
         return new Server().url("http://localhost:8080");
