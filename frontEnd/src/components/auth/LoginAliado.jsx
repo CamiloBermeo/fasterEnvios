@@ -64,7 +64,7 @@ const LoginAliado = () => {
             
         } catch (error) {
             //utilizo los mensajes de error que me envia el back
-            const mensaje = error.response?.data?.msg || "Hubo un error al iniciar sesión";
+            const mensaje = error.response?.data?.message || "Hubo un error al iniciar sesión";
             guardarAlerta(mensaje);
         } finally {
             guardarCargando(false);

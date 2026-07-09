@@ -50,7 +50,7 @@ const Login = () => {
       console.log("1. URL base de axios:", clienteAxios.defaults.baseURL);
       console.log("2. VITE_API_URL:", import.meta.env.VITE_API_URL);
       console.log("3. URL final:",`${import.meta.env.VITE_API_URL}/auth/login`,);
-      const respuesta = await clienteAxios.post(`${import.meta.env.VITE_API_URL}/auth/login`,usuario,);
+      const respuesta = await clienteAxios.post("/auth/login",usuario,);
       //guardar el token en localStorage
       localStorage.setItem("token", respuesta.data.token);
       //agrega el token al header
