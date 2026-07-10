@@ -19,4 +19,4 @@ logging:
     com.fasterEnvios: INFO
 app:
   cors:
-    allowed-origins: https://faster-envios.vercel.app
+    allowed-origins: https://faster-envios.vercel.app,https://faster-envios-backend.up.railway.app
