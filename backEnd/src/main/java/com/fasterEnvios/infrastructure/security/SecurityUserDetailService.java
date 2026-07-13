@@ -13,8 +13,7 @@ import org.springframework.stereotype.Component;
 public class SecurityUserDetailService implements UserDetailsService {
     private final IUserRepository userRepository;
 
-
-
+    @Override
     public UserDetails loadUserByUsername(String email) {
         UserModel userModel = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException(email));
