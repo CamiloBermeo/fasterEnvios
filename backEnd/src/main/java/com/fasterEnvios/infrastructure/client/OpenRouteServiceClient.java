@@ -26,13 +26,15 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class OpenRouteServiceClient implements IRouteServiceClient {
 
+
     private final String apiKey;
     private final ObjectMapper objectMapper;
     private final HttpClient httpClient;
 
-    public OpenRouteServiceClient(ObjectMapper objectMapper, HttpClient httpClient, @Value("${client.openRouteService-apiKey}") String apiKey) {
-        this.objectMapper = objectMapper;
-        this.httpClient = httpClient;
+    public OpenRouteServiceClient( @Value("${ORS_API_KEY}") String apiKey) {
+        this.objectMapper = new ObjectMapper();
+        this.httpClient = HttpClient.newBuilder()
+                .followRedirects(HttpClient.Redirect.NORMAL).build();
         this.apiKey = apiKey;
     }
 

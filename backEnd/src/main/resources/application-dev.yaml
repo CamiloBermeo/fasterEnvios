@@ -59,3 +59,7 @@ logging:
 
   pattern:
     console: "%clr(%d{HH:mm:ss}){faint} %clr(%-5level) %clr(%logger{36}){cyan} %clr(:){faint} %msg%n"
+
+app:
+  cors:
+    allowed-origins: http://localhost:5173
