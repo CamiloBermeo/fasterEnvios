@@ -31,8 +31,8 @@ import java.util.Arrays;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
-    public final SecurityFilter securityFilter;
-    public final SecurityUserDetailService securityUserDetailService;
+    private final SecurityFilter securityFilter;
+    private final SecurityUserDetailService securityUserDetailService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
