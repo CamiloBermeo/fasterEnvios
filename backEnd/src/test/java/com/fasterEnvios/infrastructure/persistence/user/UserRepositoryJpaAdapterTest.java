@@ -7,22 +7,29 @@ import com.fasterEnvios.domain.model.Role;
 import com.fasterEnvios.domain.model.UserModel;
 import com.fasterEnvios.infrastructure.entity.CityDescriptionEntity;
 import com.fasterEnvios.infrastructure.entity.RoleEntity;
-import com.fasterEnvios.infrastructure.entity.ShipmentEntity;
 import com.fasterEnvios.infrastructure.entity.UserEntity;
+import com.fasterEnvios.infrastructure.persistence.city.CityRepositoryJpaAdapter;
+import com.fasterEnvios.infrastructure.persistence.city.ICityRepositoryJpa;
+import com.fasterEnvios.infrastructure.persistence.role.IRoleRepositoryJpa;
+import com.fasterEnvios.infrastructure.persistence.role.RoleRepositoryJpaAdapter;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@Import(UserRepositoryJpaAdapter.class)
+@Import({UserRepositoryJpaAdapter.class,
+        CityRepositoryJpaAdapter.class,
+        RoleRepositoryJpaAdapter.class
+})
+@ActiveProfiles("test")
 class UserRepositoryJpaAdapterTest {
 
     @Autowired

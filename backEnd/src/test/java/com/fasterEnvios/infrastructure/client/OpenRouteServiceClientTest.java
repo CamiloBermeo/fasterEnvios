@@ -41,9 +41,9 @@ class OpenRouteServiceClientTest {
     @BeforeEach
     void setUp() {
         openRouteServiceClient = new OpenRouteServiceClient(
+                "API_KEY_TEST",
                 objectMapper,
-                httpClient,
-                "API_KEY_TEST"
+                httpClient
         );
     }
 

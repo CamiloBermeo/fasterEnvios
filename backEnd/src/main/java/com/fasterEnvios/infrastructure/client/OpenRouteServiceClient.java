@@ -31,10 +31,11 @@ public class OpenRouteServiceClient implements IRouteServiceClient {
     private final ObjectMapper objectMapper;
     private final HttpClient httpClient;
 
-    public OpenRouteServiceClient( @Value("${ORS_API_KEY}") String apiKey) {
-        this.objectMapper = new ObjectMapper();
-        this.httpClient = HttpClient.newBuilder()
-                .followRedirects(HttpClient.Redirect.NORMAL).build();
+    public OpenRouteServiceClient( @Value("${client.openRouteService-apiKey}") String apiKey,
+                                   ObjectMapper objectMapper,
+                                   HttpClient httpClient) {
+        this.objectMapper = objectMapper;
+        this.httpClient = httpClient;
         this.apiKey = apiKey;
     }
 

@@ -1,4 +1,5 @@
 spring:
+
   datasource:
     url: jdbc:h2:mem:faster_envios_test;MODE=MySQL;DB_CLOSE_DELAY=-1
     username: root
@@ -20,3 +21,6 @@ api:
   security:
     token:
       secret: "un_secreto_super_largo_y_seguro_para_pruebas_locales_123456"
+app:
+  cors:
+    allowed-origins: ${http://localhost:5173:cors-falso-para-test}

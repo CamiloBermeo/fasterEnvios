@@ -5,12 +5,17 @@ import com.fasterEnvios.infrastructure.entity.CityDescriptionEntity;
 import com.fasterEnvios.infrastructure.entity.PackageEntity;
 import com.fasterEnvios.infrastructure.entity.PersonEntity;
 import com.fasterEnvios.infrastructure.entity.ShipmentEntity;
+import com.fasterEnvios.infrastructure.persistence.city.CityRepositoryJpaAdapter;
+import com.fasterEnvios.infrastructure.persistence.city.ICityRepositoryJpa;
+import com.fasterEnvios.infrastructure.persistence.person.IPersonRepositoryJpa;
+import com.fasterEnvios.infrastructure.persistence.person.PersonRepositoryJpaAdapter;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -19,7 +24,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@Import(ShipmentRepositoryJpaAdapter.class)
+@Import({ShipmentRepositoryJpaAdapter.class,
+        PersonRepositoryJpaAdapter.class,
+        CityRepositoryJpaAdapter.class
+})
+@ActiveProfiles("test")
 class ShipmentRepositoryJpaAdapterTest {
     @Autowired
     private ShipmentRepositoryJpaAdapter adapter;

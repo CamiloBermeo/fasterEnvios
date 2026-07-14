@@ -5,22 +5,33 @@ import com.fasterEnvios.domain.exceptions.person.PersonNotFoundException;
 import com.fasterEnvios.domain.exceptions.shipment.ShipmentNotFoundException;
 import com.fasterEnvios.domain.model.*;
 import com.fasterEnvios.infrastructure.entity.*;
+import com.fasterEnvios.infrastructure.persistence.city.CityRepositoryJpaAdapter;
+import com.fasterEnvios.infrastructure.persistence.city.ICityRepositoryJpa;
+import com.fasterEnvios.infrastructure.persistence.paymentMethod.IPaymentMethodRepositoryJpa;
+import com.fasterEnvios.infrastructure.persistence.paymentMethod.PaymentMethodRepositoryJpaAdapter;
+import com.fasterEnvios.infrastructure.persistence.person.IPersonRepositoryJpa;
+import com.fasterEnvios.infrastructure.persistence.person.PersonRepositoryJpaAdapter;
+import com.fasterEnvios.infrastructure.persistence.shipment.IShipmentRepositoryJpa;
 import com.fasterEnvios.infrastructure.persistence.shipment.ShipmentRepositoryJpaAdapter;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@Import(PaymentRepositoryJpaAdapter.class)
+@Import({PaymentRepositoryJpaAdapter.class,
+        ShipmentRepositoryJpaAdapter.class,
+        PaymentMethodRepositoryJpaAdapter.class,
+        PersonRepositoryJpaAdapter.class,
+        CityRepositoryJpaAdapter.class})
+@ActiveProfiles("test")
 class PaymentRepositoryJpaAdapterTest {
     @Autowired
     private PaymentRepositoryJpaAdapter adapter;
