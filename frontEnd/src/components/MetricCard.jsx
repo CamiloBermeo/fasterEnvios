@@ -1,0 +1,1 @@
+//aca estructuro una sola card de estadisticas para poder reutilizarla, recibe por props la informacion para llenarla

@@ -1,9 +1,9 @@
 import React from "react";
-import Sidebar from "../layout/Sidebar";
-import HederDashboardAliado from "../layout/HederDashboardAliado";
-import Shipments from "../layout/Shipments";
-import Metrics from "../layout/Metrics";
-import Statistics from "../layout/Statistics";
+import Sidebar from "../../layout/Sidebar";
+import HederDashboardAliado from "../../layout/HederDashboardAliado";
+import Shipments from "../../layout/Shipments";
+import Metrics from "../../layout/Metrics";
+import Statistics from "../../layout/Statistics";
 
 const DashboardAliado = () => {
     return (

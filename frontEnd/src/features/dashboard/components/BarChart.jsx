@@ -1,0 +1,1 @@
+//aca va la logica del grafico porque es algo especifico y reutilizable 

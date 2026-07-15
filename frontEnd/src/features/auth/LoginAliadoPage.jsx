@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import clienteAxios from "../../config/clienteAxios.jsx";
+import clienteAxios from "../../config/clienteAxios.js";
 import IconoIr from "../../assets/home_icono.svg";
-import useAuth from "../../hooks/useAuth";
-import tokenAuth from "../../config/token.jsx";
+import useAuth from "../../hooks/useAuth.jsx";
+import tokenAuth from "../../config/token.js";
 import { Link, useNavigate } from "react-router-dom";
 
 

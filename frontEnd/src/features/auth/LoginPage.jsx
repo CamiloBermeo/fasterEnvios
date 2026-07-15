@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import IconoIr from "../../assets/home_icono.svg";
-import clienteAxios from "../../config/clienteAxios.jsx";
+import clienteAxios from "../../config/clienteAxios.js";
 import { Link, useNavigate } from "react-router-dom";
-import tokenAuth from "../../config/token.jsx";
-import useAuth from "../../hooks/useAuth";
+import tokenAuth from "../../config/token.js";
+import useAuth from "../../hooks/useAuth.jsx";
 
 const Login = () => {
   const navigate = useNavigate();
