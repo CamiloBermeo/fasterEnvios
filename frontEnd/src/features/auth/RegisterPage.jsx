@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import IconoIr from "../../assets/home_icono.svg";
 import { Link, useNavigate} from "react-router-dom";
-import clienteAxios from "../../config/clienteAxios";
+import clienteAxios from "../../config/clienteAxios.js";
 
 const Register = () => {
   const navigate = useNavigate();

@@ -1,8 +1,8 @@
 //Este archivo hará tres cosas: autenticar al usuario, verificar el token al cargar la app y cerrar sesión.
 
 import { useState, useEffect, createContext } from "react";
-import clienteAxios from "../config/clienteAxios.jsx";
-import tokenAuth from "../config/token.jsx";
+import clienteAxios from "../config/clienteAxios.js";
+import tokenAuth from "../config/token.js";
 
 const AuthContext = createContext();
 

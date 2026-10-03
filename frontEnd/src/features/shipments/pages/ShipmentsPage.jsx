@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import FormNewShipment from "./FormNewShipment";
-import Payment from "../../payments/pages/PaymentPage"
-import Factura from "../../payments/pages/FacturaPage"
-import NuevoEnvio from "../../assets/nuevo-envio.svg";
-import BuscarEnvio from "../../assets/buscar-envio.svg";
-import BuscarRepartidores from "../../assets/buscar-persona.svg";
-import clienteAxios from "../../config/clienteAxios";
+import FormNewShipment from "../components/FormNewShipment";
+import Payment from "../../payments/pages/PaymentPage";
+import Factura from "../../payments/pages/FacturaPage";
+import NuevoEnvio from "../../../assets/nuevo-envio.svg";
+import BuscarEnvio from "../../../assets/buscar-envio.svg";
+import BuscarRepartidores from "../../../assets/buscar-persona.svg";
+import clienteAxios from "../../../config/clienteAxios.js";
 
 
 const Shipments = () => {

@@ -1,8 +1,8 @@
 import React from "react";
-import BuscarDashboard from "../../assets/search.svg";
-import Campana from "../../assets/campana.svg";
-import FotoPerfil from "../../assets/foto-perfil.png";
-import useAuth from "../../hooks/useAuth"; 
+import BuscarDashboard from "../../../assets/search.svg";
+import Campana from "../../../assets/campana.svg";
+import FotoPerfil from "../../../assets/foto-perfil.png";
+import useAuth from "../../../hooks/useAuth.jsx"; 
 
 const HederDashboardAliado = () => {
     const [buscar, setBuscar] = React.useState({ buscar: "" });

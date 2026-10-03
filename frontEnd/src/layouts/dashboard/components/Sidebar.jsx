@@ -1,16 +1,16 @@
 import React from 'react'
 
-import LogoAguila from "../../assets/Logo-aguila.png";
-import PaqueteIcon from "../../assets/paquete.svg";
-import AlertaIcon from "../../assets/icono-alerta.svg";
-import EstadisticasIcon from "../../assets/estadisticas.svg";
-import RepartidoresIcon from "../../assets/persona.svg";
-import MensajesIcon from "../../assets/mensaje.svg";
-import BodegaIcon from "../../assets/bodega.svg";
-import AyudaIAIcon from "../../assets/robot-ia.svg";
-import ConfiguracionesIcon from "../../assets/configuraciones.svg";
-import SalirIcon from "../../assets/salir.svg";
-import DashboardIcon from "../../assets/dashboard.svg";
+import LogoAguila from "../../../assets/Logo-aguila.png";
+import PaqueteIcon from "../../../assets/paquete.svg";
+import AlertaIcon from "../../../assets/icono-alerta.svg";
+import EstadisticasIcon from "../../../assets/estadisticas.svg";
+import RepartidoresIcon from "../../../assets/persona.svg";
+import MensajesIcon from "../../../assets/mensaje.svg";
+import BodegaIcon from "../../../assets/bodega.svg";
+import AyudaIAIcon from "../../../assets/robot-ia.svg";
+import ConfiguracionesIcon from "../../../assets/configuraciones.svg";
+import SalirIcon from "../../../assets/salir.svg";
+import DashboardIcon from "../../../assets/dashboard.svg";
 import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
